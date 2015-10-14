@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace PhotoContest.Models
 {
-    public class Class1
+    public class Image
     {
+        public int Id { get; set; }
+        public string Url { get; set; }
     }
 }

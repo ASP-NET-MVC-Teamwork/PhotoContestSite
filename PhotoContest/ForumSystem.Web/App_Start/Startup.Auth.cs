@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using ForumSystem.Web.Models;
+using PhotoContest.Data;
+using PhotoContest.Models;
 
 namespace ForumSystem.Web
 {
