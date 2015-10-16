@@ -7,7 +7,7 @@ using PhotoContest.Models.Common;
 
 namespace PhotoContest.Models
 {
-    class Picture : AuditInfo, IDeletableEntity
+    public class Picture : AuditInfo, IDeletableEntity
     {
         public int Id { get; set; }
         public string Title { get; set; }

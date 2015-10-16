@@ -1,3 +1,5 @@
+using PhotoContest.Data.Migrations;
+
 namespace PhotoContest.Data
 {
     using System;
@@ -13,12 +15,15 @@ namespace PhotoContest.Data
         public ApplicationDbContext()
             : base("DefaultConnection", false)
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
         }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+        public IDbSet<Picture> Pictures { get; set; }
 
         private void ApplyAuditInfoRules()
         {
