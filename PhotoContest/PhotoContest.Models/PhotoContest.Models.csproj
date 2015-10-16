@@ -61,6 +61,7 @@
     <Compile Include="Common\AuditInfo.cs" />
     <Compile Include="Common\IAuditInfo.cs" />
     <Compile Include="Common\IDeletableEntity.cs" />
+    <Compile Include="Picture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
