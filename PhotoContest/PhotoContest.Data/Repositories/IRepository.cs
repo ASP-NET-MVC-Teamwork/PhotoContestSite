@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PhotoContest.Data.Repositories
+﻿namespace PhotoContest.Data.Repositories
 {
+    using System;
+    using System.Linq;
+
     public interface IRepository<T> : IDisposable where T : class
     {
         IQueryable<T> All();

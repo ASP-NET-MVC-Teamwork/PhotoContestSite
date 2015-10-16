@@ -1,18 +1,15 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using PhotoContest.Models;
-using PhotoContest.Web.Models;
-
-namespace PhotoContest.Web.Controllers
+﻿namespace PhotoContest.Web.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Mvc;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin.Security;
+    using Models;
+    using PhotoContest.Models;
+
     [Authorize]
     public class AccountController : Controller
     {

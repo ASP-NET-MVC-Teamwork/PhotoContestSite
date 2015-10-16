@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity.EntityFramework;
-using PhotoContest.Models;
-using PhotoContest.Models.Common;
-
 namespace PhotoContest.Data
 {
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+    using PhotoContest.Models.Common;
+
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Models;
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("DefaultConnection", false)
         {
         }
 

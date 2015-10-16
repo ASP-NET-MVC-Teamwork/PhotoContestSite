@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,14 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PhotoContest.Data.Repositories
+=======
+﻿namespace PhotoContest.Data.Repositories
+>>>>>>> 32bb569ab02a86aef6fe45f7136e17149963119b
 {
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Infrastructure;
+    using System.Linq;
+
     public class GenericRepository<T> : IRepository<T> where T : class
     {
         public GenericRepository(DbContext context)
         {
             if (context == null)
             {
-                throw new ArgumentException("An instance of DbContext is required to use this repository.", "context");
+                throw new ArgumentException("An instance of DbContext is required to use this repository.", nameof(context));
             }
 
             this.Context = context;
