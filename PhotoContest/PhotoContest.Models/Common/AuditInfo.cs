@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PhotoContest.Models.Common
+﻿namespace PhotoContest.Models.Common
 {
+    using System;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public abstract class AuditInfo : IAuditInfo
     {
         public DateTime CreatedOn { get; set; }

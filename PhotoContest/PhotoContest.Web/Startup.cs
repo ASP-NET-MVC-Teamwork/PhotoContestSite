@@ -1,9 +1,10 @@
 ﻿using Microsoft.Owin;
-using Owin;
 
-[assembly: OwinStartupAttribute(typeof(PhotoContest.Web.Startup))]
+[assembly: OwinStartup(typeof(PhotoContest.Web.Startup))]
 namespace PhotoContest.Web
 {
+    using Owin;
+
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)

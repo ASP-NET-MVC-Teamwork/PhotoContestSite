@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PhotoContest.Models.Common
+﻿namespace PhotoContest.Models.Common
 {
+    using System;
+
     public interface IDeletableEntity
     {
         bool IsDeleted { get; set; }
