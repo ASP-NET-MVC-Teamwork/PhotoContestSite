@@ -1,17 +1,16 @@
-using PhotoContest.Web.App_Start;
+using PhotoContest.Web;
 using WebActivatorEx;
 
 [assembly: PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
-[assembly: ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
+[assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
-namespace PhotoContest.Web.App_Start
+namespace PhotoContest.Web
 {
     using System;
     using System.Web;
     using Data.Contracts;
     using Data.Data;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
     using Ninject;
     using Ninject.Web.Common;
 

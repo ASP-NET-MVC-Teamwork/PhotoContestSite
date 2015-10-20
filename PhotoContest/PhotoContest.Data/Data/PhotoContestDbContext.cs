@@ -17,12 +17,40 @@ namespace PhotoContest.Data.Data
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<PhotoContestDbContext, Configuration>());
         }
 
+        public IDbSet<Contest> Contests { get; set; }
+
+        public IDbSet<Picture> Pictures { get; set; }
+
+        public IDbSet<Comment> Comments { get; set; }
+
+        public IDbSet<Reward> Rewards { get; set; }
+
+        public IDbSet<Vote> Votes { get; set; }
+
+        public new IDbSet<T> Set<T>() where T : class
+        {
+            return base.Set<T>();
+        }
+
         public static PhotoContestDbContext Create()
         {
             return new PhotoContestDbContext();
         }
 
-        public IDbSet<Picture> Pictures { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.Contests)
+                .WithMany(u => u.Participants)
+                .Map(x =>
+                {
+                    x.MapLeftKey("UserId");
+                    x.MapRightKey("ContestId");
+                    x.ToTable("ContestsParticipants");
+                });
+        }
 
         private void ApplyAuditInfoRules()
         {

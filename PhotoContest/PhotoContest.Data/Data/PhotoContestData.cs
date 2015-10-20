@@ -23,14 +23,34 @@
             this.repositories = new Dictionary<Type, object>();
         }
 
+        public IRepository<ApplicationUser> Users
+        {
+            get { return this.GetRepository<ApplicationUser>(); }
+        }
+
+        public IRepository<Contest> Contests
+        {
+            get { return this.GetRepository<Contest>(); }
+        }
+
         public IRepository<Picture> Pictures
         {
             get { return this.GetRepository<Picture>(); }
         }
 
-        public IRepository<ApplicationUser> Users
+        public IRepository<Comment> Comments
         {
-            get { return this.GetRepository<ApplicationUser>(); }
+            get { return this.GetRepository<Comment>(); }
+        }
+
+        public IRepository<Reward> Rewards
+        {
+            get { return this.GetRepository<Reward>(); }
+        }
+
+        public IRepository<Vote> Votes
+        {
+            get { return this.GetRepository<Vote>(); }
         }
 
         public int SaveChanges()

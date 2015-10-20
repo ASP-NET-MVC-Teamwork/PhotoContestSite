@@ -4,7 +4,16 @@
 
     public interface IPhotoContestData
     {
-        IRepository<Picture> Pictures { get; }
         IRepository<ApplicationUser> Users { get; }
+
+        IRepository<Contest> Contests { get; }
+
+        IRepository<Picture> Pictures { get; }
+
+        IRepository<Comment> Comments { get; }
+
+        IRepository<Reward> Rewards { get; }
+
+        IRepository<Vote> Votes { get; }
     }
 }
