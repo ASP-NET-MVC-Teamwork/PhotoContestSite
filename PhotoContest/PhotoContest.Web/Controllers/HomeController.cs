@@ -6,13 +6,17 @@ using System.Web.Mvc;
 
 namespace PhotoContest.Web.Controllers
 {
-    public class HomeController : Controller
+    using Data.UnitOfWork;
+    using PhotoContest.Models;
+
+    public class HomeController : BaseController
     {
+        public HomeController(IPhotoContestData data) : base(data)
+        {
+        }
         public ActionResult Index()
         {
             return View();
         }
-
-       
     }
 }
