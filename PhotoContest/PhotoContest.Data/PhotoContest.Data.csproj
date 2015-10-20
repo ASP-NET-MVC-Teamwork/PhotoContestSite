@@ -57,14 +57,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPhotoContestDbContext.cs" />
-    <Compile Include="PhotoContestDbContext.cs" />
+    <Compile Include="Contracts\IPhotoContestDbContext.cs" />
+    <Compile Include="Data\PhotoContestDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\GenericRepository.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="UnitOfWork\IPhotoContestData.cs" />
-    <Compile Include="UnitOfWork\PhotoContestData.cs" />
+    <Compile Include="Data\GenericRepository.cs" />
+    <Compile Include="Contracts\IRepository.cs" />
+    <Compile Include="Contracts\IPhotoContestData.cs" />
+    <Compile Include="Data\PhotoContestData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

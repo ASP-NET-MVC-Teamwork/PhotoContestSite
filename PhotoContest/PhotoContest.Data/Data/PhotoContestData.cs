@@ -1,10 +1,10 @@
-﻿namespace PhotoContest.Data.UnitOfWork
+﻿namespace PhotoContest.Data.Data
 {
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
+    using Contracts;
     using Models;
-    using Repositories;
 
     public class PhotoContestData : IPhotoContestData
     {

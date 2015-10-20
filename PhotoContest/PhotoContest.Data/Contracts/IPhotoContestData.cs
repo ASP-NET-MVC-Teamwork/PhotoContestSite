@@ -1,7 +1,6 @@
-﻿namespace PhotoContest.Data.UnitOfWork
+﻿namespace PhotoContest.Data.Contracts
 {
     using Models;
-    using Repositories;
 
     public interface IPhotoContestData
     {

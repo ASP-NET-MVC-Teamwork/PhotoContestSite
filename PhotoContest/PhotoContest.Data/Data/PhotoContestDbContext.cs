@@ -1,18 +1,18 @@
-namespace PhotoContest.Data
+namespace PhotoContest.Data.Data
 {
     using System;
     using System.Data.Entity;
     using System.Linq;
-    using Models.Common;
-
+    using Contracts;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Migrations;
     using Models;
+    using Models.Common;
 
     public class PhotoContestDbContext : IdentityDbContext<ApplicationUser>, IPhotoContestDbContext
     {
         public PhotoContestDbContext()
-            : base("PhotoContestDbContext", false)
+            : base("PhotoContest", false)
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<PhotoContestDbContext, Configuration>());
         }

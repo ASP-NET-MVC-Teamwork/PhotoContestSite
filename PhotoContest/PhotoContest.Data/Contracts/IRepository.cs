@@ -1,4 +1,4 @@
-﻿namespace PhotoContest.Data.Repositories
+﻿namespace PhotoContest.Data.Contracts
 {
     using System;
     using System.Linq;
