@@ -1,6 +1,4 @@
-﻿
-
-namespace PhotoContest.Data.UnitOfWork
+﻿namespace PhotoContest.Data.UnitOfWork
 {
     using Models;
     using Repositories;

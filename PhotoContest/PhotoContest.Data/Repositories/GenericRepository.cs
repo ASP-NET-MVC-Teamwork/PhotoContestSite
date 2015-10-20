@@ -1,5 +1,4 @@
 ﻿namespace PhotoContest.Data.Repositories
-
 {
     using System;
     using System.Data.Entity;

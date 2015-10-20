@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
-    using Microsoft.AspNet.Identity;
     using Models;
     using Repositories;
 
@@ -13,10 +12,8 @@
 
         private readonly IDictionary<Type, object> repositories;
 
-        private IUserStore<ApplicationUser> userStore;
-
         public PhotoContestData()
-            : this(new ApplicationDbContext())
+            : this(new PhotoContestDbContext())
         {
         }
 
@@ -36,11 +33,9 @@
             get { return this.GetRepository<ApplicationUser>(); }
         }
 
-
-
-        public void SaveChanges()
+        public int SaveChanges()
         {
-            this.dbContext.SaveChanges();
+            return this.dbContext.SaveChanges();
         }
 
         private IRepository<T> GetRepository<T>() where T : class
