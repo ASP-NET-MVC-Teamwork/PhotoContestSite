@@ -1,26 +1,25 @@
-using PhotoContest.Data.Migrations;
-
 namespace PhotoContest.Data
 {
     using System;
     using System.Data.Entity;
     using System.Linq;
-    using PhotoContest.Models.Common;
+    using Models.Common;
 
     using Microsoft.AspNet.Identity.EntityFramework;
+    using Migrations;
     using Models;
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class PhotoContestDbContext : IdentityDbContext<ApplicationUser>, IPhotoContestDbContext
     {
-        public ApplicationDbContext()
-            : base("DefaultConnection", false)
+        public PhotoContestDbContext()
+            : base("PhotoContestDbContext", false)
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<PhotoContestDbContext, Configuration>());
         }
 
-        public static ApplicationDbContext Create()
+        public static PhotoContestDbContext Create()
         {
-            return new ApplicationDbContext();
+            return new PhotoContestDbContext();
         }
 
         public IDbSet<Picture> Pictures { get; set; }
