@@ -1,7 +1,7 @@
 ﻿namespace PhotoContest.Web.ViewModel
 {
+    using Common.Mappings;
     using PhotoContest.Models;
-    using SportSystem.Common.Mappings;
 
     public class ContestViewModel : IMapFrom<Contest>
     {

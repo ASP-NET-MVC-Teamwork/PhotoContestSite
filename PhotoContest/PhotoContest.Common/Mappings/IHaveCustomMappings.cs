@@ -1,4 +1,4 @@
-﻿namespace SportSystem.Common.Mappings
+﻿namespace PhotoContest.Common.Mappings
 {
     using AutoMapper;
 

@@ -3,6 +3,7 @@
     public enum DeadlineStrategy
     {
         FixedTime,
-        FixedParticipants
+        FixedParticipants,
+        Manual
     }
 }

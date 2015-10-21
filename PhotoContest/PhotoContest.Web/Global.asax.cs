@@ -5,7 +5,7 @@
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
-    using SportSystem.Common.Mappings;
+    using Common.Mappings;
 
     public class MvcApplication : HttpApplication
     {

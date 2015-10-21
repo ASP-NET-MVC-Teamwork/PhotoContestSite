@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
     using Contracts;
     using Models;
 
@@ -16,18 +15,7 @@
             this.context = context;
             this.repositories = new Dictionary<Type, object>();
         }
-
-        //public PhotoContestData()
-        //    : this(new PhotoContestDbContext())
-        //{
-        //}
-
-        //public PhotoContestData(DbContext dbContext)
-        //{
-        //    this.dbContext = dbContext;
-        //    this.repositories = new Dictionary<Type, object>();
-        //}
-
+        
         public IRepository<ApplicationUser> Users
         {
             get { return this.GetRepository<ApplicationUser>(); }

@@ -1,11 +1,10 @@
-﻿namespace SportSystem.Common.Mappings
+﻿namespace PhotoContest.Common.Mappings
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using AutoMapper;
-    using PhotoContest.Common.Mappings;
 
     public class AutoMapperConfig
     {

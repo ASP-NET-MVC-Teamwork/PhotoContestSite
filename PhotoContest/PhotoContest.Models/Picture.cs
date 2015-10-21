@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using Common;
+    using PhotoContest.Common;
 
     public class Picture : AuditInfo, IDeletableEntity
     {
@@ -14,18 +16,24 @@
             this.CreatedOn = DateTime.Now;
             this.votes = new HashSet<Vote>();
             this.comments = new HashSet<Comment>();
-        } 
+        }
 
+        [Key]
         public int Id { get; set; }
 
+        [Required]
+        [MinLength(GlobalConstants.TitleMinLength)]
+        [MaxLength(GlobalConstants.TitleMaxLength)]
         public string Title { get; set; }
 
+        [Required]
         public string Url { get; set; }
 
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
 
+        [Required]
         public string AuthorId { get; set; }
 
         public virtual ApplicationUser Author { get; set; }

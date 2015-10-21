@@ -50,6 +50,16 @@ namespace PhotoContest.Data.Data
                     x.MapRightKey("ContestId");
                     x.ToTable("ContestsParticipants");
                 });
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.UploadedPictures)
+                .WithRequired(u => u.Author)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.Contests)
+                .WithRequired(u => u.Owner)
+                .WillCascadeOnDelete(false);
         }
 
         private void ApplyAuditInfoRules()

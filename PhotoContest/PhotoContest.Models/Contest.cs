@@ -2,8 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using Common;
     using Enums;
+    using PhotoContest.Common;
 
     public class Contest : AuditInfo, IDeletableEntity
     {
@@ -19,12 +21,17 @@
             this.rewards = new HashSet<Reward>();
         }
 
+        [Key]
         public int Id { get; set; }
 
+        [Required]
+        [MinLength(GlobalConstants.TitleMinLength)]
+        [MaxLength(GlobalConstants.TitleMaxLength)]
         public string Title { get; set; }
 
         public string Description { get; set; }
 
+        [Required]
         public string OwnerId { get; set; }
 
         public virtual ApplicationUser Owner { get; set; }
