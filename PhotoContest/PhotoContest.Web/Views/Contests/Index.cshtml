@@ -1,11 +1,20 @@
-﻿@model List<PhotoContest.Models.Contest>
+﻿@model List<PhotoContest.Web.ViewModel.ContestViewModel>
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Contests";
 }
 <h2>title</h2>
-@foreach (var model in Model)
-{ 
-@Html.DisplayName(model.Title)
+<div class="row">
 
-}
+    @foreach (var model in Model)
+    {
+        <div>
+            @Html.DisplayFor(m => model.Id)
+            <br />
+            @Html.DisplayFor(m => model.Title)
+            <br />
+            @Html.DisplayFor(m => model.Description)
+        </div>
+    }
+
+</div>

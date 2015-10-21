@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using AutoMapper;
+    using PhotoContest.Common.Mappings;
 
     public class AutoMapperConfig
     {

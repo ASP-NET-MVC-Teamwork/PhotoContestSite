@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoContest.Models", "Phot
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoContest.Web", "PhotoContest.Web\PhotoContest.Web.csproj", "{A3B4B4F6-F1DC-4CA5-BA39-DA6A6B601FA6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoContest.Common", "PhotoContest.Common\PhotoContest.Common.csproj", "{6A9BDC0C-F093-4762-9929-466F578B169B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A3B4B4F6-F1DC-4CA5-BA39-DA6A6B601FA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3B4B4F6-F1DC-4CA5-BA39-DA6A6B601FA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3B4B4F6-F1DC-4CA5-BA39-DA6A6B601FA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A9BDC0C-F093-4762-9929-466F578B169B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A9BDC0C-F093-4762-9929-466F578B169B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A9BDC0C-F093-4762-9929-466F578B169B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A9BDC0C-F093-4762-9929-466F578B169B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
