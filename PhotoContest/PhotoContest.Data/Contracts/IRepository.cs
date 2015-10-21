@@ -19,6 +19,5 @@
 
         void Detach(T entity);
 
-        int SaveChanges();
     }
 }

@@ -17,6 +17,5 @@
 
         IDbSet<Vote> Votes { get; set; }
 
-        int SaveChanges();
     }
 }

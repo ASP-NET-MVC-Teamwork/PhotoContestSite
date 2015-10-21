@@ -7,5 +7,6 @@ namespace PhotoContest.Web
 {
     public class ContestViewModel
     {
+        public int Id { get; set; }
     }
 }

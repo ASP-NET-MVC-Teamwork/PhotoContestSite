@@ -18,7 +18,7 @@ namespace PhotoContest.Web.Controllers
         public ActionResult Index()
         {
             var contests = this.Data.Contests.All().Include(c => c.Owner);
-            return View();
+            return View(contests.ToList());
         }
 
         
