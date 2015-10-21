@@ -15,5 +15,7 @@
         IRepository<Reward> Rewards { get; }
 
         IRepository<Vote> Votes { get; }
+
+        int SaveChanges();
     }
 }

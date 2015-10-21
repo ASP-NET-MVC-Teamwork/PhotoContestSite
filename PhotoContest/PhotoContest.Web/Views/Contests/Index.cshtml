@@ -1,0 +1,105 @@
+﻿@model IEnumerable<PhotoContest.Models.Contest>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Owner.ProfilePictureUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeletedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RewardStrategy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VotingStrategy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeadlineStrategy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsClosedForSubmissions)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsClosedForVoting)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Owner.ProfilePictureUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsDeleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeletedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RewardStrategy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VotingStrategy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeadlineStrategy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsClosedForSubmissions)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsClosedForVoting)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedOn)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
