@@ -5,17 +5,18 @@
 
     public interface IPhotoContestDbContext
     {
-        IDbSet<ApplicationUser> Users { get; set; }
+        IDbSet<ApplicationUser> Users { get; }
 
-        IDbSet<Contest> Contests { get; set; }
+        IDbSet<Contest> Contests { get; }
 
-        IDbSet<Picture> Pictures { get; set; }
+        IDbSet<Picture> Pictures { get; }
 
-        IDbSet<Comment> Comments { get; set; }
+        IDbSet<Comment> Comments { get; }
 
-        IDbSet<Reward> Rewards { get; set; }
+        IDbSet<Reward> Rewards { get; }
 
-        IDbSet<Vote> Votes { get; set; }
+        IDbSet<Vote> Votes { get; }
 
+        int SaveChanges();
     }
 }

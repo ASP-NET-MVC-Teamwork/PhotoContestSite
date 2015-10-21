@@ -14,20 +14,20 @@ namespace PhotoContest.Web
     using Ninject;
     using Ninject.Web.Common;
 
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -35,7 +35,7 @@ namespace PhotoContest.Web
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -65,6 +65,7 @@ namespace PhotoContest.Web
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IPhotoContestData>().To<PhotoContestData>();
-        }        
+            kernel.Bind<IPhotoContestDbContext>().To<PhotoContestDbContext>();
+        }
     }
 }

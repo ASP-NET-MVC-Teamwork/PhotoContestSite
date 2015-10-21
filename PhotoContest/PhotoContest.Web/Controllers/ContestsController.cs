@@ -8,7 +8,8 @@
 
     public class ContestsController : BaseController
     {
-        public ContestsController(IPhotoContestData data) : base(data)
+        public ContestsController(IPhotoContestData data) 
+            : base(data)
         {
         }
         // GET: Contest
@@ -18,8 +19,7 @@
                 .All()
                 .OrderBy(c => c.CreatedOn)
                 .Project()
-                .To<ContestViewModel>()
-                .ToList();
+                .To<ContestViewModel>();
                 
             return View(contests);
         }

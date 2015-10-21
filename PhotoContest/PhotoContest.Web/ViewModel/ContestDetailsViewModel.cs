@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace PhotoContest.Web.ViewModel
+﻿namespace PhotoContest.Web.ViewModel
 {
     using PhotoContest.Models;
     using PhotoContest.Models.Enums;

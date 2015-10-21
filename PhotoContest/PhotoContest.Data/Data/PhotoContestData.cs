@@ -8,20 +8,25 @@
 
     public class PhotoContestData : IPhotoContestData
     {
-        private readonly DbContext dbContext;
-
+        private IPhotoContestDbContext context;
         private readonly IDictionary<Type, object> repositories;
 
-        public PhotoContestData()
-            : this(new PhotoContestDbContext())
+        public PhotoContestData(IPhotoContestDbContext context)
         {
-        }
-
-        public PhotoContestData(DbContext dbContext)
-        {
-            this.dbContext = dbContext;
+            this.context = context;
             this.repositories = new Dictionary<Type, object>();
         }
+
+        //public PhotoContestData()
+        //    : this(new PhotoContestDbContext())
+        //{
+        //}
+
+        //public PhotoContestData(DbContext dbContext)
+        //{
+        //    this.dbContext = dbContext;
+        //    this.repositories = new Dictionary<Type, object>();
+        //}
 
         public IRepository<ApplicationUser> Users
         {
@@ -55,7 +60,7 @@
 
         public int SaveChanges()
         {
-            return this.dbContext.SaveChanges();
+            return this.context.SaveChanges();
         }
 
         private IRepository<T> GetRepository<T>() where T : class
@@ -65,7 +70,7 @@
                 var type = typeof(GenericRepository<T>);
                 this.repositories.Add(
                     typeof(T),
-                    Activator.CreateInstance(type, this.dbContext));
+                    Activator.CreateInstance(type, this.context));
             }
 
             return (IRepository<T>)this.repositories[typeof(T)];

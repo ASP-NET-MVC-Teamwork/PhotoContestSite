@@ -1,20 +1,8 @@
-﻿@model List<PhotoContest.Web.ViewModel.ContestViewModel>
-
+﻿@model IEnumerable<PhotoContest.Web.ViewModel.ContestViewModel>
 @{
     ViewBag.Title = "Contests";
 }
-<h2>title</h2>
+
 <div class="row">
-
-    @foreach (var model in Model)
-    {
-        <div>
-            @Html.DisplayFor(m => model.Id)
-            <br />
-            @Html.DisplayFor(m => model.Title)
-            <br />
-            @Html.DisplayFor(m => model.Description)
-        </div>
-    }
-
+    @Html.DisplayFor(x => x)
 </div>
