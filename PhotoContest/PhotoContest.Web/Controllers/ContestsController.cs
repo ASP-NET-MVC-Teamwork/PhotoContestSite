@@ -23,5 +23,18 @@
                 
             return View(contests);
         }
+
+        //GET: Contests/Details/5
+        public ActionResult Details(int id)
+        {
+            var contest = this.Data.Contests
+                .All()
+                .Where(x => x.Id == id)
+                .Project()
+                .To<ContestDetailsViewModel>()
+                .FirstOrDefault();
+            return this.View(contest);
+
+        }
     }
 }
