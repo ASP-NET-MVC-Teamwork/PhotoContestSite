@@ -5,6 +5,7 @@
     using AutoMapper.QueryableExtensions;
     using Data.Contracts;
     using ImputModels;
+    using Microsoft.AspNet.Identity;
     using PhotoContest.Models;
     using ViewModels;
 
@@ -63,7 +64,7 @@
                     Type = contest.Type,
                     VotingStrategy = contest.VotingStrategy,
                     DeadlineStrategy = contest.DeadlineStrategy,
-                    OwnerId = "9e3cdb2f-3778-47cc-9a57-33062df0ece3"
+                    OwnerId = this.User.Identity.GetUserId()
 
                     //TODO: OWNER
                 };
