@@ -6,15 +6,20 @@
     using Data.Contracts;
     using ImputModels;
     using PhotoContest.Models;
-    using ViewModel;
+    using ViewModels;
 
+
+    [Authorize]
     public class ContestsController : BaseController
     {
         public ContestsController(IPhotoContestData data) 
             : base(data)
         {
         }
+
+
         // GET: Contest
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var contests = this.Data.Contests
@@ -35,8 +40,8 @@
                 .Project()
                 .To<ContestDetailsViewModel>()
                 .FirstOrDefault();
-            return this.View(contest);
 
+            return this.View(contest);
         }
 
         public ActionResult Create()

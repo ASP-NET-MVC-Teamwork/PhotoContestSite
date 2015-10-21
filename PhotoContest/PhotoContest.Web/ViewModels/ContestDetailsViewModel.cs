@@ -1,4 +1,4 @@
-﻿namespace PhotoContest.Web.ViewModel
+﻿namespace PhotoContest.Web.ViewModels
 {
     using Common.Mappings;
     using PhotoContest.Models;
