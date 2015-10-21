@@ -1,0 +1,37 @@
+﻿@model PhotoContest.Web.ImputModels.ContestInputModel
+
+@{
+    ViewBag.Title = "Create";
+
+}
+
+<h1>Create</h1>
+
+@using (Html.BeginForm("Create", "Contests", FormMethod.Post))
+{
+    @Html.LabelFor(c => c.Title)
+    @Html.EditorFor(c => c.Title)
+    <br/>
+
+    @Html.LabelFor(c => c.Description)
+    @Html.EditorFor(c => c.Description)
+    <br/>
+
+    @Html.LabelFor(c => c.RewardStrategy)
+    @Html.EnumDropDownListFor(c => c.RewardStrategy)
+    <br/>
+
+    @Html.LabelFor(c => c.Type)
+    @Html.EnumDropDownListFor(c => c.Type)
+    <br/>
+
+    @Html.LabelFor(c => c.VotingStrategy)
+    @Html.EnumDropDownListFor(c => c.VotingStrategy)
+    <br/>
+
+    @Html.LabelFor(c => c.DeadlineStrategy)
+    @Html.EnumDropDownListFor(c=> c.DeadlineStrategy)
+
+    <input type="submit" value="Create" class="btn btn-primary btn-lg" />
+
+}

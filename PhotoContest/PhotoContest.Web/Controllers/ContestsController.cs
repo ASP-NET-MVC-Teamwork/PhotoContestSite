@@ -4,6 +4,8 @@
     using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
     using Data.Contracts;
+    using ImputModels;
+    using PhotoContest.Models;
     using ViewModel;
 
     public class ContestsController : BaseController
@@ -33,6 +35,39 @@
                 .Project()
                 .To<ContestDetailsViewModel>()
                 .FirstOrDefault();
+            return this.View(contest);
+
+        }
+
+        public ActionResult Create()
+        {
+            var model = new ContestInputModel();
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Create(ContestInputModel contest)
+        {
+            if (ModelState.IsValid)
+            {
+                var newContest = new Contest
+                {
+                    Title = contest.Title,
+                    Description = contest.Description,
+                    RewardStrategy = contest.RewardStrategy,
+                    Type = contest.Type,
+                    VotingStrategy = contest.VotingStrategy,
+                    DeadlineStrategy = contest.DeadlineStrategy,
+                    OwnerId = "9e3cdb2f-3778-47cc-9a57-33062df0ece3"
+
+                    //TODO: OWNER
+                };
+
+                this.Data.Contests.Add(newContest);
+
+                this.Data.SaveChanges();
+                return this.RedirectToAction("Details", new {id = newContest.Id});
+            }
             return this.View(contest);
 
         }
