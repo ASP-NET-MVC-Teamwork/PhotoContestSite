@@ -1,6 +1,12 @@
-﻿@model PhotoContest.Web.ViewModel.ContestViewModel
+﻿@model PhotoContest.Web.ViewModels.ContestViewModel
 
-<div class="col-md-4">
-    <h4>@Model.Title</h4>
-    <p>@Model.Description</p>
+<div class="panel panel-body panel-default">
+    <h3>
+        @Html.ActionLink(
+            String.Format("{0}", Model.Title),
+            "Details", "Contests", new {id = Model.Id}, null
+            )
+    </h3>
+    <h4>Description: @Model.Description</h4>
+    <p>Created On: @Model.CreatedOn</p>
 </div>
