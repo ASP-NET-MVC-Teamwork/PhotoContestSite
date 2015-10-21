@@ -18,6 +18,11 @@
         {
         }
 
+        protected ContestsController(IPhotoContestData data, ApplicationUser userProfile) 
+            : base(data, userProfile)
+        {
+        }
+
 
         // GET: Contest
         [AllowAnonymous]
@@ -25,7 +30,7 @@
         {
             var contests = this.Data.Contests
                 .All()
-                .OrderBy(c => c.CreatedOn)
+                .OrderByDescending(c => c.CreatedOn)
                 .Project()
                 .To<ContestViewModel>();
                 
@@ -64,7 +69,7 @@
                     Type = contest.Type,
                     VotingStrategy = contest.VotingStrategy,
                     DeadlineStrategy = contest.DeadlineStrategy,
-                    OwnerId = this.User.Identity.GetUserId()
+                    OwnerId = this.UserProfile.Id
 
                     //TODO: OWNER
                 };
