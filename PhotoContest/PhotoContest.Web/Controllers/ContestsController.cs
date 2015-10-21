@@ -18,10 +18,7 @@
         {
         }
 
-        protected ContestsController(IPhotoContestData data, ApplicationUser userProfile) 
-            : base(data, userProfile)
-        {
-        }
+        
 
 
         // GET: Contest
@@ -70,8 +67,7 @@
                     VotingStrategy = contest.VotingStrategy,
                     DeadlineStrategy = contest.DeadlineStrategy,
                     OwnerId = this.UserProfile.Id
-
-                    //TODO: OWNER
+                  
                 };
 
                 this.Data.Contests.Add(newContest);
