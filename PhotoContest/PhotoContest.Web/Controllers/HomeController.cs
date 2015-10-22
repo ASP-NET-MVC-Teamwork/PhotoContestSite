@@ -12,7 +12,6 @@
         public HomeController(IPhotoContestData data)
             : base(data)
         {
-
         }
 
         public ActionResult Index()

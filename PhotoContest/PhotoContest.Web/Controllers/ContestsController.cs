@@ -4,22 +4,17 @@
     using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
     using Data.Contracts;
-    using ImputModels;
-    using Microsoft.AspNet.Identity;
+    using InputModels;
     using PhotoContest.Models;
     using ViewModels;
-
-
+    
     [Authorize]
     public class ContestsController : BaseController
     {
-        public ContestsController(IPhotoContestData data) 
+        public ContestsController(IPhotoContestData data)
             : base(data)
         {
         }
-
-        
-
 
         // GET: Contest
         [AllowAnonymous]
@@ -30,7 +25,7 @@
                 .OrderByDescending(c => c.CreatedOn)
                 .Project()
                 .To<ContestViewModel>();
-                
+
             return View(contests);
         }
 
@@ -67,16 +62,15 @@
                     VotingStrategy = contest.VotingStrategy,
                     DeadlineStrategy = contest.DeadlineStrategy,
                     OwnerId = this.UserProfile.Id
-                  
+
                 };
 
                 this.Data.Contests.Add(newContest);
 
                 this.Data.SaveChanges();
-                return this.RedirectToAction("Details", new {id = newContest.Id});
+                return this.RedirectToAction("Details", new { id = newContest.Id });
             }
             return this.View(contest);
-
         }
     }
 }

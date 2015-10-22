@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace PhotoContest.Web.ImputModels
+﻿namespace PhotoContest.Web.InputModels
 {
     using PhotoContest.Models.Enums;
 
@@ -20,7 +15,5 @@ namespace PhotoContest.Web.ImputModels
         public VotingStrategy VotingStrategy { get; set; }
 
         public DeadlineStrategy DeadlineStrategy { get; set; }
-
-
     }
 }
