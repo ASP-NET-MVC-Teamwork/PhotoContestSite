@@ -15,5 +15,9 @@
         public VotingStrategy VotingStrategy { get; set; }
 
         public DeadlineStrategy DeadlineStrategy { get; set; }
+
+        public bool IsClosedForSubmissions { get; set; }
+
+        public bool IsClosedForVoting { get; set; }
     }
 }

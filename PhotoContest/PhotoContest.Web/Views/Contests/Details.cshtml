@@ -1,8 +1,23 @@
-﻿@model PhotoContest.Web.ViewModels.ContestDetailsViewModel
+﻿@model PhotoContest.Web.ViewModels.ContestViewModel
 @{
     ViewBag.Title = "Details";
 }
 
 <div class="row">
-    @Html.DisplayFor(c => c)
+    <div class="panel panel-body panel-default">
+        <h3>@Model.Title</h3>
+        <h4>Description: @Model.Description</h4>
+        <p>Organizator: @Model.Owner.UserName</p>
+        <p>Created On: @Model.CreatedOn</p>
+        <p>Voting strategy: @Model.VotingStrategy</p>
+        <p>Deadline strategy: @Model.DeadlineStrategy</p>
+        <p>Reward strategy: @Model.RewardStrategy</p>
+        <p>Closed for submissions: @Model.IsClosedForSubmissions</p>
+        <p>Closed for voting: @Model.IsClosedForVoting</p>
+
+        @if (Model.Owner.UserName == User.Identity.Name)
+        {
+            @Html.ActionLink("Edit", "Edit", "Contests", new { id = Model.Id }, new { @class = "btn btn-default pull-right" })
+        }
+    </div>
 </div>

@@ -9,4 +9,8 @@
     </h3>
     <h4>Description: @Model.Description</h4>
     <p>Created On: @Model.CreatedOn</p>
+    @if (Model.Owner.UserName == User.Identity.Name)
+    {
+        @Html.ActionLink("Edit", "Edit", "Contests", new { id = Model.Id }, new { @class = "btn btn-default pull-right" })
+    }
 </div>

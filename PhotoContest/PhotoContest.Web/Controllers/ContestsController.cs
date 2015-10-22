@@ -1,6 +1,7 @@
 ﻿namespace PhotoContest.Web.Controllers
 {
     using System.Linq;
+    using System.Net;
     using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
     using Data.Contracts;
@@ -36,7 +37,7 @@
                 .All()
                 .Where(x => x.Id == id)
                 .Project()
-                .To<ContestDetailsViewModel>()
+                .To<ContestViewModel>()
                 .FirstOrDefault();
 
             return this.View(contest);
@@ -71,6 +72,52 @@
                 return this.RedirectToAction("Details", new { id = newContest.Id });
             }
             return this.View(contest);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var oldContest = this.Data.Contests.GetById(id);
+            if (oldContest == null)
+            {
+                return this.HttpNotFound();
+            }
+            if (oldContest.OwnerId != this.UserProfile.Id)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a contest which is not yours.");
+            }
+            return View(new ContestViewModel()
+            {
+                Id = oldContest.Id,
+                Title = oldContest.Title,
+                Description = oldContest.Description,
+                IsClosedForSubmissions = oldContest.IsClosedForSubmissions,
+                IsClosedForVoting = oldContest.IsClosedForVoting
+            });
+        }
+
+        public ActionResult Update(ContestViewModel model)
+        {
+            var contest = this.Data.Contests.GetById(model.Id);
+
+            if (contest == null)
+            {
+                return this.HttpNotFound();
+            }
+
+            if (contest.OwnerId != this.UserProfile.Id)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a contest which is not yours.");
+            }
+
+            contest.Title = model.Title;
+            contest.Description = model.Description;
+            contest.IsClosedForSubmissions = model.IsClosedForSubmissions;
+            contest.IsClosedForVoting = model.IsClosedForVoting;
+            this.Data.SaveChanges();
+
+
+            return this.RedirectToAction("Details", new { id = contest.Id });
+
         }
     }
 }

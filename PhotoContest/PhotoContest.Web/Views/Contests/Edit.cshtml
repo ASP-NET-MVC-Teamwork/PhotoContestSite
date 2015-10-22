@@ -1,0 +1,30 @@
+﻿@model PhotoContest.Web.ViewModels.ContestViewModel
+
+@{
+    ViewBag.Title = "Update";
+    
+}
+
+<h2>Edit</h2>
+@using (Html.BeginForm("Update", "Contests", FormMethod.Post))
+{
+    @Html.HiddenFor(c => c.Id);
+
+    @Html.LabelFor(c => c.Title)
+    @Html.EditorFor(c => c.Title)
+    <br />
+
+    @Html.LabelFor(c => c.Description)
+    @Html.EditorFor(c => c.Description)
+    <br/>
+
+    @Html.LabelFor(c => c.IsClosedForSubmissions)
+    @Html.CheckBoxFor(c => c.IsClosedForSubmissions)
+    <br/>
+
+    @Html.LabelFor(c => c.IsClosedForVoting)
+    @Html.CheckBoxFor(c => c.IsClosedForVoting)
+    <input type="submit" value="Edit" class="btn btn-primary btn-lg" />
+
+}
+
