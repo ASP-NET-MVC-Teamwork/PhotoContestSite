@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace PhotoContest.Web.Controllers
+﻿namespace PhotoContest.Web.Controllers
 {
+    using System;
+    using System.Linq;
+    using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
     using Data.Contracts;
     using InputModels;
@@ -15,16 +12,17 @@ namespace PhotoContest.Web.Controllers
     [Authorize]
     public class PicturesController : BaseController
     {
-        public PicturesController(IPhotoContestData data, ApplicationUser userProfile) : base(data, userProfile)
+        public PicturesController(IPhotoContestData data)
+            : base(data)
         {
         }
+
         // GET: Pictures
-        public ActionResult  Index(int id)
+        public ActionResult Index(int id)
         {
             var contest = this.Data.Contests.GetById(id);
 
             return View(contest);
-            
         }
 
         public ActionResult Create()
@@ -35,29 +33,29 @@ namespace PhotoContest.Web.Controllers
 
         // POST: Pictures
         [HttpPost]
-        public ActionResult Create(PictureInputModel model,int id)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(PictureInputModel model, int id)
         {
             if (ModelState.IsValid)
             {
-               var picture = new Picture()
-               {
-                   Title = model.Title,
-                   Url = model.Url,
-                   Author = this.UserProfile,
-                   CreatedOn = DateTime.Now,
-                   ContestId = id,
-                   IsDeleted = false,
-                   
-
-               }; 
+                var picture = new Picture()
+                {
+                    Title = model.Title,
+                    Url = model.Url,
+                    Author = this.UserProfile,
+                    CreatedOn = DateTime.Now,
+                    ContestId = id,
+                    IsDeleted = false
+                };
 
                 this.Data.Pictures.Add(picture);
-                
+
                 this.Data.SaveChanges();
                 return RedirectToAction("Details", new { id = picture.Id });
             }
             return this.View(model);
         }
+
         //GET: Details/5
         public ActionResult Details(int id)
         {
@@ -70,7 +68,5 @@ namespace PhotoContest.Web.Controllers
 
             return this.View(picture);
         }
-
-
     }
 }

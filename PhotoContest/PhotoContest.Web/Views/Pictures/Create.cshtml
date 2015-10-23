@@ -8,9 +8,10 @@
 
 @using (Html.BeginForm("Create", "Pictures", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
+
     @Html.LabelFor(c => c.Title)
     @Html.EditorFor(c => c.Title)
-    <br/>
 
     @Html.LabelFor(c => c.Url)
     @Html.EditorFor(c => c.Url)

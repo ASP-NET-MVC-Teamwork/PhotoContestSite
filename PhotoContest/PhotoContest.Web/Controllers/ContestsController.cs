@@ -43,6 +43,7 @@
             return this.View(contest);
         }
 
+        [ValidateAntiForgeryToken]
         public ActionResult Create()
         {
             var model = new ContestInputModel();
