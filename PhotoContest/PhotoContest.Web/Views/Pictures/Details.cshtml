@@ -1,0 +1,13 @@
+﻿@model PhotoContest.Web.ViewModels.PictureViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row">
+<div class="panel panel-body panel-default">
+    <h3>Name : @Model.Title</h3>
+    <img src="@Url.Content(@Model.Url)" alt="" />
+</div>
+</div>
+

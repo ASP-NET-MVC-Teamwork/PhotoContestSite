@@ -1,0 +1,19 @@
+﻿@model PhotoContest.Models.Contest
+
+@{
+    ViewBag.Title = "Pictures";
+}
+@foreach (var photo in Model.Pictures)
+{
+    <div>
+        @Html.ActionLink(@photo.Title,"Details","Pictures", new { id = photo.Id },null)
+        <img src="@Url.Content(@photo.Url)" alt="" />
+    </div>
+    <br/>
+}
+<h2>Here you can upload pictures to contest</h2>
+
+@Html.ActionLink("Add", "Create", "Pictures", new { id = Model.Id }, new { @class = "btn btn-default" })
+
+
+

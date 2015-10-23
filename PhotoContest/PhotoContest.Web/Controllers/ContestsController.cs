@@ -119,5 +119,6 @@
             return this.RedirectToAction("Details", new { id = contest.Id });
 
         }
+
     }
 }

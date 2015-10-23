@@ -1,0 +1,19 @@
+﻿@model PhotoContest.Web.InputModels.PictureInputModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h1>Create</h1>
+
+@using (Html.BeginForm("Create", "Pictures", FormMethod.Post))
+{
+    @Html.LabelFor(c => c.Title)
+    @Html.EditorFor(c => c.Title)
+    <br/>
+
+    @Html.LabelFor(c => c.Url)
+    @Html.EditorFor(c => c.Url)
+
+    <input type="submit" value="Create" class="btn btn-primary btn-lg" />
+}
