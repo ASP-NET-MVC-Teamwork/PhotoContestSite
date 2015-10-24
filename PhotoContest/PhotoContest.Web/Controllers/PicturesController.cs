@@ -16,6 +16,7 @@
             : base(data)
         {
         }
+            
 
         // GET: Pictures
         public ActionResult Index(int id)
@@ -25,6 +26,7 @@
             return View(contest);
         }
 
+        [HttpGet]
         public ActionResult Create()
         {
             var model = new PictureInputModel();
@@ -51,17 +53,17 @@
                 this.Data.Pictures.Add(picture);
 
                 this.Data.SaveChanges();
-                return RedirectToAction("Details", new { id = picture.Id });
+                return RedirectToAction("Details", new { pictureId = picture.PictureId });
             }
             return this.View(model);
         }
 
         //GET: Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, int pictureId)
         {
             var picture = this.Data.Pictures
                 .All()
-                .Where(x => x.Id == id)
+                .Where(x => x.PictureId == pictureId && x.ContestId == id)
                 .Project()
                 .To<PictureViewModel>()
                 .FirstOrDefault();

@@ -28,8 +28,5 @@
         public bool IsClosedForSubmissions { get; set; }
 
         public bool IsClosedForVoting { get; set; }
-
-
-
     }
 }

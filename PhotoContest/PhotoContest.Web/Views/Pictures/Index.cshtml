@@ -6,7 +6,7 @@
 @foreach (var photo in Model.Pictures)
 {
     <div>
-        @Html.ActionLink(@photo.Title,"Details","Pictures", new { id = photo.Id },null)
+        @Html.ActionLink(@photo.Title,"Details","Pictures", new { id = Model.Id, pictureId = photo.PictureId },null)
         <img src="@Url.Content(@photo.Url)" alt="" />
     </div>
     <br/>

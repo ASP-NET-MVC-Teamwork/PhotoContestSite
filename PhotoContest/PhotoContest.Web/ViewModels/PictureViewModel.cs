@@ -5,7 +5,7 @@
 
     public class PictureViewModel : IMapFrom<Picture>
     {
-        public string Id { get; set; }
+        public string PictureId { get; set; }
 
         public string Title { get; set; }
 

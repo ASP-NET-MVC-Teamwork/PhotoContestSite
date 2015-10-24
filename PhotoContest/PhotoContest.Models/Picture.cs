@@ -19,7 +19,7 @@
         }
 
         [Key]
-        public int Id { get; set; }
+        public int PictureId { get; set; }
 
         [Required]
         [MinLength(GlobalConstants.TitleMinLength)]

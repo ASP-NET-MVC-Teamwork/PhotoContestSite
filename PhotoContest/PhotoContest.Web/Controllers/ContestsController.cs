@@ -31,7 +31,7 @@
         }
 
         //GET: Contests/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
             var contest = this.Data.Contests
                 .All()
@@ -43,7 +43,7 @@
             return this.View(contest);
         }
 
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public ActionResult Create()
         {
             var model = new ContestInputModel();
@@ -51,6 +51,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(ContestInputModel contest)
         {
             if (ModelState.IsValid)
