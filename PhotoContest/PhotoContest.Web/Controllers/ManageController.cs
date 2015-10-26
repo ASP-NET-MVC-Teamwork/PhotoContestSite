@@ -1,9 +1,12 @@
 ﻿namespace PhotoContest.Web.Controllers
 {
+    using System.IO;
     using System.Linq;
+    using System.Security.Policy;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
+    using Data.Contracts;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
@@ -14,15 +17,18 @@
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IPhotoContestData data;
 
-        public ManageController()
+        public ManageController(IPhotoContestData data)
         {
+            this.data = data;
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IPhotoContestData data)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            this.data = data;
         }
 
         public ApplicationSignInManager SignInManager
@@ -31,9 +37,9 @@
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -48,7 +54,24 @@
                 _userManager = value;
             }
         }
+        [HttpPost]
+        public ActionResult UploadProfilePicture(HttpPostedFileBase profilePicture)
+        {
+            if (profilePicture != null)
+            {
+                using (var memory = new MemoryStream())
+                {
+                    profilePicture.InputStream.CopyTo(memory);
+                    var byteArray = memory.GetBuffer();
+                    var userId = this.User.Identity.GetUserId();
+                    var user = this.data.Users.All().FirstOrDefault(c => c.Id == userId);
+                    user.ProfilePicture = byteArray;
+                    this.data.SaveChanges();
+                }
+            }
 
+            return RedirectToAction("Index", "Manage");
+        }
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)

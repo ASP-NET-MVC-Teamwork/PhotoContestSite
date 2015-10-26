@@ -45,7 +45,7 @@
             set { this.votes = value; }
         }
 
-        public string ProfilePictureUrl { get; set; }
+        public byte[] ProfilePicture { get; set; }
         
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
