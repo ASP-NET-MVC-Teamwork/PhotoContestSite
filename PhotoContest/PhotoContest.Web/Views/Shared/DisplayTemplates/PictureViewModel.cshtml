@@ -1,0 +1,6 @@
+﻿@model PhotoContest.Web.ViewModels.PictureViewModel
+
+<div class="panel panel-body panel-default">
+    @Html.ActionLink(@Model.Title, "Details", "Pictures", new { id = @Model.ContestId, pictureId = @Model.PictureId }, null)
+    <img src="@Url.Content(@Model.Url)" alt=""/>
+</div>

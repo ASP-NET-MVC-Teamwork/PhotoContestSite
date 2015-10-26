@@ -1,4 +1,5 @@
-﻿@model PhotoContest.Web.ViewModels.ContestViewModel
+﻿@using PhotoContest.Common.Helpers
+@model PhotoContest.Web.ViewModels.ContestViewModel
 
 @{
     ViewBag.Title = "Update";
@@ -24,7 +25,7 @@
 
     @Html.LabelFor(c => c.IsClosedForVoting)
     @Html.CheckBoxFor(c => c.IsClosedForVoting)
-    <input type="submit" value="Edit" class="btn btn-primary btn-lg" />
 
+    @Html.Submit(new { @class = "btn btn-primary", value = "Edit" });
 }
 
