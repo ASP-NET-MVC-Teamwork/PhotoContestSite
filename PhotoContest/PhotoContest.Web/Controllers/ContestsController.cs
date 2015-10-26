@@ -31,7 +31,7 @@
         }
 
         //GET: Contests/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
             var contest = this.Data.Contests
                 .All()

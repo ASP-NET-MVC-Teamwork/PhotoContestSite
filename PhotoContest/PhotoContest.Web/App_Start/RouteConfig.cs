@@ -17,7 +17,7 @@
                     controller = "Pictures",
                     action = "Details"
                 },
-                constraints: new { pictureId = @"\d+" }
+                constraints: new { id = @"\d+", pictureId = @"\d+" }
             );
 
             routes.MapRoute(
