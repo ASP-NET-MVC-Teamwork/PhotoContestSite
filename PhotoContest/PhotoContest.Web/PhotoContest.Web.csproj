@@ -287,6 +287,7 @@
     <None Include="Views\Pictures\Details.cshtml" />
     <None Include="Views\Pictures\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\PictureViewModel.cshtml" />
+    <Content Include="Views\Pictures\_LikesCount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

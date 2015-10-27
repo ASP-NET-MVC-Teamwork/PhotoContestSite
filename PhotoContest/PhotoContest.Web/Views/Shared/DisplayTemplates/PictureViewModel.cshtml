@@ -2,5 +2,16 @@
 
 <div class="panel panel-body panel-default">
     @Html.ActionLink(@Model.Title, "Details", "Pictures", new { id = @Model.ContestId, pictureId = @Model.PictureId }, null)
-    <img src="@Url.Content(@Model.Url)" alt=""/>
+    <img src="@Url.Content(@Model.Url)" alt="" />
+
+    <span id="likes@(Model.PictureId)">@Model.VotesCount</span>
+
+    @Ajax.ActionLink("Vote", "Vote", "Pictures",
+        new { id = @Model.PictureId },
+        new AjaxOptions()
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "likes" + @Model.PictureId,
+            InsertionMode = InsertionMode.Replace
+        }, new { @class = "glyphicon glyphicon-thumbs-up" })
 </div>

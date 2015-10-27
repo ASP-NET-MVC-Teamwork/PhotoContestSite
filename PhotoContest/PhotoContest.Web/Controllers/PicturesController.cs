@@ -64,7 +64,7 @@
                 this.Data.Pictures.Add(picture);
 
                 this.Data.SaveChanges();
-                return RedirectToAction("Details", new { pictureId = picture.PictureId });
+                return RedirectToAction("Index", new { id = picture.ContestId });
             }
             return this.View(model);
         }
@@ -80,6 +80,34 @@
                 .FirstOrDefault();
 
             return this.View(picture);
+        }
+
+        [HttpPost]
+        public ActionResult Vote(int id)
+        {
+            var picture = this.Data.Pictures.GetById(id);
+            if (picture == null)
+            {
+                return this.HttpNotFound();
+            }
+            if (picture.Votes.FirstOrDefault(v => v.User == this.UserProfile) != null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You have already voted!");
+            }
+
+            var vote = new Vote
+            {
+                Picture = picture,
+                User = this.UserProfile
+            };
+
+            this.Data.Votes.Add(vote);
+            this.Data.SaveChanges();
+            
+            return PartialView("_LikesCount", picture.Votes.Count);
+
+            //return this.RedirectToAction("Index", new { id = picture.ContestId });
+
         }
 
         // GET: /Pictures/Delete/5
