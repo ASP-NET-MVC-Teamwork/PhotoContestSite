@@ -1,7 +1,9 @@
 ﻿namespace PhotoContest.Common.Helpers
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
 
     public static class HtmlExtensions
     {
@@ -12,6 +14,15 @@
             input.MergeAttributes(attributes);
             input.Attributes.Add("type", "submit");
             return new MvcHtmlString(input.ToString());
+        }
+
+        public static MvcHtmlString voteAjax(this AjaxHelper ajaxHelper, string linkText, string actionName,
+            string controllerName, object routeValues, AjaxOptions ajaxOptions, object htmlAttributes)
+        {
+            var repID = Guid.NewGuid().ToString();
+            var lnk = ajaxHelper.ActionLink(repID, actionName, controllerName, routeValues, ajaxOptions, htmlAttributes);
+
+            return MvcHtmlString.Create(lnk.ToString().Replace(repID, linkText));
         }
     }
 }

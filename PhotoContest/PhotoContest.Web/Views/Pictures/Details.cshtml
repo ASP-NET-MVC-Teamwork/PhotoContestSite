@@ -22,6 +22,16 @@
     <div class="panel panel-body panel-default">
         <h3>Name : @Model.Title</h3>
         <img src="@Url.Content(@Model.Url)" alt=""/>
+        <span id="likes@(Model.PictureId)">@Model.VotesCount</span>
+
+        @Ajax.ActionLink("Vote", "Vote", "Pictures",
+        new { id = @Model.PictureId },
+        new AjaxOptions()
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "likes" + @Model.PictureId,
+            InsertionMode = InsertionMode.Replace
+        }, new { @class = "glyphicon glyphicon-thumbs-up" })
         <a href="#" class="deleteLink btn btn-danger" id="@Model.PictureId">delete</a>
     </div>
 </div>
