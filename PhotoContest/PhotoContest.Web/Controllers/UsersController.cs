@@ -31,7 +31,6 @@
             return this.View(users);
         }
 
-        //TODO
         public ActionResult Details(string id)
         {
             var user = this.Data.Users
