@@ -1,0 +1,10 @@
+﻿@model PhotoContest.Web.ViewModels.UserViewModel
+
+<div class="panel panel-body panel-default">
+    <h3>
+        @Html.ActionLink(
+            String.Format("{0}", Model.UserName),
+            "Details", "Users", new { id = Model.Id }, null
+            )
+    </h3>
+</div>

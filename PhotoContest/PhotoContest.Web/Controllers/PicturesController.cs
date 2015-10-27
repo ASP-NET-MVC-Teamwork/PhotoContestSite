@@ -105,9 +105,7 @@
             this.Data.SaveChanges();
             
             return PartialView("_LikesCount", picture.Votes.Count);
-
-            //return this.RedirectToAction("Index", new { id = picture.ContestId });
-
+       
         }
 
         // GET: /Pictures/Delete/5
