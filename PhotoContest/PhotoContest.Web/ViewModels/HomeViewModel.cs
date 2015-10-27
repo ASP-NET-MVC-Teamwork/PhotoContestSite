@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
 
-    public partial class HomeViewModel
+    public class HomeViewModel
     {
         public IEnumerable<ContestViewModel> LatestContests { get; set; }
+        public IEnumerable<UserViewModel> LatestUsers { get; set; }
     }
 }

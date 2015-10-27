@@ -9,10 +9,19 @@
 </div>
 
 <div class="row">
-    
+
     <div class="col-md-6 bs-callout bs-callout-info">
         <h2>Latest Contests:</h2>
         @Html.DisplayFor(x => x.LatestContests)
-        @Html.ActionLink("All Contests", "Index", "Contests", null, new {@class = "btn btn-default"})
+        @Html.ActionLink("All Contests", "Index", "Contests", null, new { @class = "btn btn-default" })
     </div>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="col-md-6">
+            <h2>Latest Users:</h2>
+            @Html.DisplayFor(x => x.LatestUsers)
+            @Html.ActionLink("All Users", "Index", "Users", null, new { @class = "btn btn-default" })
+        </div>
+    }
 </div>

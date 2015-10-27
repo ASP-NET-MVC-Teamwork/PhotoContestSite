@@ -22,7 +22,12 @@
                     .OrderByDescending(c => c.CreatedOn)
                     .Take(GlobalConstants.NumberOfContestsOnHomePage)
                     .Project()
-                    .To<ContestViewModel>()
+                    .To<ContestViewModel>(),
+                LatestUsers = this.Data.Users.All()
+                    .OrderByDescending(u => u.JoinedOn)
+                    .Take(GlobalConstants.NumberOfUsersOnHomePage)
+                    .Project()
+                    .To<UserViewModel>()
             };
 
             return View(homeViewModel);
