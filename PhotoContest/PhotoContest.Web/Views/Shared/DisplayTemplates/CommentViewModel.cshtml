@@ -1,8 +1,17 @@
 ﻿@model PhotoContest.Web.ViewModels.CommentViewModel
 
-<div class="panel panel-body panel-default">
+<div id="comment@(Model.Id)" class="panel panel-body panel-default">
     @Model.Text
-    @Model.CommentId
+    @Model.Id
     <br/>
-    @Html.ActionLink("Delete", "Delete", "Comments", new { id = @Model.CommentId }, new { @class = "btn btn-danger" })
+    
+    @Ajax.ActionLink("Delete", "Delete", "Comments",
+        new { id = @Model.Id },
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "comment" + @Model.Id,
+            InsertionMode = InsertionMode.Replace,
+            OnSuccess = "hideComment(" + @Model.Id + ")" 
+        }, new { @class = "btn btn-danger" })
 </div>

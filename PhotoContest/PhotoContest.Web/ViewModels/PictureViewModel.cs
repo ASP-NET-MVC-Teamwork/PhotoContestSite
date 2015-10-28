@@ -1,6 +1,5 @@
 ﻿namespace PhotoContest.Web.ViewModels
 {
-    using System.Collections.Generic;
     using Common.Mappings;
     using PhotoContest.Models;
 

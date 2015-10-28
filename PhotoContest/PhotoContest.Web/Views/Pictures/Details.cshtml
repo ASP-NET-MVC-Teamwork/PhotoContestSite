@@ -33,6 +33,7 @@
             UpdateTargetId = "likes" + @Model.PictureId,
             InsertionMode = InsertionMode.Replace
         }, new { @class = "glyphicon glyphicon-thumbs-up" })
+
         @if (Model.Owner.Id == User.Identity.GetUserId())
         {
             @Html.ActionLink("Edit", "Edit", "Pictures", new { id = Model.PictureId,}, new { @class = "btn btn-default pull-right" })

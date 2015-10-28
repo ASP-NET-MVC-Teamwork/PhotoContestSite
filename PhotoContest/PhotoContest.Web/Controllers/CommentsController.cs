@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace PhotoContest.Web.Controllers
+﻿namespace PhotoContest.Web.Controllers
 {
+    using System;
+    using System.Linq;
     using System.Net;
+    using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
     using Data.Contracts;
     using InputModels;
@@ -15,7 +12,7 @@ namespace PhotoContest.Web.Controllers
 
     public class CommentsController : BaseController
     {
-        public CommentsController(IPhotoContestData data) 
+        public CommentsController(IPhotoContestData data)
             : base(data)
         {
         }
@@ -31,6 +28,7 @@ namespace PhotoContest.Web.Controllers
 
                 PictureId = id,
             };
+
             return View(commentViewModel);
         }
 
@@ -43,7 +41,7 @@ namespace PhotoContest.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CommentInputModel model,int id)
+        public ActionResult Create(CommentInputModel model, int id)
         {
             if (ModelState.IsValid)
             {
@@ -65,8 +63,6 @@ namespace PhotoContest.Web.Controllers
 
         }
 
-
-
         [HttpPost]
         public ActionResult Delete(int id)
         {
@@ -84,10 +80,9 @@ namespace PhotoContest.Web.Controllers
 
             comment.IsDeleted = true;
 
-            this.Data.Comments.Update(comment);
             this.Data.SaveChanges();
 
-            return RedirectToAction("Index", "Comments", new { id = comment.PictureId });
+            return new EmptyResult();
         }
     }
 }

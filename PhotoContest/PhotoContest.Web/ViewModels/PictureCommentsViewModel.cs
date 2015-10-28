@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace PhotoContest.Web.ViewModels
+﻿namespace PhotoContest.Web.ViewModels
 {
-    public class PictureCommentsViewModel
+    using System.Collections.Generic;
+
+    public partial class PictureCommentsViewModel
     {
         public IEnumerable<CommentViewModel> Comments { get; set; }
 
