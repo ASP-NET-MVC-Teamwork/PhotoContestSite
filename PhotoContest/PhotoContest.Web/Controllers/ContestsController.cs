@@ -23,6 +23,7 @@
         {
             var contests = this.Data.Contests
                 .All()
+                .Where(c => c.IsDeleted == false)
                 .OrderByDescending(c => c.CreatedOn)
                 .Project()
                 .To<ContestViewModel>();
@@ -65,7 +66,6 @@
                     VotingStrategy = contest.VotingStrategy,
                     DeadlineStrategy = contest.DeadlineStrategy,
                     OwnerId = this.UserProfile.Id
-
                 };
 
                 this.Data.Contests.Add(newContest);
@@ -120,6 +120,83 @@
 
             return this.RedirectToAction("Details", new { id = contest.Id });
 
+        }
+
+        // GET: /Contests/Delete/5
+        [ChildActionOnly]
+        public ActionResult Delete(int contestId)
+        {
+            Contest contest = this.Data.Contests.GetById(contestId);
+
+            if (contest == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (contest.Owner != this.UserProfile)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot delete a contest which is not yours.");
+            }
+
+            return View(new ContestViewModel()
+            {
+                Id = contest.Id,
+                CreatedOn = contest.CreatedOn,
+                DeadlineStrategy = contest.DeadlineStrategy,
+                Description = contest.Description,
+                IsClosedForVoting = contest.IsClosedForVoting,
+                IsClosedForSubmissions = contest.IsClosedForSubmissions,
+                Owner = contest.Owner,
+                RewardStrategy = contest.RewardStrategy,
+                Title = contest.Title,
+                Type = contest.Type,
+                VotingStrategy = contest.VotingStrategy
+            });
+        }
+
+        // POST: /Contests/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(ContestViewModel model)
+        {
+            Contest contest = this.Data.Contests.GetById(model.Id);
+
+            if (contest == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (contest.Owner != this.UserProfile)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot delete a contest which is not yours.");
+            }
+
+            contest.IsDeleted = true;
+
+            this.Data.SaveChanges();
+
+            return RedirectToAction("Index", "Contests", new { id = model.Id });
+        }
+
+        [HttpGet]
+        public PartialViewResult GetDeletePartial(int id)
+        {
+            Contest contest = this.Data.Contests.GetById(id);
+
+            return PartialView("Delete", new ContestViewModel()
+            {
+                Id = contest.Id,
+                CreatedOn = contest.CreatedOn,
+                DeadlineStrategy = contest.DeadlineStrategy,
+                Description = contest.Description,
+                IsClosedForVoting = contest.IsClosedForVoting,
+                IsClosedForSubmissions = contest.IsClosedForSubmissions,
+                Owner = contest.Owner,
+                RewardStrategy = contest.RewardStrategy,
+                Title = contest.Title,
+                Type = contest.Type,
+                VotingStrategy = contest.VotingStrategy
+            });
         }
 
     }
