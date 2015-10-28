@@ -287,6 +287,7 @@
     <None Include="Views\Pictures\Create.cshtml" />
     <Content Include="Views\Pictures\Delete.cshtml" />
     <None Include="Views\Pictures\Details.cshtml" />
+    <Content Include="Views\Pictures\Edit.cshtml" />
     <None Include="Views\Pictures\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\PictureViewModel.cshtml" />
     <Content Include="Views\Pictures\_LikesCount.cshtml" />

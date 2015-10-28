@@ -14,6 +14,8 @@
 
         public int ContestId { get; set; }
 
+        public virtual ApplicationUser Owner { get; set; }
+
         public int VotesCount { get; set; }
     }
 }

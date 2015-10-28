@@ -53,7 +53,7 @@ namespace PhotoContest.Data.Data
 
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(u => u.UploadedPictures)
-                .WithRequired(u => u.Author)
+                .WithRequired(u => u.Owner)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ApplicationUser>()

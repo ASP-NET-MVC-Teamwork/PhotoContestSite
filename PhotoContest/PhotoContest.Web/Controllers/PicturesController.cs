@@ -55,7 +55,7 @@
                 {
                     Title = model.Title,
                     Url = model.Url,
-                    Author = this.UserProfile,
+                    Owner = this.UserProfile,
                     CreatedOn = DateTime.Now,
                     ContestId = id,
                     IsDeleted = false
@@ -108,6 +108,43 @@
        
         }
 
+        public ActionResult Edit(int id)
+        {
+            var oldPicture = this.Data.Pictures.GetById(id);
+            if (oldPicture == null)
+            {
+                return this.HttpNotFound();
+            }
+            if(oldPicture.OwnerId != this.UserProfile.Id)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a picture which is not yours.");
+            }
+            return View(new PictureViewModel()
+            {
+                PictureId = oldPicture.PictureId,
+                Title = oldPicture.Title,
+                Url = oldPicture.Url
+            });
+        }
+
+        public ActionResult Update(PictureViewModel model)
+        {
+            var picture = this.Data.Pictures.GetById(model.PictureId);
+            if (picture == null)
+            {
+                return this.HttpNotFound();
+            }
+            if (picture.OwnerId != this.UserProfile.Id)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a picture which is not yours.");
+            }
+            picture.Title = model.Title;
+            picture.Url = model.Url;
+            this.Data.SaveChanges();
+
+            return this.RedirectToAction("Details", new {id = picture.ContestId, pictureId = model.PictureId});
+        }
+
         // GET: /Pictures/Delete/5
         [ChildActionOnly]
         public ActionResult Delete(int pictureId)
@@ -119,7 +156,7 @@
                 return HttpNotFound();
             }
 
-            if (picture.Author != this.UserProfile)
+            if (picture.Owner != this.UserProfile)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot delete a picture which is not yours.");
             }
@@ -139,7 +176,7 @@
                 return HttpNotFound();
             }
 
-            if (picture.Author != this.UserProfile)
+            if (picture.Owner != this.UserProfile)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot delete a picture which is not yours.");
             }
