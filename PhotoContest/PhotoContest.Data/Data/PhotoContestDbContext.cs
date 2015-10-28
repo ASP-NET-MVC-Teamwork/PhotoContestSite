@@ -2,6 +2,7 @@ namespace PhotoContest.Data.Data
 {
     using System;
     using System.Data.Entity;
+    using System.Data.Entity.ModelConfiguration.Conventions;
     using System.Linq;
     using Contracts;
     using Microsoft.AspNet.Identity.EntityFramework;
@@ -41,6 +42,8 @@ namespace PhotoContest.Data.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(u => u.Contests)
                 .WithMany(u => u.Participants)
@@ -50,16 +53,6 @@ namespace PhotoContest.Data.Data
                     x.MapRightKey("ContestId");
                     x.ToTable("ContestsParticipants");
                 });
-
-            modelBuilder.Entity<ApplicationUser>()
-                .HasMany(u => u.UploadedPictures)
-                .WithRequired(u => u.Owner)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<ApplicationUser>()
-                .HasMany(u => u.Contests)
-                .WithRequired(u => u.Owner)
-                .WillCascadeOnDelete(false);
         }
 
         private void ApplyAuditInfoRules()
