@@ -1,0 +1,14 @@
+﻿@using PhotoContest.Common.Helpers
+@model PhotoContest.Web.InputModels.CommentInputModel
+
+@{
+    ViewBag.Title = "Add new comment";
+}
+@using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.LabelFor(c => c.Text)
+    @Html.EditorFor(c => c.Text)
+    @Html.Submit(new { @class = "btn btn-primary", value = "Create" });
+}

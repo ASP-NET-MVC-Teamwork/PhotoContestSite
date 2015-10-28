@@ -18,7 +18,9 @@
         {
             var homeViewModel = new HomeViewModel()
             {
-                LatestContests = this.Data.Contests.All()
+                LatestContests = this.Data.Contests
+                    .All()
+                    .Where(c => c.IsDeleted == false)
                     .OrderByDescending(c => c.CreatedOn)
                     .Take(GlobalConstants.NumberOfContestsOnHomePage)
                     .Project()

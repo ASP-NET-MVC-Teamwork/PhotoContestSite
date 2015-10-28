@@ -11,6 +11,6 @@
     <p>Created On: @Model.CreatedOn</p>
     @if (Model.Owner.UserName == User.Identity.Name)
     {
-        @Html.ActionLink("Edit", "Edit", "Contests", new { id = Model.Id }, new { @class = "btn btn-default pull-right" })
+        <button type="button" class="btn btn-primary disabled pull-right">Owner</button>
     }
 </div>

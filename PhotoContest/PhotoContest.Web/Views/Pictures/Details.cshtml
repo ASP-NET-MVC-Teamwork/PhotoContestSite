@@ -38,6 +38,7 @@
             @Html.ActionLink("Edit", "Edit", "Pictures", new { id = Model.PictureId,}, new { @class = "btn btn-default pull-right" })
         }
         <a href="#" class="deleteLink btn btn-danger" id="@Model.PictureId">delete</a>
+        @Html.ActionLink("Comments","Index","Comments", new {id = @Model.PictureId}, new{ @class = "btn btn-info" })
     </div>
 </div>
 
