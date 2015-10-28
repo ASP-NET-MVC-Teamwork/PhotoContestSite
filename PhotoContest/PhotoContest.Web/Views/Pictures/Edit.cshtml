@@ -1,0 +1,25 @@
+﻿@using PhotoContest.Common.Helpers
+@model PhotoContest.Web.ViewModels.PictureViewModel
+
+@{
+    ViewBag.Title = "Edit picture";
+}
+
+<h2>Edit</h2>
+@using (Html.BeginForm("Update", "Pictures", FormMethod.Post))
+{
+    @Html.HiddenFor(p => p.PictureId);
+    @Html.HiddenFor(p => p.ContestId);
+    <div class="form-group">
+        @Html.LabelFor(p => p.Title)
+        @Html.EditorFor(p => p.Title)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.Url)
+        @Html.EditorFor(p => p.Url)
+    </div>
+
+    @Html.Submit(new { @class = "btn btn-primary", value = "Edit" });
+
+}

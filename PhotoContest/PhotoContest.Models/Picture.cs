@@ -34,9 +34,9 @@
         public DateTime? DeletedOn { get; set; }
 
         [Required]
-        public string AuthorId { get; set; }
+        public string OwnerId { get; set; }
 
-        public virtual ApplicationUser Author { get; set; }
+        public virtual ApplicationUser Owner { get; set; }
 
         public int ContestId { get; set; }
 
