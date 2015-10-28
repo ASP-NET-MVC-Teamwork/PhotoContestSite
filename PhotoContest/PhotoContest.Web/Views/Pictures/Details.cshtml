@@ -33,6 +33,7 @@
             InsertionMode = InsertionMode.Replace
         }, new { @class = "glyphicon glyphicon-thumbs-up" })
         <a href="#" class="deleteLink btn btn-danger" id="@Model.PictureId">delete</a>
+        @Html.ActionLink("Comments","Index","Comments", new {id = @Model.PictureId}, new{ @class = "btn btn-info" })
     </div>
 </div>
 
