@@ -1,6 +1,7 @@
 ﻿namespace PhotoContest.Web.ViewModels
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using Common.Mappings;
     using PhotoContest.Models;
     using PhotoContest.Models.Enums;
@@ -24,9 +25,9 @@
         public VotingStrategy VotingStrategy { get; set; }
 
         public DeadlineStrategy DeadlineStrategy { get; set; }
-
+        [Display(Name = "Closed for submissions")]
         public bool IsClosedForSubmissions { get; set; }
-
+        [Display(Name = "Closed for voting")]
         public bool IsClosedForVoting { get; set; }
     }
 }

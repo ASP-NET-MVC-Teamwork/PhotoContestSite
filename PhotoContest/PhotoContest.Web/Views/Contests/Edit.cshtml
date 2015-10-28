@@ -10,21 +10,25 @@
 @using (Html.BeginForm("Update", "Contests", FormMethod.Post))
 {
     @Html.HiddenFor(c => c.Id);
+    <div class="form-group">
+        @Html.LabelFor(c => c.Title)
+        @Html.EditorFor(c => c.Title)
+    </div>
 
-    @Html.LabelFor(c => c.Title)
-    @Html.EditorFor(c => c.Title)
-    <br />
-
-    @Html.LabelFor(c => c.Description)
-    @Html.EditorFor(c => c.Description)
-    <br/>
-
-    @Html.LabelFor(c => c.IsClosedForSubmissions)
+    <div class="form-group">
+     @Html.LabelFor(c => c.Description)
+     @Html.EditorFor(c => c.Description)
+    </div>
+    
+    <div class="checkbox">
+    @Html.DisplayNameFor(c => c.IsClosedForSubmissions)
     @Html.CheckBoxFor(c => c.IsClosedForSubmissions)
-    <br/>
+    </div>
 
-    @Html.LabelFor(c => c.IsClosedForVoting)
+    <div class="checkbox">
+    @Html.DisplayNameFor(c => c.IsClosedForVoting)
     @Html.CheckBoxFor(c => c.IsClosedForVoting)
+    </div>
 
     @Html.Submit(new { @class = "btn btn-primary", value = "Edit" });
 }
