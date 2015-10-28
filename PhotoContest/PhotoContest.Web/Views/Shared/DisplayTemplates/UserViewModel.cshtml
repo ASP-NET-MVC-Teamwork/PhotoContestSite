@@ -4,7 +4,9 @@
     <h3>
         @Html.ActionLink(
             String.Format("{0}", Model.UserName),
-            "Details", "Users", new { id = Model.Id }, null
+            "Details", "Users", new {id = Model.Id}, null
             )
     </h3>
+    <h4>Email: @Model.Email</h4>
+    <p>Joined On: @Model.JoinedOn</p>
 </div>
