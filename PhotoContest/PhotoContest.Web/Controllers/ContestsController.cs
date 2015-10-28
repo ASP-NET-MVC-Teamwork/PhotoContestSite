@@ -4,11 +4,13 @@
     using System.Net;
     using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
+    using Common;
     using Data.Contracts;
     using InputModels;
     using PhotoContest.Models;
     using ViewModels;
-    
+    using PagedList;
+
     [Authorize]
     public class ContestsController : BaseController
     {
@@ -19,14 +21,15 @@
 
         // GET: Contest
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             var contests = this.Data.Contests
                 .All()
                 .Where(c => c.IsDeleted == false)
                 .OrderByDescending(c => c.CreatedOn)
                 .Project()
-                .To<ContestViewModel>();
+                .To<ContestViewModel>()
+                .ToPagedList(page ?? 1, GlobalConstants.DefaultPageSize);
 
             return View(contests);
         }

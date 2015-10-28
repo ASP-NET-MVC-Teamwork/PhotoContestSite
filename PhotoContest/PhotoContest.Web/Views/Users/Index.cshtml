@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PhotoContest.Web.ViewModels.UserViewModel>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<PhotoContest.Web.ViewModels.UserViewModel>
 @{
     ViewBag.Title = "Users";
 }
@@ -7,4 +8,5 @@
 <hr/>
 <div class="row">
     @Html.DisplayFor(x => x)
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 </div>
