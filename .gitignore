@@ -196,3 +196,6 @@ FakesAssemblies/
 bin
 obj
 packages
+
+# App Config Secret file
+AppSettingsSecrets.config
