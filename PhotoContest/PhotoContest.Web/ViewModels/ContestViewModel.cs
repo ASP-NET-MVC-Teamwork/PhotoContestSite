@@ -18,15 +18,20 @@
 
         public virtual ApplicationUser Owner { get; set; }
 
+        [Display(Name = "Reward Strategy")]
         public RewardStrategy RewardStrategy { get; set; }
 
         public ContestType Type { get; set; }
 
+        [Display(Name = "Voting Strategy")]
         public VotingStrategy VotingStrategy { get; set; }
 
+        [Display(Name = "Deadline Strategy")]    
         public DeadlineStrategy DeadlineStrategy { get; set; }
+
         [Display(Name = "Closed for submissions")]
         public bool IsClosedForSubmissions { get; set; }
+
         [Display(Name = "Closed for voting")]
         public bool IsClosedForVoting { get; set; }
     }

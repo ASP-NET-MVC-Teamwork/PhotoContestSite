@@ -24,15 +24,15 @@
     @Html.EnumDropDownListFor(c => c.RewardStrategy)
     <br/>
 
-    @Html.LabelFor(c => c.Type)
+    @Html.DisplayNameFor(c => c.Type)
     @Html.EnumDropDownListFor(c => c.Type)
     <br/>
 
-    @Html.LabelFor(c => c.VotingStrategy)
+    @Html.DisplayNameFor(c => c.VotingStrategy)
     @Html.EnumDropDownListFor(c => c.VotingStrategy)
     <br/>
 
-    @Html.LabelFor(c => c.DeadlineStrategy)
+    @Html.DisplayNameFor(c => c.DeadlineStrategy)
     @Html.EnumDropDownListFor(c=> c.DeadlineStrategy)
     
     @Html.Submit(new { @class = "btn btn-primary", value = "Create" });
