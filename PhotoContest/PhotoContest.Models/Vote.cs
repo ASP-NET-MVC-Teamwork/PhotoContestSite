@@ -1,8 +1,10 @@
 ﻿namespace PhotoContest.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
+    using Common;
 
-    public class Vote
+    public class Vote: IDeletableEntity
     {
         [Key]
         public int Id { get; set; }
@@ -15,5 +17,9 @@
         public int PictureId { get; set; }
 
         public virtual Picture Picture { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }

@@ -23,7 +23,7 @@
     <div class="panel panel-body panel-default">
         <h3>Name : @Model.Title</h3>
         <img src="@Url.Content(@Model.Url)" alt=""/>
-        <span id="likes@(Model.PictureId)">@Model.VotesCount</span>
+        <span id="likes@(Model.PictureId)">@Model.Votes.Count</span>
 
         @Ajax.ActionLink("Vote", "Vote", "Pictures",
         new { id = @Model.PictureId },

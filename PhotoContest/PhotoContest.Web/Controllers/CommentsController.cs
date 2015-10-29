@@ -84,5 +84,44 @@
 
             return new EmptyResult();
         }
+
+
+        public ActionResult Edit(int id)
+        {
+            var oldComment = this.Data.Comments.GetById(id);
+            if (oldComment == null)
+            {
+                return this.HttpNotFound();
+            }
+            if (oldComment.Author != this.UserProfile)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a comment which is not yours.");
+            }
+            return this.View(new CommentViewModel()
+            {
+                Id = oldComment.Id,
+                PictureId = oldComment.PictureId,
+                Text = oldComment.Text,
+                Author = oldComment.Author
+            });
+        }
+        public ActionResult Update(CommentViewModel model)
+        {
+            var comment = this.Data.Comments.GetById(model.Id);
+            if (comment == null)
+            {
+                return this.HttpNotFound();
+            }
+            if (comment.Author != this.UserProfile)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a picture which is not yours.");
+            }
+
+            comment.Text = model.Text;
+
+            this.Data.SaveChanges();
+
+            return this.RedirectToAction("Index", new { id = comment.PictureId });
+        }
     }
 }

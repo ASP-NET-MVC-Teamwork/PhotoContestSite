@@ -89,11 +89,10 @@
             {
                 return this.HttpNotFound();
             }
-            if (picture.Votes.FirstOrDefault(v => v.User == this.UserProfile) != null)
+            if (picture.Votes.FirstOrDefault(v => v.User == this.UserProfile && v.IsDeleted == false) != null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You have already voted!");
             }
-
             var vote = new Vote
             {
                 Picture = picture,
@@ -102,9 +101,37 @@
 
             this.Data.Votes.Add(vote);
             this.Data.SaveChanges();
-            
-            return PartialView("_LikesCount", picture.Votes.Count);
-       
+
+            return PartialView("_LikesCount", picture.Votes.Count(v => v.IsDeleted == false));
+
+        }
+
+        public ActionResult UnVote(int id)
+        {
+            var picture = this.Data.Pictures.GetById(id);
+
+            if (picture == null)
+            {
+                return this.HttpNotFound();
+            }
+
+            if (picture.Votes.FirstOrDefault(v => v.User == this.UserProfile && v.DeletedOn == null && v.IsDeleted) != null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You have already unvoted!");
+            }
+
+            var vote = picture.Votes.FirstOrDefault(v => v.UserId == this.UserProfile.Id && v.IsDeleted == false);
+
+            if (vote == null)
+            {
+                return this.HttpNotFound();
+            }
+
+            vote.IsDeleted = true;
+            vote.DeletedOn = DateTime.Now;
+            this.Data.SaveChanges();
+
+            return PartialView("_LikesCount", picture.Votes.Count(v => v.IsDeleted == false));
         }
 
         public ActionResult Edit(int id)
@@ -114,7 +141,7 @@
             {
                 return this.HttpNotFound();
             }
-            if(oldPicture.OwnerId != this.UserProfile.Id)
+            if (oldPicture.OwnerId != this.UserProfile.Id)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a picture which is not yours.");
             }
@@ -141,7 +168,7 @@
             picture.Url = model.Url;
             this.Data.SaveChanges();
 
-            return this.RedirectToAction("Details", new {id = picture.ContestId, pictureId = model.PictureId});
+            return this.RedirectToAction("Details", new { id = picture.ContestId, pictureId = model.PictureId });
         }
 
         // GET: /Pictures/Delete/5
