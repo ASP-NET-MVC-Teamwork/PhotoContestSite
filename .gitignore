@@ -198,4 +198,4 @@ obj
 packages
 
 # App Config Secret file
-AppSettingsSecrets.config
+*/AppSettingsSecrets.config
