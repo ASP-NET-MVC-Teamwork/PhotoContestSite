@@ -1,5 +1,7 @@
 ﻿namespace PhotoContest.Web.ViewModels
 {
+    using System.Collections;
+    using System.Collections.Generic;
     using Common.Mappings;
     using PhotoContest.Models;
 
@@ -15,6 +17,6 @@
 
         public virtual ApplicationUser Owner { get; set; }
 
-        public int VotesCount { get; set; }
+        public virtual IList<Vote> Votes { get; set; }
     }
 }
