@@ -295,6 +295,7 @@
     <Content Include="Views\Contests\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ContestViewModel.cshtml" />
     <None Include="Views\Comments\Create.cshtml" />
+    <None Include="Views\Comments\Edit.cshtml" />
     <None Include="Views\Comments\Index.cshtml" />
     <None Include="Views\Contests\Create.cshtml" />
     <Content Include="Views\Contests\Delete.cshtml" />

@@ -1,0 +1,24 @@
+﻿@using PhotoContest.Common.Helpers
+@model PhotoContest.Web.ViewModels.CommentViewModel
+
+@{
+    ViewBag.Title = "Edit Comment";
+}
+<h2>Edit</h2>
+@using (Html.BeginForm("Update", "Comments", FormMethod.Post))
+{
+    @Html.HiddenFor(p => p.PictureId);
+    @Html.HiddenFor(p => p.Id);
+
+    @Html.HiddenFor(p => p.Author);
+    @Html.HiddenFor(p => p.Author);
+
+    @Html.HiddenFor(p => p.Id);
+    @Html.HiddenFor(p => p.Id);
+    <div class="form-group">
+        @Html.LabelFor(p => p.Text)
+        @Html.EditorFor(p => p.Text)
+    </div>
+
+    @Html.Submit(new { @class = "btn btn-primary", value = "Edit" })
+}

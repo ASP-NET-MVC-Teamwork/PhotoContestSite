@@ -10,5 +10,7 @@
         public string Text { get; set; }
 
         public int Id { get; set; }
+
+        public virtual ApplicationUser Author { get; set; }
     }
 }
