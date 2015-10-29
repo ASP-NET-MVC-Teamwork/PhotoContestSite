@@ -1,12 +1,69 @@
-﻿@using PagedList.Mvc
-@model PagedList.IPagedList<PhotoContest.Web.ViewModels.ContestViewModel>
-@{
+﻿@{
     ViewBag.Title = "Contests";
 }
 
 <h2>Contests</h2>
-<hr/>
+<hr />
 <div class="row">
-    @Html.DisplayFor(x => x)
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    <div class="nav nav-tabs">
+        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+            <li role="presentation" class="tab-pane active" id="allContests">
+                @Ajax.ActionLink("All Contests", "AllContests", "Contests", null,
+                new AjaxOptions()
+                {
+                    UpdateTargetId = "contestsContainer",
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace
+                }, new { @data_toggle = "tab"})
+            </li>
+            @if (Request.IsAuthenticated)
+            {
+                <li role="presentation" class="tab-pane" id="myContests">
+                    @Ajax.ActionLink("My Contests", "MyContests", "Contests", null,
+                    new AjaxOptions()
+                    {
+                        UpdateTargetId = "contestsContainer",
+                        HttpMethod = "GET",
+                        InsertionMode = InsertionMode.Replace
+                    }, new { @data_toggle = "tab" })
+                </li>
+            }
+            <li role="presentation" class="tab-pane" id="activeContests">
+                @Ajax.ActionLink("Active Contests", "ActiveContests", "Contests", null,
+                new AjaxOptions()
+                {
+                    UpdateTargetId = "contestsContainer",
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace
+                }, new { @data_toggle = "tab" })
+            </li>
+            <li role="presentation" class="tab-pane" id="archivedContests">
+                @Ajax.ActionLink("Archived Contests", "ArchivedContests", "Contests", null,
+                new AjaxOptions()
+                {
+                    UpdateTargetId = "contestsContainer",
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace
+                }, new { @data_toggle = "tab" })
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-9 tab-content">
+        <div id="contestsContainer" class="tab-pane active">
+            @{
+                Html.RenderAction("AllContests", "Contests");
+            }
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('ul.nav li').on('click', function () {
+                $(this).parent().find('li.active').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
+    </script>
+}

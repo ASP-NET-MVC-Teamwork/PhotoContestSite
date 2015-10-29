@@ -260,7 +260,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -300,6 +302,10 @@
     <Content Include="Views\Contests\Delete.cshtml" />
     <None Include="Views\Contests\Details.cshtml" />
     <Content Include="Views\Contests\Edit.cshtml" />
+    <Content Include="Views\Contests\Partial\_MyContests.cshtml" />
+    <Content Include="Views\Contests\Partial\_ArchivedContests.cshtml" />
+    <Content Include="Views\Contests\Partial\_ActiveContests.cshtml" />
+    <Content Include="Views\Contests\Partial\_AllContests.cshtml" />
     <None Include="Views\Pictures\Create.cshtml" />
     <Content Include="Views\Pictures\Delete.cshtml" />
     <None Include="Views\Pictures\Details.cshtml" />
