@@ -174,7 +174,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot delete a contest which is not yours.");
             }
 
-            contest.IsDeleted = true;
+            this.Data.Contests.Delete(contest);
 
             this.Data.SaveChanges();
 

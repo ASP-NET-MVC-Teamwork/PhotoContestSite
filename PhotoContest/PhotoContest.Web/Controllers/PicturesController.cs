@@ -152,8 +152,7 @@
                 return this.HttpNotFound();
             }
 
-            vote.IsDeleted = true;
-            vote.DeletedOn = DateTime.Now;
+            this.Data.Votes.Delete(vote);
             this.Data.SaveChanges();
 
             return PartialView("_LikesCount", new LikeViewModel
@@ -238,8 +237,8 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot delete a picture which is not yours.");
             }
 
-            picture.IsDeleted = true;
-
+          
+            this.Data.Pictures.Delete(picture);
             this.Data.SaveChanges();
 
             return RedirectToAction("Index", "Pictures", new { id = model.ContestId });
