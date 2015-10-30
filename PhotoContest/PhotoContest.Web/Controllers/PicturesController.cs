@@ -5,6 +5,7 @@
     using System.Net;
     using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
+    using Common.Helpers;
     using Data.Contracts;
     using InputModels;
     using PhotoContest.Models;
@@ -21,14 +22,22 @@
         // GET: Pictures
         public ActionResult Index(int id)
         {
-            var picturesViewModel = new ContestPicturesViewModel
-            {
-                Pictures = this.Data.Pictures
+            var pictures = this.Data.Pictures
                 .All()
                 .Where(p => p.ContestId == id && p.IsDeleted == false)
                 .OrderByDescending(c => c.CreatedOn)
                 .Project()
-                .To<PictureViewModel>(),
+                .To<PictureViewModel>()
+                .ToList();
+
+            foreach (var picture in pictures)
+            {
+                picture.Url = Dropbox.Download(picture.Url);
+            }
+
+            var picturesViewModel = new ContestPicturesViewModel
+            {
+                Pictures = pictures,
 
                 ContestId = id
             };
@@ -50,10 +59,14 @@
         {
             if (ModelState.IsValid)
             {
+                var a = model;
+
+                string path = Dropbox.Upload(model.Photo.FileName, this.UserProfile.UserName, model.Photo.InputStream);
+
                 var picture = new Picture()
                 {
                     Title = model.Title,
-                    Url = model.Url,
+                    Url = path,
                     Owner = this.UserProfile,
                     CreatedOn = DateTime.Now,
                     ContestId = id,
@@ -77,6 +90,13 @@
                 .Project()
                 .To<PictureViewModel>()
                 .FirstOrDefault();
+
+            if (picture == null)
+            {
+                return this.HttpNotFound();
+            }
+
+            picture.Url = Dropbox.Download(picture.Url);
 
             return this.View(picture);
         }

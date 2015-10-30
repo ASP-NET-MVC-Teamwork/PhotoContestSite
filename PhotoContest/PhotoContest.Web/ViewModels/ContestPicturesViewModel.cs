@@ -5,7 +5,7 @@
     public partial class ContestPicturesViewModel
     {
         public IEnumerable<PictureViewModel> Pictures { get; set; }
-
+        
         public int ContestId { get; set; }
     }
 }
