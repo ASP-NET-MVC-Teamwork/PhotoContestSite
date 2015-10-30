@@ -24,9 +24,9 @@ namespace PhotoContest.Data.Contracts
             return base.All().Where(x => !x.IsDeleted);
         }
 
-        public IQueryable<T> AllWithDeleted()
+        public IQueryable<T> AllDeleted()
         {
-            return base.All();
+            return base.All().Where(t => t.IsDeleted);
         }
 
         public override void Delete(T entity)
