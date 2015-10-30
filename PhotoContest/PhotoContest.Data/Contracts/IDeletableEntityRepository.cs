@@ -8,7 +8,7 @@ namespace PhotoContest.Data.Contracts
 {
     public interface IDeletableEntityRepository<T> : IRepository<T> where T : class
     {
-        IQueryable<T> AllWithDeleted();
+        IQueryable<T> AllDeleted();
 
         void ActualDelete(T entity);
     }

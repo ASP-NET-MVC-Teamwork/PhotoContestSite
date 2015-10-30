@@ -79,7 +79,7 @@
             }
 
             this.Data.Comments.Delete(comment);
-
+                    
             this.Data.SaveChanges();
 
             return new EmptyResult();
