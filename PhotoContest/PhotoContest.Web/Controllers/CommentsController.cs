@@ -78,7 +78,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot delete a comment which is not yours.");
             }
 
-            comment.IsDeleted = true;
+            this.Data.Comments.Delete(comment);
 
             this.Data.SaveChanges();
 

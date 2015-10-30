@@ -127,8 +127,8 @@
                 return this.HttpNotFound();
             }
 
-            vote.IsDeleted = true;
-            vote.DeletedOn = DateTime.Now;
+            this.Data.Votes.Delete(vote);
+
             this.Data.SaveChanges();
 
             return PartialView("_LikesCount", picture.Votes.Count(v => v.IsDeleted == false));

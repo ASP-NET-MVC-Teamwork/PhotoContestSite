@@ -4,17 +4,17 @@
 
     public interface IPhotoContestData
     {
-        IRepository<ApplicationUser> Users { get; }
+        IDeletableEntityRepository<ApplicationUser> Users { get; }
 
-        IRepository<Contest> Contests { get; }
+        IDeletableEntityRepository<Contest> Contests { get; }
 
-        IRepository<Picture> Pictures { get; }
+        IDeletableEntityRepository<Picture> Pictures { get; }
 
-        IRepository<Comment> Comments { get; }
+        IDeletableEntityRepository<Comment> Comments { get; }
 
-        IRepository<Reward> Rewards { get; }
+        IDeletableEntityRepository<Reward> Rewards { get; }
 
-        IRepository<Vote> Votes { get; }
+        IDeletableEntityRepository<Vote> Votes { get; }
 
         int SaveChanges();
     }

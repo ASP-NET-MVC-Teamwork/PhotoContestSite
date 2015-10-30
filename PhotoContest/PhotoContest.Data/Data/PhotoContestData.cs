@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Contracts;
     using Models;
+    using Models.Common;
 
     public class PhotoContestData : IPhotoContestData
     {
@@ -16,32 +17,32 @@
             this.repositories = new Dictionary<Type, object>();
         }
         
-        public IRepository<ApplicationUser> Users
+        public IDeletableEntityRepository<ApplicationUser> Users
         {
             get { return this.GetRepository<ApplicationUser>(); }
         }
 
-        public IRepository<Contest> Contests
+        public IDeletableEntityRepository<Contest> Contests
         {
             get { return this.GetRepository<Contest>(); }
         }
 
-        public IRepository<Picture> Pictures
+        public IDeletableEntityRepository<Picture> Pictures
         {
             get { return this.GetRepository<Picture>(); }
         }
 
-        public IRepository<Comment> Comments
+        public IDeletableEntityRepository<Comment> Comments
         {
             get { return this.GetRepository<Comment>(); }
         }
 
-        public IRepository<Reward> Rewards
+        public IDeletableEntityRepository<Reward> Rewards
         {
             get { return this.GetRepository<Reward>(); }
         }
 
-        public IRepository<Vote> Votes
+        public IDeletableEntityRepository<Vote> Votes
         {
             get { return this.GetRepository<Vote>(); }
         }
@@ -51,17 +52,17 @@
             return this.context.SaveChanges();
         }
 
-        private IRepository<T> GetRepository<T>() where T : class
+        private IDeletableEntityRepository<T> GetRepository<T>() where T : class, IDeletableEntity
         {
             if (!this.repositories.ContainsKey(typeof(T)))
             {
-                var type = typeof(GenericRepository<T>);
+                var type = typeof(DeletableEntityRepository<T>);
                 this.repositories.Add(
                     typeof(T),
                     Activator.CreateInstance(type, this.context));
             }
 
-            return (IRepository<T>)this.repositories[typeof(T)];
+            return (IDeletableEntityRepository<T>)this.repositories[typeof(T)];
         }
     }
 }

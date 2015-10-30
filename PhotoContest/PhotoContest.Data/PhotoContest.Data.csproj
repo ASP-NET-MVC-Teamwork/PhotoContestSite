@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\DeletableEntityRepository.cs" />
+    <Compile Include="Contracts\IDeletableEntityRepository.cs" />
     <Compile Include="Contracts\IPhotoContestDbContext.cs" />
     <Compile Include="Data\PhotoContestDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
