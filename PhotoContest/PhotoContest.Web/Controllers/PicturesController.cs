@@ -66,7 +66,6 @@
                 var picture = new Picture()
                 {
                     Title = model.Title,
-                    Url = path,
                     Owner = this.UserProfile,
                     CreatedOn = DateTime.Now,
                     ContestId = id,
@@ -122,7 +121,13 @@
             this.Data.Votes.Add(vote);
             this.Data.SaveChanges();
 
-            return PartialView("_LikesCount", picture.Votes.Count(v => v.IsDeleted == false));
+            return PartialView("_LikesCount", new LikeViewModel
+            {
+                Likes = picture.Votes.Count(v => v.IsDeleted == false),
+                PictureId = picture.PictureId,
+                Action = "UnVote",
+                ThumbDirection = "down"
+            });
 
         }
 
@@ -151,7 +156,13 @@
             vote.DeletedOn = DateTime.Now;
             this.Data.SaveChanges();
 
-            return PartialView("_LikesCount", picture.Votes.Count(v => v.IsDeleted == false));
+            return PartialView("_LikesCount", new LikeViewModel
+            {
+                Likes = picture.Votes.Count(v => v.IsDeleted == false),
+                PictureId = picture.PictureId,
+                Action = "Vote",
+                ThumbDirection = "up"
+            });
         }
 
         public ActionResult Edit(int id)

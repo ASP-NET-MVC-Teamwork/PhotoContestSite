@@ -23,16 +23,33 @@
     <div class="panel panel-body panel-default">
         <h3>Name : @Model.Title</h3>
         <img src="@Url.Content(@Model.Url)" alt=""/>
-        <span id="likes@(Model.PictureId)">@Model.Votes.Count</span>
 
-        @Ajax.ActionLink("Vote", "Vote", "Pictures",
-        new { id = @Model.PictureId },
-        new AjaxOptions()
-        {
-            HttpMethod = "POST",
-            UpdateTargetId = "likes" + @Model.PictureId,
-            InsertionMode = InsertionMode.Replace
-        }, new { @class = "glyphicon glyphicon-thumbs-up" })
+        <span id="likes@(Model.PictureId)">
+            <span>@Model.Votes.Count(v => v.IsDeleted == false)</span>
+
+            @if (@Model.Votes.FirstOrDefault(v => v.UserId == this.User.Identity.GetUserId() && v.IsDeleted == false) == null)
+            {
+                @Ajax.ActionLink("Vote", "Vote", "Pictures",
+            new { id = @Model.PictureId },
+            new AjaxOptions()
+            {
+                HttpMethod = "POST",
+                UpdateTargetId = "likes" + @Model.PictureId,
+                InsertionMode = InsertionMode.Replace
+            }, new { @class = "glyphicon glyphicon-thumbs-up" })
+            }
+            else
+            {
+                @Ajax.ActionLink("Unvote", "UnVote", "Pictures",
+            new { id = @Model.PictureId },
+            new AjaxOptions()
+            {
+                HttpMethod = "POST",
+                UpdateTargetId = "likes" + @Model.PictureId,
+                InsertionMode = InsertionMode.Replace
+            }, new { @class = "glyphicon glyphicon-thumbs-down" })
+            }
+        </span>
 
         @if (Model.Owner.Id == User.Identity.GetUserId())
         {

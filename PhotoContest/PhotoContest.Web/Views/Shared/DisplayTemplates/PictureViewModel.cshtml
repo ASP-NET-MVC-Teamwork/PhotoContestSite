@@ -1,16 +1,16 @@
 ﻿@using Microsoft.AspNet.Identity
-@using PhotoContest.Common.Helpers
 @model PhotoContest.Web.ViewModels.PictureViewModel
 
 <div class="panel panel-body panel-default">
     @Html.ActionLink(@Model.Title, "Details", "Pictures", new { id = @Model.ContestId, pictureId = @Model.PictureId }, null)
     <img src="@Url.Content(@Model.Url)" alt="" class="img-thumbnail" width="304" height="236" />
 
-    <span id="likes@(Model.PictureId)">@Model.Votes.Count(v => v.IsDeleted == false)</span>
+    <span id="likes@(Model.PictureId)">
+        <span>@Model.Votes.Count(v => v.IsDeleted == false)</span>
 
-    @if (@Model.Votes.FirstOrDefault(v => v.UserId == this.User.Identity.GetUserId() && v.IsDeleted == false) == null)
-    {
-        @Ajax.ActionLink("Vote", "Vote", "Pictures",
+        @if (@Model.Votes.FirstOrDefault(v => v.UserId == this.User.Identity.GetUserId() && v.IsDeleted == false) == null)
+        {
+            @Ajax.ActionLink("Vote", "Vote", "Pictures",
             new { id = @Model.PictureId },
             new AjaxOptions()
             {
@@ -18,10 +18,10 @@
                 UpdateTargetId = "likes" + @Model.PictureId,
                 InsertionMode = InsertionMode.Replace
             }, new { @class = "glyphicon glyphicon-thumbs-up" })
-    }
-    else
-    {
-        @Ajax.ActionLink("Unvote", "UnVote", "Pictures",
+        }
+        else
+        {
+            @Ajax.ActionLink("Unvote", "UnVote", "Pictures",
             new { id = @Model.PictureId },
             new AjaxOptions()
             {
@@ -29,5 +29,6 @@
                 UpdateTargetId = "likes" + @Model.PictureId,
                 InsertionMode = InsertionMode.Replace
             }, new { @class = "glyphicon glyphicon-thumbs-down" })
-    }
+        }
+    </span>
 </div>
