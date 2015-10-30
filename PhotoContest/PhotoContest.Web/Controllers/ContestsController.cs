@@ -54,8 +54,7 @@
             return this.View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(ContestInputModel contest)
         {
             if (ModelState.IsValid)
@@ -158,8 +157,7 @@
         }
 
         // POST: /Contests/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Delete(ContestViewModel model)
         {
             Contest contest = this.Data.Contests.GetById(model.Id);
@@ -218,7 +216,7 @@
             return this.PartialView("Partial/_MyContests", myContests);
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public ActionResult ArchivedContests(int? page)
         {
             var archivedContests = this.Data.Contests
@@ -232,7 +230,7 @@
             return this.PartialView("Partial/_ArchivedContests", archivedContests);
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public ActionResult ActiveContests(int? page)
         {
             var activeContests = this.Data.Contests
@@ -246,7 +244,7 @@
             return this.PartialView("Partial/_ActiveContests", activeContests);
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public ActionResult AllContests(int? page)
         {
             var allContests = this.Data.Contests

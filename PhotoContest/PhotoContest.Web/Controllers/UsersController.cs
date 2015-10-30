@@ -21,7 +21,6 @@
         {
         }
 
-
         public ActionResult Index(int? page)
         {
             var users = this.Data.Users.All()
@@ -33,6 +32,7 @@
             return this.View(users);
         }
 
+        [Authorize]
         public ActionResult Details(string id)
         {
             var user = this.Data.Users
@@ -44,7 +44,5 @@
 
             return this.View(user);
         }
-
-
     }
 }

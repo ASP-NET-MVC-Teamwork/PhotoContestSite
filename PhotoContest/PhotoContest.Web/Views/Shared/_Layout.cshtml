@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Photo Contest - CONVITERO</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -21,10 +21,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("All Contests", "Index", "Contests")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("All Users", "Index", "Users")</li>
+                        <li>@Html.ActionLink("Contests", "Index", "Contests")</li>
+                        <li>@Html.ActionLink("Users", "Index", "Users")</li>
                         <li>@Html.ActionLink("Create contest", "Create", "Contests")</li>
                     }
                 </ul>

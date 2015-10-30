@@ -7,7 +7,7 @@
 <div class="row">
     <div class="nav nav-tabs">
         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-            <li role="presentation" class="tab-pane active" id="allContests">
+            <li role="presentation" class="tab-pane active">
                 @Ajax.ActionLink("All Contests", "AllContests", "Contests", null,
                 new AjaxOptions()
                 {
@@ -18,7 +18,7 @@
             </li>
             @if (Request.IsAuthenticated)
             {
-                <li role="presentation" class="tab-pane" id="myContests">
+                <li role="presentation" class="tab-pane">
                     @Ajax.ActionLink("My Contests", "MyContests", "Contests", null,
                     new AjaxOptions()
                     {
@@ -28,7 +28,7 @@
                     }, new { @data_toggle = "tab" })
                 </li>
             }
-            <li role="presentation" class="tab-pane" id="activeContests">
+            <li role="presentation" class="tab-pane">
                 @Ajax.ActionLink("Active Contests", "ActiveContests", "Contests", null,
                 new AjaxOptions()
                 {
@@ -37,7 +37,7 @@
                     InsertionMode = InsertionMode.Replace
                 }, new { @data_toggle = "tab" })
             </li>
-            <li role="presentation" class="tab-pane" id="archivedContests">
+            <li role="presentation" class="tab-pane">
                 @Ajax.ActionLink("Archived Contests", "ArchivedContests", "Contests", null,
                 new AjaxOptions()
                 {
