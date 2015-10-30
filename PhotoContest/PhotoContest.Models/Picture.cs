@@ -3,13 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web;
     using Common;
     using PhotoContest.Common;
 
     public class Picture : AuditInfo, IDeletableEntity
     {
         private ICollection<Vote> votes;
-        private ICollection<Comment> comments; 
+        private ICollection<Comment> comments;
 
         public Picture()
         {

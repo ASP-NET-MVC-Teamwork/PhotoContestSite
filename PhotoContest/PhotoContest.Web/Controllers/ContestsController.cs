@@ -21,7 +21,7 @@
 
         // GET: Contest
         [AllowAnonymous]
-        public ActionResult Index(int? page)
+        public ActionResult Index()
         {
             var contests = this.Data.Contests
                 .All()
@@ -29,7 +29,7 @@
                 .OrderByDescending(c => c.CreatedOn)
                 .Project()
                 .To<ContestViewModel>()
-                .ToPagedList(page ?? 1, GlobalConstants.DefaultPageSize);
+                .ToList();
 
             return View(contests);
         }
@@ -200,6 +200,63 @@
                 Type = contest.Type,
                 VotingStrategy = contest.VotingStrategy
             });
+        }
+
+        [HttpGet, Authorize]
+        public ActionResult MyContests(int? page)
+        {
+            var userId = this.UserProfile.Id;
+
+            var myContests = this.Data.Contests
+                .All()
+                .Where(c => c.OwnerId == userId)
+                .OrderByDescending(c => c.CreatedOn)
+                .Project()
+                .To<ContestViewModel>()
+                .ToPagedList(page ?? 1, GlobalConstants.DefaultPageSize);
+
+            return this.PartialView("Partial/_MyContests", myContests);
+        }
+
+        [HttpGet]
+        public ActionResult ArchivedContests(int? page)
+        {
+            var archivedContests = this.Data.Contests
+                .All()
+                .Where(c => c.IsDeleted == true)
+                .OrderByDescending(c => c.CreatedOn)
+                .Project()
+                .To<ContestViewModel>()
+                .ToPagedList(page ?? 1, GlobalConstants.DefaultPageSize);
+
+            return this.PartialView("Partial/_ArchivedContests", archivedContests);
+        }
+
+        [HttpGet]
+        public ActionResult ActiveContests(int? page)
+        {
+            var activeContests = this.Data.Contests
+                .All()
+                .Where(c => c.IsDeleted == false)
+                .OrderByDescending(c => c.CreatedOn)
+                .Project()
+                .To<ContestViewModel>()
+                .ToPagedList(page ?? 1, GlobalConstants.DefaultPageSize);
+
+            return this.PartialView("Partial/_ActiveContests", activeContests);
+        }
+
+        [HttpGet]
+        public ActionResult AllContests(int? page)
+        {
+            var allContests = this.Data.Contests
+                .All()
+                .OrderByDescending(c => c.CreatedOn)
+                .Project()
+                .To<ContestViewModel>()
+                .ToPagedList(page ?? 1, GlobalConstants.DefaultPageSize);
+
+            return this.PartialView("Partial/_AllContests", allContests);
         }
 
     }

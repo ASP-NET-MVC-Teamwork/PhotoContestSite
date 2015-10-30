@@ -7,15 +7,17 @@
 
 <h1>Create</h1>
 
-@using (Html.BeginForm("Create", "Pictures", FormMethod.Post))
+@using (Html.BeginForm("Create", "Pictures", FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
     @Html.LabelFor(c => c.Title)
     @Html.EditorFor(c => c.Title)
 
-    @Html.LabelFor(c => c.Url)
-    @Html.EditorFor(c => c.Url)
-    
+    @*@Html.LabelFor(c => c.Url)
+        @Html.EditorFor(c => c.Url)*@
+
+    @Html.TextBoxFor(model => model.Photo, new { type = "file" })
+
     @Html.Submit(new { @class = "btn btn-primary", value = "Create" });
 }
