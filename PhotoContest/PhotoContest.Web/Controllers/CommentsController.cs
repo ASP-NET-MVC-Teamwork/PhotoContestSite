@@ -88,22 +88,23 @@
 
         public ActionResult Edit(int id)
         {
-            var oldComment = this.Data.Comments.GetById(id);
+            var oldComment = this.Data.Comments
+                .All()
+                .Where(c => c.Id == id)
+                .ProjectTo<CommentViewModel>()
+                .FirstOrDefault();
+
             if (oldComment == null)
             {
                 return this.HttpNotFound();
             }
+
             if (oldComment.Author != this.UserProfile)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a comment which is not yours.");
             }
-            return this.View(new CommentViewModel()
-            {
-                Id = oldComment.Id,
-                PictureId = oldComment.PictureId,
-                Text = oldComment.Text,
-                Author = oldComment.Author
-            });
+
+            return this.View(oldComment);
         }
         public ActionResult Update(CommentViewModel model)
         {

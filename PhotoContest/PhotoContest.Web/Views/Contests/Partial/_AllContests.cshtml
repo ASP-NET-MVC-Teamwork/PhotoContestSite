@@ -3,5 +3,6 @@
 
 <div class="row">
     @Html.DisplayFor(x => x)
-    @Html.PagedListPager(Model, page => Url.Action("AllContests", new { page }))
+    @Html.PagedListPager(Model, page => Url.Action("AllContests", new { page }),
+    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "contestsContainer" }))
 </div>

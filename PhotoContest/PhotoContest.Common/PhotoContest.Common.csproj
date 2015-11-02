@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filters\AjaxOnlyAttribute.cs" />
     <Compile Include="GlobalConstants.cs" />
     <Compile Include="Helpers\Dropbox.cs" />
     <Compile Include="Helpers\HtmlExtensions.cs" />

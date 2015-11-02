@@ -59,13 +59,12 @@
         {
             if (ModelState.IsValid)
             {
-                var a = model;
-
                 string path = Dropbox.Upload(model.Photo.FileName, this.UserProfile.UserName, model.Photo.InputStream);
 
                 var picture = new Picture()
                 {
                     Title = model.Title,
+                    Url = path,
                     Owner = this.UserProfile,
                     CreatedOn = DateTime.Now,
                     ContestId = id,
@@ -86,8 +85,7 @@
             var picture = this.Data.Pictures
                 .All()
                 .Where(x => x.PictureId == pictureId && x.ContestId == id && x.IsDeleted == false)
-                .Project()
-                .To<PictureViewModel>()
+                .ProjectTo<PictureViewModel>()
                 .FirstOrDefault();
 
             if (picture == null)
@@ -104,6 +102,7 @@
         public ActionResult Vote(int id)
         {
             var picture = this.Data.Pictures.GetById(id);
+
             if (picture == null)
             {
                 return this.HttpNotFound();
@@ -121,13 +120,15 @@
             this.Data.Votes.Add(vote);
             this.Data.SaveChanges();
 
-            return PartialView("_LikesCount", new LikeViewModel
+            var likeModel = new LikeViewModel
             {
                 Likes = picture.Votes.Count(v => v.IsDeleted == false),
                 PictureId = picture.PictureId,
                 Action = "UnVote",
                 ThumbDirection = "down"
-            });
+            };
+
+            return PartialView("_LikesCount", likeModel);
 
         }
 
@@ -155,47 +156,55 @@
             this.Data.Votes.Delete(vote);
             this.Data.SaveChanges();
 
-            return PartialView("_LikesCount", new LikeViewModel
+            var likeModel = new LikeViewModel
             {
                 Likes = picture.Votes.Count(v => v.IsDeleted == false),
                 PictureId = picture.PictureId,
                 Action = "Vote",
                 ThumbDirection = "up"
-            });
+            };
+
+            return PartialView("_LikesCount", likeModel);
         }
 
         public ActionResult Edit(int id)
         {
-            var oldPicture = this.Data.Pictures.GetById(id);
+            var oldPicture = this.Data.Pictures
+                .All()
+                .Where(p => p.PictureId == id)
+                .ProjectTo<PictureViewModel>()
+                .FirstOrDefault();
+
             if (oldPicture == null)
             {
                 return this.HttpNotFound();
             }
-            if (oldPicture.OwnerId != this.UserProfile.Id)
+
+            if (oldPicture.Owner.Id != this.UserProfile.Id)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a picture which is not yours.");
             }
-            return View(new PictureViewModel()
-            {
-                PictureId = oldPicture.PictureId,
-                Title = oldPicture.Title,
-                Url = oldPicture.Url
-            });
+
+            return View(oldPicture);
         }
 
         public ActionResult Update(PictureViewModel model)
         {
             var picture = this.Data.Pictures.GetById(model.PictureId);
+
             if (picture == null)
             {
                 return this.HttpNotFound();
             }
+
             if (picture.OwnerId != this.UserProfile.Id)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a picture which is not yours.");
             }
+
             picture.Title = model.Title;
             picture.Url = model.Url;
+
             this.Data.SaveChanges();
 
             return this.RedirectToAction("Details", new { id = picture.ContestId, pictureId = model.PictureId });
@@ -236,8 +245,7 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot delete a picture which is not yours.");
             }
-
-          
+            
             this.Data.Pictures.Delete(picture);
             this.Data.SaveChanges();
 
@@ -247,15 +255,13 @@
         [HttpGet]
         public PartialViewResult GetDeletePartial(int id)
         {
-            Picture picture = this.Data.Pictures.GetById(id);
+            var picture = this.Data.Pictures
+                .All()
+                .Where(p => p.PictureId == id)
+                .ProjectTo<PictureViewModel>()
+                .FirstOrDefault();
 
-            return PartialView("Delete", new PictureViewModel
-            {
-                PictureId = picture.PictureId,
-                Title = picture.Title,
-                Url = picture.Url,
-                ContestId = picture.ContestId
-            });
+            return PartialView("Delete", picture);
         }
     }
 }

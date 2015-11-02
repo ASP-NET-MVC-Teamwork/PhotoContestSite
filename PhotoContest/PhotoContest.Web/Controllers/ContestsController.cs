@@ -5,6 +5,7 @@
     using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
     using Common;
+    using Common.Filters;
     using Data.Contracts;
     using InputModels;
     using PhotoContest.Models;
@@ -27,8 +28,7 @@
                 .All()
                 .Where(c => c.IsDeleted == false)
                 .OrderByDescending(c => c.CreatedOn)
-                .Project()
-                .To<ContestViewModel>()
+                .ProjectTo<ContestViewModel>()
                 .ToList();
 
             return View(contests);
@@ -40,8 +40,7 @@
             var contest = this.Data.Contests
                 .All()
                 .Where(x => x.Id == id)
-                .Project()
-                .To<ContestViewModel>()
+                .ProjectTo<ContestViewModel>()
                 .FirstOrDefault();
 
             return this.View(contest);
@@ -80,23 +79,23 @@
 
         public ActionResult Edit(int id)
         {
-            var oldContest = this.Data.Contests.GetById(id);
+            var oldContest = this.Data.Contests
+                .All()
+                .Where(c => c.Id == id)
+                .ProjectTo<ContestViewModel>()
+                .FirstOrDefault();
+
             if (oldContest == null)
             {
                 return this.HttpNotFound();
             }
-            if (oldContest.OwnerId != this.UserProfile.Id)
+
+            if (oldContest.Owner.Id != this.UserProfile.Id)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a contest which is not yours.");
             }
-            return View(new ContestViewModel()
-            {
-                Id = oldContest.Id,
-                Title = oldContest.Title,
-                Description = oldContest.Description,
-                IsClosedForSubmissions = oldContest.IsClosedForSubmissions,
-                IsClosedForVoting = oldContest.IsClosedForVoting
-            });
+
+            return View(oldContest);
         }
 
         public ActionResult Update(ContestViewModel model)
@@ -117,18 +116,21 @@
             contest.Description = model.Description;
             contest.IsClosedForSubmissions = model.IsClosedForSubmissions;
             contest.IsClosedForVoting = model.IsClosedForVoting;
+
             this.Data.SaveChanges();
 
-
             return this.RedirectToAction("Details", new { id = contest.Id });
-
         }
 
         // GET: /Contests/Delete/5
         [ChildActionOnly]
         public ActionResult Delete(int contestId)
         {
-            Contest contest = this.Data.Contests.GetById(contestId);
+            var contest = this.Data.Contests
+                .All()
+                .Where(c => c.Id == contestId)
+                .ProjectTo<ContestViewModel>()
+                .FirstOrDefault();
 
             if (contest == null)
             {
@@ -140,20 +142,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot delete a contest which is not yours.");
             }
 
-            return View(new ContestViewModel()
-            {
-                Id = contest.Id,
-                CreatedOn = contest.CreatedOn,
-                DeadlineStrategy = contest.DeadlineStrategy,
-                Description = contest.Description,
-                IsClosedForVoting = contest.IsClosedForVoting,
-                IsClosedForSubmissions = contest.IsClosedForSubmissions,
-                Owner = contest.Owner,
-                RewardStrategy = contest.RewardStrategy,
-                Title = contest.Title,
-                Type = contest.Type,
-                VotingStrategy = contest.VotingStrategy
-            });
+            return View(contest);
         }
 
         // POST: /Contests/Delete/5
@@ -182,25 +171,18 @@
         [HttpGet]
         public PartialViewResult GetDeletePartial(int id)
         {
-            Contest contest = this.Data.Contests.GetById(id);
+            var contest = this.Data.Contests
+                .All()
+                .Where(c => c.Id == id)
+                .ProjectTo<ContestViewModel>()
+                .FirstOrDefault();
 
-            return PartialView("Delete", new ContestViewModel()
-            {
-                Id = contest.Id,
-                CreatedOn = contest.CreatedOn,
-                DeadlineStrategy = contest.DeadlineStrategy,
-                Description = contest.Description,
-                IsClosedForVoting = contest.IsClosedForVoting,
-                IsClosedForSubmissions = contest.IsClosedForSubmissions,
-                Owner = contest.Owner,
-                RewardStrategy = contest.RewardStrategy,
-                Title = contest.Title,
-                Type = contest.Type,
-                VotingStrategy = contest.VotingStrategy
-            });
+            return PartialView("Delete", contest);
+
         }
 
         [HttpGet, Authorize]
+        [AjaxOnly]
         public ActionResult MyContests(int? page)
         {
             var userId = this.UserProfile.Id;
@@ -209,36 +191,35 @@
                 .All()
                 .Where(c => c.OwnerId == userId)
                 .OrderByDescending(c => c.CreatedOn)
-                .Project()
-                .To<ContestViewModel>()
+                .ProjectTo<ContestViewModel>()
                 .ToPagedList(page ?? 1, GlobalConstants.DefaultPageSize);
 
             return this.PartialView("Partial/_MyContests", myContests);
         }
 
         [HttpGet, AllowAnonymous]
+        [AjaxOnly]
         public ActionResult ArchivedContests(int? page)
         {
             var archivedContests = this.Data.Contests
                 .All()
                 .Where(c => c.IsDeleted == true)
                 .OrderByDescending(c => c.CreatedOn)
-                .Project()
-                .To<ContestViewModel>()
+                .ProjectTo<ContestViewModel>()
                 .ToPagedList(page ?? 1, GlobalConstants.DefaultPageSize);
 
             return this.PartialView("Partial/_ArchivedContests", archivedContests);
         }
 
         [HttpGet, AllowAnonymous]
+        [AjaxOnly]
         public ActionResult ActiveContests(int? page)
         {
             var activeContests = this.Data.Contests
                 .All()
                 .Where(c => c.IsDeleted == false)
                 .OrderByDescending(c => c.CreatedOn)
-                .Project()
-                .To<ContestViewModel>()
+                .ProjectTo<ContestViewModel>()
                 .ToPagedList(page ?? 1, GlobalConstants.DefaultPageSize);
 
             return this.PartialView("Partial/_ActiveContests", activeContests);
@@ -250,12 +231,10 @@
             var allContests = this.Data.Contests
                 .All()
                 .OrderByDescending(c => c.CreatedOn)
-                .Project()
-                .To<ContestViewModel>()
+                .ProjectTo<ContestViewModel>()
                 .ToPagedList(page ?? 1, GlobalConstants.DefaultPageSize);
 
             return this.PartialView("Partial/_AllContests", allContests);
         }
-
     }
 }

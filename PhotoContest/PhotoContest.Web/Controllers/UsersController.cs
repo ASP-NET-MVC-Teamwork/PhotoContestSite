@@ -38,8 +38,7 @@
             var user = this.Data.Users
                 .All()
                 .Where(u => u.Id == id)
-                .Project()
-                .To<UserViewModel>()
+                .ProjectTo<UserViewModel>()
                 .FirstOrDefault();
 
             return this.View(user);
