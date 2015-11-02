@@ -12,12 +12,10 @@
         protected void Application_Start()
         {
             ViewEngineConfig.RegisterViewEngines(ViewEngines.Engines);
-
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
             var autoMapperConfig = new AutoMapperConfig(new[] {Assembly.GetExecutingAssembly() });
             autoMapperConfig.Execute();
         }

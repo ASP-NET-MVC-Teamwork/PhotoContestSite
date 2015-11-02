@@ -7,9 +7,14 @@
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js")
-                        .Include("~/Scripts/jquery.unobtrusive-ajax.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery")
+                        .Include("~/Scripts/jquery-{version}.js")
+                        .Include("~/Scripts/jquery.unobtrusive-ajax.min.js")
+                        .Include("~/Scripts/jquery.signalR-2.1.2.min.js")
+                        .Include("~/Scripts/hubs.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/hubs")
+                        .Include("~/Scripts/notificationsHub.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
