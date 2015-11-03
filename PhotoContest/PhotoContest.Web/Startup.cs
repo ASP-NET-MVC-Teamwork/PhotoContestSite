@@ -9,8 +9,9 @@ namespace PhotoContest.Web
     {
         public void Configuration(IAppBuilder app)
         {
-            app.MapSignalR();
             ConfigureAuth(app);
+            app.MapSignalR();
+
         }
     }
 }

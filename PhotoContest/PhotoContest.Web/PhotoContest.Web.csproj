@@ -229,6 +229,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\ConnectionMapping.cs" />
     <Compile Include="Hubs\NotificationsHub.cs" />
     <Compile Include="InputModels\CommentInputModel.cs" />
     <Compile Include="InputModels\ContestInputModel.cs" />
@@ -271,7 +272,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\notificationsHub.js" />
+    <Content Include="Scripts\Custom\notificationsHub.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />

@@ -14,7 +14,7 @@
                         .Include("~/Scripts/hubs.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/hubs")
-                        .Include("~/Scripts/notificationsHub.js"));
+                        .Include("~/Scripts/Custom/notificationsHub.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
