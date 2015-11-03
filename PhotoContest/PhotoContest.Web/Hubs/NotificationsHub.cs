@@ -47,11 +47,10 @@ namespace PhotoContest.Web.Hubs
             return base.OnReconnected();
         }
 
-        public void SendNotifications(string reciever, string message)
+        public void SendNotifications(string username)
         {
-            var sender = Context.User.Identity.Name;
 
-            foreach (var connectionId in _connections.GetConnections(reciever))
+            foreach (var connectionId in _connections.GetConnections(username))
             {
                 Clients.Client(connectionId).receiveNotification();
             }

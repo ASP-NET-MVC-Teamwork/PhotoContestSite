@@ -17,12 +17,20 @@
         <h4>Email: @user.Email</h4>
         <p>Joined On: @user.JoinedOn</p>
 
-        @Ajax.ActionLink("Invite", "Invite", "Contests",
+        @*@Ajax.ActionLink("Invite", "Invite", "Contests",
             new { id = Model.ContestId },
             new AjaxOptions()
             {
                 HttpMethod = "POST",
                 OnSuccess = "sendNotification"
+            }, new { @class = "btn btn-primary" })*@
+
+        @Ajax.ActionLink("Invite", "Invite", "Contests",
+            new { id = Model.ContestId, username = @user.UserName},
+            new AjaxOptions()
+            {
+                HttpMethod = "POST",
+                OnSuccess = "sendNotification('" + @user.UserName + "')"
             }, new { @class = "btn btn-primary" })
     </div>
 }

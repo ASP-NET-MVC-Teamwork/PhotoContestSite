@@ -22,8 +22,16 @@
                         <li>@Html.ActionLink("Contests", "Index", "Contests")</li>
                         <li>@Html.ActionLink("Users", "Index", "Users")</li>
                         <li>@Html.ActionLink("Create contest", "Create", "Contests")</li>
-                        <li>
-                            <a href="#"><span id="notificationContainer" class="glyphicon glyphicon-globe"></span></a>                    
+                        <li>                         
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="notificationContainer" data-toggle="dropdown">
+                                    <span class="badge">0</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Notification</a></li>
+                                    <li><a href="#">Notification 1</a></li>                                  
+                                </ul>
+                            </div>
                         </li>
                     }
                 </ul>

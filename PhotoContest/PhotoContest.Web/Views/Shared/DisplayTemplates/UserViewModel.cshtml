@@ -12,12 +12,6 @@
 
     @if (@ViewBag.ContestId != null)
     {
-        @Ajax.ActionLink("Invite", "Invite", "Contests",
-            new { id = @ViewBag.ContestId },
-            new AjaxOptions()
-            {
-                HttpMethod = "POST",
-                OnSuccess = "sendNotification"
-            }, new { @class = "btn btn-primary" })
+        
     }
 </div>

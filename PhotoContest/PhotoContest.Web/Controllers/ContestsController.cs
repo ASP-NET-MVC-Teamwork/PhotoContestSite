@@ -139,9 +139,9 @@
 
         [HttpPost]
         [AjaxOnly]
-        public ActionResult Invite(int id)
+        public ActionResult Invite(int id, string username)
         {
-            var user = this.Data.Users.All().FirstOrDefault(u => u.UserName == "zxzx");
+            var user = this.Data.Users.All().FirstOrDefault(u => u.UserName == username);
 
             var contest = this.Data.Contests.GetById(id);
 

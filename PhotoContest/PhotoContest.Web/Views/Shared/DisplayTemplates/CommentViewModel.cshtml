@@ -7,15 +7,21 @@
     @if (@Model.Author.UserName == this.User.Identity.Name)
     {
         @Ajax.ActionLink("Delete", "Delete", "Comments",
-        new { id = @Model.Id },
-        new AjaxOptions
-        {
-            HttpMethod = "POST",
-            //UpdateTargetId = "comment" + @Model.Id,
-            //InsertionMode = InsertionMode.Replace,
-            OnSuccess = "hideComment(" + @Model.Id + ")"
-        }, new { @class = "btn btn-danger" })
+            new { id = @Model.Id },
+            new AjaxOptions
+            {
+                HttpMethod = "POST",
+                //UpdateTargetId = "comment" + @Model.Id,
+                //InsertionMode = InsertionMode.Replace,
+                OnSuccess = "hideComment(" + @Model.Id + ")"
+            }, new { @class = "btn btn-danger" })
+        @Ajax.ActionLink("Edit", "Edit", "Comments", new { id = Model.Id }, new AjaxOptions()
+   {
+       HttpMethod = "GET",
+       UpdateTargetId = "comment" + @Model.Id,
+       InsertionMode = InsertionMode.Replace
+   }, new { @class = "btn btn-primary" })
 
-        @Html.ActionLink("Edit", "Edit", "Comments", new { id = Model.Id }, new { @class = "btn btn-primary" })
     }
 </div>
+

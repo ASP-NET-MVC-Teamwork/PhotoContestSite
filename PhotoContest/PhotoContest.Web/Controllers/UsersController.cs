@@ -3,7 +3,9 @@
     using System.Linq;
     using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
+    using Common;
     using Data.Contracts;
+    using PagedList;
     using PhotoContest.Models;
     using ViewModels;
 
@@ -19,13 +21,14 @@
         {
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             var users = this.Data.Users.All()
                 .OrderByDescending(u => u.JoinedOn)
                 .ThenBy(u => u.UserName)
-                .ProjectTo<UserViewModel>();
-            
+                .ProjectTo<UserViewModel>()
+                .ToPagedList(page ?? 1, GlobalConstants.DefaultPageSize);
+
             return this.View(users);
         }
 
