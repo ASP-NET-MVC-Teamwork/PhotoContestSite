@@ -1,13 +1,16 @@
-﻿namespace PhotoContest.Web.ViewModels
+﻿namespace PhotoContest.Models
 {
-    using Common.Mappings;
-    using PhotoContest.Models;
+    using Common;
 
-    public class NotificationViewModel : IMapFrom<Notification>
+    public class Notification : AuditInfo
     {
         public int Id { get; set; }
 
+        public string SenderId { get; set; }
+
         public virtual ApplicationUser Sender { get; set; }
+
+        public string ReceiverId { get; set; }
 
         public virtual ApplicationUser Receiver { get; set; }
 

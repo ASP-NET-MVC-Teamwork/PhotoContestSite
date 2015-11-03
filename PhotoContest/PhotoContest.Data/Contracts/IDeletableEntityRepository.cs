@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PhotoContest.Data.Contracts
+﻿namespace PhotoContest.Data.Contracts
 {
+    using System.Linq;
+
     public interface IDeletableEntityRepository<T> : IRepository<T> where T : class
     {
         IQueryable<T> AllDeleted();

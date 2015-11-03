@@ -16,6 +16,8 @@
 
         IDeletableEntityRepository<Vote> Votes { get; }
 
+        IDeletableEntityRepository<Notification> Notifications { get; }
+
         int SaveChanges();
     }
 }

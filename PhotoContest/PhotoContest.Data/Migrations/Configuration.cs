@@ -13,7 +13,6 @@ namespace PhotoContest.Data.Migrations
 
         protected override void Seed(PhotoContestDbContext context)
         {
-
         }
     }
 }
