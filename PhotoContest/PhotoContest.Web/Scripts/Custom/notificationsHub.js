@@ -1,14 +1,14 @@
 ﻿var proxy = $.connection.notificationsHub;
-proxy.client.receiveNotification = function (message) {
+var notificationsCount = 0;
+proxy.client.receiveNotification = function () {
+    notificationsCount++;
     console.log('received.');
-    $("#notificationContainer").html(message);
-    $("#notificationContainer").slideDown(2000);
-    setTimeout('$("#notificationContainer").slideUp(2000);', 5000);
+    $("#notificationContainer span").html(notificationsCount);
 };
 
-function sendNotification(reciever, message) {
+function sendNotification(username) {
     console.log("sent.");
-    proxy.server.sendNotifications("zxzx", "Hello");
+    proxy.server.sendNotifications(username);
 }
 
 $.connection.hub.start();

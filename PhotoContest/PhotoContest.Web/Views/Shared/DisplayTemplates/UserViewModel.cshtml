@@ -13,11 +13,11 @@
     @if (@ViewBag.ContestId != null)
     {
         @Ajax.ActionLink("Invite", "Invite", "Contests",
-            new { id = @ViewBag.ContestId },
+            new { id = @ViewBag.ContestId, username = @Model.UserName },
             new AjaxOptions()
             {
                 HttpMethod = "POST",
-                OnSuccess = "sendNotification"
+                OnSuccess = "sendNotification('"+@Model.UserName+"')"
             }, new { @class = "btn btn-primary" })
     }
 </div>
