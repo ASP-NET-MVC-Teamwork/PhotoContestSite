@@ -1,11 +1,13 @@
 ﻿@using PhotoContest.Common.Helpers
 @model PhotoContest.Web.ViewModels.CommentViewModel
 
-@{
-    ViewBag.Title = "Edit Comment";
-}
-<h2>Edit</h2>
-@using (Html.BeginForm("Update", "Comments", FormMethod.Post))
+<h4>Edit you comment</h4>
+@using (Ajax.BeginForm("Update", "Comments", new AjaxOptions()
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.ReplaceWith,
+    UpdateTargetId = "comment" + @Model.Id
+}))
 {
     @Html.HiddenFor(p => p.PictureId);
     @Html.HiddenFor(p => p.Id);

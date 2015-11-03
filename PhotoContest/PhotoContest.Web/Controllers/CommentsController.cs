@@ -107,7 +107,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a comment which is not yours.");
             }
 
-            return this.View(new CommentViewModel()
+            return this.PartialView("Partial/_Edit", new CommentViewModel()
             {
                 Id = oldComment.Id,
                 PictureId = oldComment.PictureId,
@@ -131,8 +131,13 @@
 
             this.Data.SaveChanges();
 
-            return this.RedirectToAction("Details", "Pictures",
-                new { pictureId = comment.PictureId, id = comment.Picture.ContestId });
+            return this.PartialView("DisplayTemplates/CommentViewModel", new CommentViewModel
+            {
+                Author = comment.Author,
+                Id = comment.Id,
+                PictureId = comment.PictureId,
+                Text = comment.Text
+            });
         }
     }
 }
