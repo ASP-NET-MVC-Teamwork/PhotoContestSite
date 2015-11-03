@@ -47,6 +47,11 @@
             get { return this.GetRepository<Vote>(); }
         }
 
+        public IDeletableEntityRepository<Notification> Notifications
+        {
+            get { return this.GetRepository<Notification>(); }
+        }
+
         public int SaveChanges()
         {
             return this.context.SaveChanges();

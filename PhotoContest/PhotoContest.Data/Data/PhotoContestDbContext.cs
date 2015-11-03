@@ -28,6 +28,8 @@ namespace PhotoContest.Data.Data
 
         public IDbSet<Vote> Votes { get; set; }
 
+        public IDbSet<Notification> Notifications { get; set; }
+
         public new IDbSet<T> Set<T>() where T : class
         {
             return base.Set<T>();

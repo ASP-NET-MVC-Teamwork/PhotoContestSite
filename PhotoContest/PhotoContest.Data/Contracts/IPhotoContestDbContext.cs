@@ -17,6 +17,8 @@
 
         IDbSet<Vote> Votes { get; }
 
+        IDbSet<Notification> Notifications { get; }
+
         int SaveChanges();
     }
 }

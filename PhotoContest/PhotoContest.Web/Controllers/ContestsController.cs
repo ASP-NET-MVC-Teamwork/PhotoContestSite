@@ -26,7 +26,6 @@
         {
             var contests = this.Data.Contests
                 .All()
-                .Where(c => c.IsDeleted == false)
                 .OrderByDescending(c => c.CreatedOn)
                 .ProjectTo<ContestViewModel>()
                 .ToList();
@@ -219,8 +218,7 @@
         public ActionResult ArchivedContests(int? page)
         {
             var archivedContests = this.Data.Contests
-                .All()
-                .Where(c => c.IsDeleted == true)
+                .AllDeleted()
                 .OrderByDescending(c => c.CreatedOn)
                 .ProjectTo<ContestViewModel>()
                 .ToPagedList(page ?? 1, GlobalConstants.DefaultPageSize);
@@ -234,7 +232,6 @@
         {
             var activeContests = this.Data.Contests
                 .All()
-                .Where(c => c.IsDeleted == false)
                 .OrderByDescending(c => c.CreatedOn)
                 .ProjectTo<ContestViewModel>()
                 .ToPagedList(page ?? 1, GlobalConstants.DefaultPageSize);

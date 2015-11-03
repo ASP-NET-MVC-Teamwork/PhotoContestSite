@@ -68,6 +68,7 @@
     <Compile Include="Enums\DeadlineStrategy.cs" />
     <Compile Include="Enums\RewardStrategy.cs" />
     <Compile Include="Enums\VotingStrategy.cs" />
+    <Compile Include="Notification.cs" />
     <Compile Include="Picture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reward.cs" />

@@ -1,4 +1,3 @@
-
 ﻿namespace PhotoContest.Models.Common
 {
     using System;

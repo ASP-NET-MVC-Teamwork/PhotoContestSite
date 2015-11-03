@@ -14,6 +14,7 @@
         private ICollection<Contest> contests;
         private ICollection<Comment> comments;
         private ICollection<Vote> votes;
+        private ICollection<Notification> receivedNotifications;
 
         public ApplicationUser()
         {
@@ -21,6 +22,7 @@
             this.contests = new HashSet<Contest>();
             this.comments = new HashSet<Comment>();
             this.votes = new HashSet<Vote>();
+            this.receivedNotifications = new HashSet<Notification>();
         }
 
         public DateTime JoinedOn { get; set; }
@@ -47,6 +49,12 @@
         {
             get { return this.votes; }
             set { this.votes = value; }
+        }
+
+        public virtual ICollection<Notification> ReceivedNotifications
+        {
+            get { return this.receivedNotifications; }
+            set { this.receivedNotifications = value; }
         }
 
         public byte[] ProfilePicture { get; set; }
