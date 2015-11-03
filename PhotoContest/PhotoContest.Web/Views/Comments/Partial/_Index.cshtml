@@ -1,0 +1,19 @@
+﻿@model PhotoContest.Web.ViewModels.PictureCommentsViewModel
+@{
+    ViewBag.Title = "Comments";
+}
+
+<div class="row" id="test">
+    @Html.DisplayFor(x => x.Comments)
+</div>
+
+@Ajax.ActionLink("Add", "Create", "Comments", new { id = @Model.PictureId }, new AjaxOptions()
+{
+    HttpMethod = "GET",
+    UpdateTargetId = "addComment",
+    OnBegin = "showForm",
+}, new { @class = "btn btn-info" })
+
+<div class="panel-body" id="addComment">
+
+</div>
