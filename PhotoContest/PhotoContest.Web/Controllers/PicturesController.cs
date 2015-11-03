@@ -73,7 +73,14 @@
 
                 this.Data.Pictures.Add(picture);
 
+                var contest = this.Data.Contests.GetById(picture.ContestId);
+                if (!contest.Participants.Contains(this.UserProfile))
+                {
+                    contest.Participants.Add(this.UserProfile);
+                }
+
                 this.Data.SaveChanges();
+
                 return RedirectToAction("Index", new { id = picture.ContestId });
             }
             return this.View(model);

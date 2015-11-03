@@ -1,11 +1,10 @@
 ﻿namespace PhotoContest.Web.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
-    using Common;
     using Data.Contracts;
-    using PagedList;
     using PhotoContest.Models;
     using ViewModels;
 
@@ -21,13 +20,14 @@
         {
         }
 
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? id)
         {
             var users = this.Data.Users.All()
                 .OrderByDescending(u => u.JoinedOn)
                 .ThenBy(u => u.UserName)
-                .ProjectTo<UserViewModel>()
-                .ToPagedList(page ?? 1, GlobalConstants.DefaultPageSize);
+                .ProjectTo<UserViewModel>();
+
+            ViewBag.ContestId = id;
 
             return this.View(users);
         }
@@ -42,6 +42,16 @@
                 .FirstOrDefault();
 
             return this.View(user);
+        }
+
+        public ActionResult Search(string query)
+        {
+            var results = this.Data.Users
+                .All()
+                .Where(u => u.UserName.ToLower().Contains(query))
+                .ProjectTo<UserViewModel>();
+            
+            return this.PartialView("_UserResults", results);
         }
     }
 }

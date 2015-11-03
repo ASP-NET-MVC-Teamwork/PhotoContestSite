@@ -9,4 +9,15 @@
     </h3>
     <h4>Email: @Model.Email</h4>
     <p>Joined On: @Model.JoinedOn</p>
+
+    @if (@ViewBag.ContestId != null)
+    {
+        @Ajax.ActionLink("Invite", "Invite", "Contests",
+            new { id = @ViewBag.ContestId },
+            new AjaxOptions()
+            {
+                HttpMethod = "POST",
+                OnSuccess = "sendNotification"
+            }, new { @class = "btn btn-primary" })
+    }
 </div>

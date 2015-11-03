@@ -120,22 +120,43 @@
 
             return this.RedirectToAction("Details", new { id = contest.Id });
         }
-
+        
         [HttpPost]
         [AjaxOnly]
-        public ActionResult Invite(int contestId)
+        public ActionResult Invite(int id)
         {
-            var user = this.Data.Users.All().FirstOrDefault(u => u.Id == "3541c71e-34e6-4d50-91d3-4cb8a1f33680");
+            var user = this.Data.Users.All().FirstOrDefault(u => u.UserName == "zxzx");
 
-            var contest = this.Data.Contests.GetById(contestId);
+            var contest = this.Data.Contests.GetById(id);
+
+            if (contest == null)
+            {
+                return this.HttpNotFound();
+            }
+
+            if (user == this.UserProfile)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot invite yourself. Be free to participate.");
+            }
+            
+            if (contest.OwnerId != this.UserProfile.Id)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot invite participants in a contest which is not yours.");
+            }
+
+            if (contest.Participants.Contains(user))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "User is already invited or has joined your contest.");
+            }
 
             if (!contest.Participants.Contains(user))
             {
                 contest.Participants.Add(user);
                 this.Data.SaveChanges();
+                ViewBag.ContestId = id;
             }
-
-            return this.RedirectToAction("Details", new { id = contest.Id });
+            
+            return new EmptyResult();
         }
 
         // GET: /Contests/Delete/5

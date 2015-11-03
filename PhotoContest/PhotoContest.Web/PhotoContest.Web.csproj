@@ -337,6 +337,7 @@
     <Content Include="Views\Shared\DisplayTemplates\UserViewModel.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CommentViewModel.cshtml" />
+    <Content Include="Views\Users\_UserResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

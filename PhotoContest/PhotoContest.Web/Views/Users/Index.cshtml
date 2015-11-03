@@ -1,12 +1,27 @@
-﻿@using PagedList.Mvc
-@model PagedList.IPagedList<PhotoContest.Web.ViewModels.UserViewModel>
+﻿@model IEnumerable<PhotoContest.Web.ViewModels.UserViewModel>
 @{
     ViewBag.Title = "Users";
 }
 
 <h2>Users</h2>
-<hr/>
-<div class="row">
+<hr />
+
+@using (Ajax.BeginForm("Search", null, new AjaxOptions
+{
+    UpdateTargetId = "results",
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "POST"
+}, new { id = "form-controll" }))
+{
+    <input type="text" name="query" oninput="changed()"/>
+}
+
+<div class="row" id="results">
     @Html.DisplayFor(x => x)
-    @Html.PagedListPager(Model, page => Url.Action("Index", new {page}))
 </div>
+
+<script>
+    function changed() {
+        $("searchForm").first().submit();
+    }
+</script>
