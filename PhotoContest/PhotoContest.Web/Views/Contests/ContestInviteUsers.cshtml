@@ -1,0 +1,28 @@
+﻿@model PhotoContest.Web.ViewModels.ContestInviteUsers
+@{
+    ViewBag.Title = "InviteUsers";
+}
+
+<h2>Invite users to your contest</h2>
+
+@foreach (var user in Model.Users)
+{
+    <div class="panel panel-body panel-default">
+        <h3>
+            @Html.ActionLink(
+            String.Format("{0}", @user.UserName),
+            "Details", "Users", new { id = @user.Id }, null
+            )
+        </h3>
+        <h4>Email: @user.Email</h4>
+        <p>Joined On: @user.JoinedOn</p>
+
+        @Ajax.ActionLink("Invite", "Invite", "Contests",
+            new { id = Model.ContestId },
+            new AjaxOptions()
+            {
+                HttpMethod = "POST",
+                OnSuccess = "sendNotification"
+            }, new { @class = "btn btn-primary" })
+    </div>
+}

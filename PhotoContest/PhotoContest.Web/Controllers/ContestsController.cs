@@ -121,6 +121,22 @@
             return this.RedirectToAction("Details", new { id = contest.Id });
         }
         
+        public ActionResult InviteUsers(int id)
+        {
+            var users = this.Data.Users.All()
+                .OrderByDescending(u => u.JoinedOn)
+                .ThenBy(u => u.UserName)
+                .ProjectTo<UserViewModel>();
+
+            var contestInviteUsers = new ContestInviteUsers
+            {
+                Users = users,
+                ContestId = id
+            };
+
+            return this.View("ContestInviteUsers", contestInviteUsers);
+        }
+
         [HttpPost]
         [AjaxOnly]
         public ActionResult Invite(int id)
@@ -153,12 +169,11 @@
             {
                 contest.Participants.Add(user);
                 this.Data.SaveChanges();
-                ViewBag.ContestId = id;
             }
             
             return new EmptyResult();
         }
-
+        
         // GET: /Contests/Delete/5
         [ChildActionOnly]
         public ActionResult Delete(int contestId)

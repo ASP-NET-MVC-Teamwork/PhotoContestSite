@@ -35,7 +35,7 @@
             <a href="#" class="deleteLink btn btn-danger pull-right" id="@Model.Id">Delete</a>
             @Html.ActionLink("Edit", "Edit", "Contests", new { id = Model.Id }, new { @class = "btn btn-default pull-right" })
 
-            @Html.ActionLink("Invite", "Index", "Users", new { id = Model.Id }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Invite", "InviteUsers", "Contests", new { id = Model.Id }, new { @class = "btn btn-default" })
         }
 
         @Html.ActionLink("Photos", "Index", "Pictures", new { id = Model.Id }, new { @class = "btn btn-default pull-right" })

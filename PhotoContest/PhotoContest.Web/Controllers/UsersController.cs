@@ -1,6 +1,5 @@
 ﻿namespace PhotoContest.Web.Controllers
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
@@ -20,15 +19,13 @@
         {
         }
 
-        public ActionResult Index(int? id)
+        public ActionResult Index()
         {
             var users = this.Data.Users.All()
                 .OrderByDescending(u => u.JoinedOn)
                 .ThenBy(u => u.UserName)
                 .ProjectTo<UserViewModel>();
-
-            ViewBag.ContestId = id;
-
+            
             return this.View(users);
         }
 
