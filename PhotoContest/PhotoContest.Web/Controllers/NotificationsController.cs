@@ -63,7 +63,7 @@
                 return this.HttpNotFound();
             }
 
-            if (notification.ReceiverId != this.UserProfile.Id)
+            if (notification.Receiver.Id != this.UserProfile.Id)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a contest which is not yours.");
             }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Security.Claims;
     using System.Threading.Tasks;
     using Common;
@@ -15,6 +16,7 @@
         private ICollection<Comment> comments;
         private ICollection<Vote> votes;
         private ICollection<Notification> receivedNotifications;
+        private ICollection<Notification> sentNotifications;
 
         public ApplicationUser()
         {
@@ -23,6 +25,7 @@
             this.comments = new HashSet<Comment>();
             this.votes = new HashSet<Vote>();
             this.receivedNotifications = new HashSet<Notification>();
+            this.sentNotifications = new HashSet<Notification>();
         }
 
         public DateTime JoinedOn { get; set; }
@@ -51,10 +54,18 @@
             set { this.votes = value; }
         }
 
+        [InverseProperty("Receiver")]
         public virtual ICollection<Notification> ReceivedNotifications
         {
             get { return this.receivedNotifications; }
             set { this.receivedNotifications = value; }
+        }
+
+        [InverseProperty("Sender")]
+        public virtual ICollection<Notification> SentNotifications
+        {
+            get { return this.sentNotifications; }
+            set { this.sentNotifications = value; }
         }
 
         public byte[] ProfilePicture { get; set; }
@@ -66,6 +77,7 @@
         }
 
         public bool IsDeleted { get; set; }
+
         public DateTime? DeletedOn { get; set; }
     }
 }
