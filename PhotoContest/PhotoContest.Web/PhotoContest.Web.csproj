@@ -313,9 +313,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Contests\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ContestViewModel.cshtml" />
-    <None Include="Views\Comments\Create.cshtml" />
+    <None Include="Views\Comments\Partial\_Create.cshtml" />
     <None Include="Views\Comments\Edit.cshtml" />
-    <None Include="Views\Comments\Index.cshtml" />
+    <None Include="Views\Comments\Partial\_Index.cshtml" />
     <None Include="Views\Contests\Create.cshtml" />
     <Content Include="Views\Contests\Delete.cshtml" />
     <None Include="Views\Contests\Details.cshtml" />

@@ -29,14 +29,14 @@
                 PictureId = id,
             };
 
-            return View(commentViewModel);
+            return this.PartialView("Partial/_Index", commentViewModel);
         }
 
         [HttpGet]
         public ActionResult Create()
         {
             var model = new CommentInputModel();
-            return this.View(model);
+            return this.PartialView("Partial/_Create", model);
         }
 
         [HttpPost]
@@ -57,10 +57,17 @@
                 this.Data.Comments.Add(comment);
 
                 this.Data.SaveChanges();
-                return RedirectToAction("Index", new { id = comment.PictureId });
-            }
-            return this.View(model);
 
+                return this.PartialView("DisplayTemplates/CommentViewModel", new CommentViewModel
+                {
+                    Author = comment.Author,
+                    Id = comment.Id,
+                    PictureId = comment.PictureId,
+                    Text = comment.Text
+                });
+            }
+
+            return new EmptyResult();
         }
 
         [HttpPost]
@@ -79,7 +86,7 @@
             }
 
             this.Data.Comments.Delete(comment);
-                    
+
             this.Data.SaveChanges();
 
             return new EmptyResult();
@@ -88,11 +95,7 @@
 
         public ActionResult Edit(int id)
         {
-            var oldComment = this.Data.Comments
-                .All()
-                .Where(c => c.Id == id)
-                .ProjectTo<CommentViewModel>()
-                .FirstOrDefault();
+            var oldComment = this.Data.Comments.GetById(id);
 
             if (oldComment == null)
             {
@@ -104,7 +107,13 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a comment which is not yours.");
             }
 
-            return this.View(oldComment);
+            return this.View(new CommentViewModel()
+            {
+                Id = oldComment.Id,
+                PictureId = oldComment.PictureId,
+                Text = oldComment.Text,
+                Author = oldComment.Author
+            });
         }
         public ActionResult Update(CommentViewModel model)
         {
@@ -122,7 +131,8 @@
 
             this.Data.SaveChanges();
 
-            return this.RedirectToAction("Index", new { id = comment.PictureId });
+            return this.RedirectToAction("Details", "Pictures",
+                new { pictureId = comment.PictureId, id = comment.Picture.ContestId });
         }
     }
 }
