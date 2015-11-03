@@ -21,7 +21,6 @@
         {
             var notifications = this.Data.Notifications
                 .All()
-                .Where(n => n.IsSeen == false)
                 .ProjectTo<NotificationViewModel>()
                 .ToList();
 

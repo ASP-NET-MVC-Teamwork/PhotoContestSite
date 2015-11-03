@@ -223,7 +223,7 @@
     <Compile Include="Controllers\ContestsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\NotificationController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\PicturesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
@@ -234,6 +234,7 @@
     <Compile Include="Hubs\NotificationsHub.cs" />
     <Compile Include="InputModels\CommentInputModel.cs" />
     <Compile Include="InputModels\ContestInputModel.cs" />
+    <Compile Include="InputModels\NotificationInputModel.cs" />
     <Compile Include="InputModels\PictureInputModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="ViewModels\ContestViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LikeViewModel.cs" />
+    <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\PictureCommentsViewModel.cs" />
     <Compile Include="ViewModels\PictureViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
@@ -313,9 +315,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Contests\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ContestViewModel.cshtml" />
-    <None Include="Views\Comments\Partial\_Create.cshtml" />
+    <None Include="Views\Comments\Create.cshtml" />
     <None Include="Views\Comments\Edit.cshtml" />
-    <None Include="Views\Comments\Partial\_Index.cshtml" />
+    <None Include="Views\Comments\Index.cshtml" />
     <None Include="Views\Contests\Create.cshtml" />
     <Content Include="Views\Contests\Delete.cshtml" />
     <None Include="Views\Contests\Details.cshtml" />

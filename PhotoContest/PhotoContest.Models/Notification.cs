@@ -1,8 +1,9 @@
 ﻿namespace PhotoContest.Models
 {
+    using System;
     using Common;
 
-    public class Notification : AuditInfo
+    public class Notification : AuditInfo, IDeletableEntity
     {
         public int Id { get; set; }
 
@@ -18,6 +19,8 @@
 
         public virtual Contest Contest { get; set; }
 
-        public bool IsSeen { get; set; }
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }
