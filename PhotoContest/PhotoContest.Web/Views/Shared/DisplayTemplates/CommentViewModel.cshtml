@@ -15,6 +15,7 @@
             InsertionMode = InsertionMode.Replace,
             OnSuccess = "hideComment(" + @Model.Id + ")"
         }, new { @class = "btn btn-danger" })
+
         @Html.ActionLink("Edit", "Edit", "Comments", new { id = Model.Id }, new { @class = "btn btn-primary" })
     }
 </div>

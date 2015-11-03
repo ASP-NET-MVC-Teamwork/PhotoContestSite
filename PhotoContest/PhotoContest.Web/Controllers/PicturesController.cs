@@ -129,7 +129,6 @@
             };
 
             return PartialView("_LikesCount", likeModel);
-
         }
 
         public ActionResult UnVote(int id)

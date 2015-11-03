@@ -22,13 +22,14 @@
                         <li>@Html.ActionLink("Contests", "Index", "Contests")</li>
                         <li>@Html.ActionLink("Users", "Index", "Users")</li>
                         <li>@Html.ActionLink("Create contest", "Create", "Contests")</li>
+                        <li>
+                            <a href="#"><span id="notificationContainer" class="glyphicon glyphicon-globe"></span></a>                    
+                        </li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-        <button id="sendNotification">Send</button>
-        <div id="notificationContainer"></div>
     </div>
 <div class="container body-content">
     @RenderBody()

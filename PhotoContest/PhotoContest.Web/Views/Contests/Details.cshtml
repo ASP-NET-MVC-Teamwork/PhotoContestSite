@@ -33,21 +33,29 @@
         @if (Model.Owner.UserName == User.Identity.Name)
         {
             <a href="#" class="deleteLink btn btn-danger pull-right" id="@Model.Id">Delete</a>
-            @Html.ActionLink("Edit", "Edit", "Contests", new {id = Model.Id}, new {@class = "btn btn-default pull-right"})
+            @Html.ActionLink("Edit", "Edit", "Contests", new { id = Model.Id }, new { @class = "btn btn-default pull-right" })
+
+            @Ajax.ActionLink("Invite", "Invite", "Contests",
+            new { contestId = @Model.Id },
+            new AjaxOptions()
+            {
+                HttpMethod = "POST",
+                OnSuccess = "sendNotification"
+            }, new { @class = "btn btn-primary" })
         }
 
-        @Html.ActionLink("Photos", "Index", "Pictures", new {id = Model.Id}, new {@class = "btn btn-default pull-right"})
+        @Html.ActionLink("Photos", "Index", "Pictures", new { id = Model.Id }, new { @class = "btn btn-default pull-right" })
     </div>
 </div>
 
 @section scripts {
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             $("#deleteModal").modal("hide");
 
-            $(".deleteLink").on("click", function() {
+            $(".deleteLink").on("click", function () {
 
-                $.get('@Url.Action("GetDeletePartial")', { id: $(this).prop("id") }, function(data) {
+                $.get('@Url.Action("GetDeletePartial")', { id: $(this).prop("id") }, function (data) {
                     $("#deleteModalBody").html(data);
 
                     $("#deleteModal").modal("show");

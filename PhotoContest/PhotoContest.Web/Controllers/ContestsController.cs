@@ -122,6 +122,23 @@
             return this.RedirectToAction("Details", new { id = contest.Id });
         }
 
+        [HttpPost]
+        [AjaxOnly]
+        public ActionResult Invite(int contestId)
+        {
+            var user = this.Data.Users.All().FirstOrDefault(u => u.Id == "3541c71e-34e6-4d50-91d3-4cb8a1f33680");
+
+            var contest = this.Data.Contests.GetById(contestId);
+
+            if (!contest.Participants.Contains(user))
+            {
+                contest.Participants.Add(user);
+                this.Data.SaveChanges();
+            }
+
+            return this.RedirectToAction("Details", new { id = contest.Id });
+        }
+
         // GET: /Contests/Delete/5
         [ChildActionOnly]
         public ActionResult Delete(int contestId)

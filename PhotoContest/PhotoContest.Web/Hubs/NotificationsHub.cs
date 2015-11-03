@@ -9,7 +9,7 @@ namespace PhotoContest.Web.Hubs
     using System.Threading.Tasks;
     using Controllers;
     using Data.Contracts;
-    using Microsoft.AspNet.Identity; 
+    using Microsoft.AspNet.Identity;
 
     public class NotificationsHub : Hub
     {
@@ -53,10 +53,8 @@ namespace PhotoContest.Web.Hubs
 
             foreach (var connectionId in _connections.GetConnections(reciever))
             {
-                Clients.Client(connectionId).receiveNotification("sender: " + sender + " " + message);
+                Clients.Client(connectionId).receiveNotification();
             }
-
-
         }
 
 
