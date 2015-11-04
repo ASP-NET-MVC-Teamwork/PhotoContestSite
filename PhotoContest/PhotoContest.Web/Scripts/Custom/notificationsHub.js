@@ -29,7 +29,7 @@ function sendNotification(username, recieverId, contestId) {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:11279/Notifications/create",
+        url: "http://localhost:11279/Notifications/Create",
         data: {
             RecieverId: recieverId,
             ContestId: contestId

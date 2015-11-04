@@ -33,7 +33,7 @@
 
             routes.MapRoute(
                 name: "Details",
-                url: "{controller}/{id}/",
+                url: "Contests/{id}/",
                 defaults: new
                 {
                     controller = "Contests",
