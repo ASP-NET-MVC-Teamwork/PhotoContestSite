@@ -218,6 +218,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\ViewEngineConfig.cs" />
     <Compile Include="Areas\Administartor\AdministartorAreaRegistration.cs" />
+    <Compile Include="Areas\Administartor\Controllers\AdminBaseController.cs" />
     <Compile Include="Areas\Administartor\Controllers\AdminContestsController.cs" />
     <Compile Include="Areas\Administartor\Controllers\AdminPicturesController.cs" />
     <Compile Include="Areas\Administartor\Controllers\AdminUsersController.cs" />
@@ -366,6 +367,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administartor\Models\" />
+    <Folder Include="Areas\Administartor\Views\AdminBase\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

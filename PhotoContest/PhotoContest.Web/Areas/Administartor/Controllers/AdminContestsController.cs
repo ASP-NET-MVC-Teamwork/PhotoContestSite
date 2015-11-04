@@ -14,7 +14,7 @@
     using ViewModels;
     using Web.Controllers;
 
-    public class AdminContestsController : BaseController
+    public class AdminContestsController : AdminBaseController
     {
         public AdminContestsController(IPhotoContestData data) : base(data)
         {

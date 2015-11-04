@@ -12,8 +12,9 @@
     using PhotoContest.Models;
     using ViewModels;
     using Web.Controllers;
-    [Authorize]
-    public class AdminUsersController : BaseController
+
+
+    public class AdminUsersController : AdminBaseController
     {
         public AdminUsersController(IPhotoContestData data) : base(data)
         {

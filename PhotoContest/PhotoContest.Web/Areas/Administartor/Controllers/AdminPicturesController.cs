@@ -13,7 +13,7 @@
     using PhotoContest.Models;
     using ViewModels;
 
-    public class AdminPicturesController : BaseController
+    public class AdminPicturesController : AdminBaseController
     {
         public AdminPicturesController(IPhotoContestData data) : base(data)
         {
@@ -23,7 +23,6 @@
         {
             var pictures = this.Data.Pictures
                 .All()
-                .Where(p => p.ContestId == id && p.IsDeleted == false)
                 .OrderByDescending(c => c.CreatedOn)
                 .Project()
                 .To<PictureViewModel>()
