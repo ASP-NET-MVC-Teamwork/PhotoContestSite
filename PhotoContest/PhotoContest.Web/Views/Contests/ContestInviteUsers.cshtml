@@ -1,4 +1,5 @@
-﻿@model PhotoContest.Web.ViewModels.ContestInviteUsers
+﻿@using Microsoft.AspNet.Identity
+@model PhotoContest.Web.ViewModels.ContestInviteUsers
 @{
     ViewBag.Title = "InviteUsers";
 }
@@ -17,20 +18,12 @@
         <h4>Email: @user.Email</h4>
         <p>Joined On: @user.JoinedOn</p>
 
-        @*@Ajax.ActionLink("Invite", "Invite", "Contests",
-            new { id = Model.ContestId },
-            new AjaxOptions()
-            {
-                HttpMethod = "POST",
-                OnSuccess = "sendNotification"
-            }, new { @class = "btn btn-primary" })*@
-
         @Ajax.ActionLink("Invite", "Invite", "Contests",
             new { id = Model.ContestId, username = @user.UserName},
             new AjaxOptions()
             {
                 HttpMethod = "POST",
-                OnSuccess = "sendNotification('" + @user.UserName + "')"
+                OnSuccess = "sendNotification('"+@user.UserName + "', '" + @user.Id +"', '" + @Model.ContestId + "')"
             }, new { @class = "btn btn-primary" })
     </div>
 }

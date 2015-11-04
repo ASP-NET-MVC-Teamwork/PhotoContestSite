@@ -22,16 +22,26 @@
                         <li>@Html.ActionLink("Contests", "Index", "Contests")</li>
                         <li>@Html.ActionLink("Users", "Index", "Users")</li>
                         <li>@Html.ActionLink("Create contest", "Create", "Contests")</li>
-                        <li>                         
+                        <li>
                             <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="notificationContainer" data-toggle="dropdown">
                                     <span class="badge">0</span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Notification</a></li>
-                                    <li><a href="#">Notification 1</a></li>                                  
+                                    <span id="notifications"></span>
                                 </ul>
+
                             </div>
+                        </li>
+                        <li>
+                            @Ajax.ActionLink("Notys", "Index", "Notifications",
+                                     null,
+                                     new AjaxOptions
+                                     {
+                                         HttpMethod = "GET",
+                                         UpdateTargetId = "notifications",
+                                         InsertionMode = InsertionMode.Replace
+                                     }, new { @class = "btn btn-info" })
                         </li>
                     }
                 </ul>
@@ -39,15 +49,15 @@
             </div>
         </div>
     </div>
-<div class="container body-content">
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Team "CONVITERO"</p>
-    </footer>
-</div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Team "CONVITERO"</p>
+        </footer>
+    </div>
 
-    
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/hubs")
