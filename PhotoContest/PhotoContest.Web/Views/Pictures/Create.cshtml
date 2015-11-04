@@ -1,23 +1,33 @@
 ﻿@using PhotoContest.Common.Helpers
 @model PhotoContest.Web.InputModels.PictureInputModel
-
 @{
     ViewBag.Title = "Create";
 }
 
-<h1>Create</h1>
-
-@using (Html.BeginForm("Create", "Pictures", FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "Pictures", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.AntiForgeryToken()
+    <h1>Upload photo</h1>
+    <hr/>
+    <fieldset>
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div>
+            @Html.LabelFor(c => c.Title)
+            @Html.EditorFor(c => c.Title)
+            @Html.TextBoxFor(m => m.Photo, new {type = "file"})
+        </div>
+        <div>
+            @Html.ValidationMessageFor(m => m.Title, null, new { @class = "alert-danger" })
+        </div>
+        <div>
+            @Html.ValidationMessageFor(m => m.Photo, null, new { @class = "alert-danger" })
+        </div>
+        <div>
+            @Html.Submit(new {@class = "btn btn-primary", value = "Create"})
+        </div>
+    </fieldset>
+}
 
-    @Html.LabelFor(c => c.Title)
-    @Html.EditorFor(c => c.Title)
-
-    @*@Html.LabelFor(c => c.Url)
-        @Html.EditorFor(c => c.Url)*@
-
-    @Html.TextBoxFor(model => model.Photo, new { type = "file" })
-
-    @Html.Submit(new { @class = "btn btn-primary", value = "Create" });
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval");
 }
