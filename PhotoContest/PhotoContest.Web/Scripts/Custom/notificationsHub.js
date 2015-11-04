@@ -17,7 +17,6 @@ function getNotifications() {
                 updateNotifications(data);
                 return data;
             }
-
         });
 }
 
@@ -43,4 +42,15 @@ $.connection.hub.start();
 
 $("#notificationsButton").click(function() {
     $("#notificationsButton").trigger('submit');
-})
+});
+
+function markAsSeen(notificationId) {
+    console.log("begin");
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:11279/Notifications/Update",
+        data: {
+            notificationId: notificationId
+        }
+    });
+}

@@ -1,10 +1,12 @@
 ﻿namespace PhotoContest.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
+    using Common.Filters;
     using Data.Contracts;
     using InputModels;
     using PhotoContest.Models;
@@ -18,6 +20,7 @@
 
         // GET: Notifications
         [Authorize]
+        [AjaxOnly]
         public ActionResult Index()
         {
             var notifications = this.Data.Notifications
@@ -30,6 +33,7 @@
         }
 
         [Authorize]
+        [AjaxOnly]
         public JsonResult GetNotificationsCount()
         {
             var notifications = this.Data.Notifications
@@ -40,14 +44,15 @@
             return Json(notifications, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public ActionResult Create()
-        {
-            var model = new NotificationInputModel();
-            return this.View(model);
-        }
+        //[HttpGet]
+        //public ActionResult Create()
+        //{
+        //    var model = new NotificationInputModel();
+        //    return this.View(model);
+        //}
 
         [HttpPost]
+        [AjaxOnly]
         public ActionResult Create(NotificationInputModel notification)
         {
             if (ModelState.IsValid)
@@ -66,9 +71,11 @@
             return new EmptyResult();
         }
 
-        public ActionResult Update(NotificationViewModel model)
+        [HttpPost]
+        [AjaxOnly]
+        public ActionResult Update(int notificationId)
         {
-            var notification = this.Data.Notifications.GetById(model.Id);
+            var notification = this.Data.Notifications.GetById(notificationId);
 
             if (notification == null)
             {
@@ -79,11 +86,9 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a contest which is not yours.");
             }
-
-            notification.Receiver = model.Receiver;
-            notification.Sender = model.Sender;
-            notification.Contest = model.Contest;
-
+            
+            this.Data.Notifications.Delete(notification);
+            
             this.Data.SaveChanges();
 
             return new EmptyResult();

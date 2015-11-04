@@ -2,6 +2,6 @@
 <ul>
     @foreach (var noty in Model)
     {
-        <li>@Html.ActionLink(@noty.Contest.Title, "Details", "Contests", new { id = @noty.ContestId }, null)</li>
+        <li>@Html.ActionLink("Invited to " + @noty.Contest.Title, "Details", "Contests", new { id = @noty.ContestId }, new { onclick = "markAsSeen(" + @noty.Id + ")" })</li>
     }
 </ul>
