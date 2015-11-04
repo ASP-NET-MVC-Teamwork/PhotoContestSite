@@ -45,6 +45,17 @@
             return this.View(contest);
         }
 
+        public ActionResult ArchivedDetails(int id)
+        {
+            var contest = this.Data.Contests
+                .AllDeleted()
+                .Where(x => x.Id == id)
+                .ProjectTo<ContestViewModel>()
+                .FirstOrDefault();
+
+            return this.View(contest);
+        }
+
         [HttpGet]
         public ActionResult Create()
         {

@@ -321,6 +321,7 @@
     <None Include="Views\Comments\Partial\_Edit.cshtml" />
     <Content Include="Views\Comments\Partial\_Create.cshtml" />
     <Content Include="Views\Comments\Partial\_Index.cshtml" />
+    <Content Include="Views\Contests\ArchivedDetails.cshtml" />
     <None Include="Views\Contests\Create.cshtml" />
     <Content Include="Views\Contests\Delete.cshtml" />
     <None Include="Views\Contests\Details.cshtml" />

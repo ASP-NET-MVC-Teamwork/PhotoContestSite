@@ -1,0 +1,11 @@
+﻿@model PhotoContest.Web.ViewModels.ContestViewModel
+
+<div class="row">
+    <div class="panel panel-body panel-default">
+        <h3>@Model.Title</h3>
+        <h4>Description: @Model.Description</h4>
+        <p>Organizator: @Model.Owner.UserName</p>
+        <p>Created On: @Model.CreatedOn</p>
+        @Html.ActionLink("Photos", "Index", "Pictures", new { id = Model.Id }, new { @class = "btn btn-default pull-right" })
+    </div>
+</div>
