@@ -1,4 +1,5 @@
-﻿@model PhotoContest.Web.ViewModels.ContestInviteUsers
+﻿@using Microsoft.AspNet.Identity
+@model PhotoContest.Web.ViewModels.ContestInviteUsers
 @{
     ViewBag.Title = "InviteUsers";
 }
@@ -7,27 +8,27 @@
 
 @foreach (var user in Model.Users)
 {
-    if (user.UserName != User.Identity.Name) {
-         <div class="panel panel-body panel-default">
-             <h3>
-                 @Html.ActionLink(
-                     String.Format("{0}", @user.UserName),
-                     "Details", "Users", new {id = @user.Id}, null
-                     )
-             </h3>
-             <h4>Email: @user.Email</h4>
-             <p>Joined On: @user.JoinedOn</p>
-
-             @if (user.UserName != User.Identity.Name)
-             {
-                 @Ajax.ActionLink("Invite", "Invite", "Contests",
-                     new {id = Model.ContestId, username = @user.UserName},
-                     new AjaxOptions()
-                     {
-                         HttpMethod = "POST",
-                         OnSuccess = "sendNotification('" + @user.UserName + "')"
-                     }, new {@class = "btn btn-primary"})
-             }
-         </div>
+    if (user.UserName != User.Identity.Name)
+    {
+        <div class="panel panel-body panel-default">
+            <h3>
+                @Html.ActionLink(
+                    String.Format("{0}", @user.UserName),
+                    "Details", "Users", new {id = @user.Id}, null
+                    )
+            </h3>
+            <h4>Email: @user.Email</h4>
+            <p>Joined On: @user.JoinedOn</p>
+            @if (user.UserName != User.Identity.Name)
+            {
+                @Ajax.ActionLink("Invite", "Invite", "Contests",
+                    new {id = Model.ContestId, username = @user.UserName},
+                    new AjaxOptions()
+                    {
+                        HttpMethod = "POST",
+                        OnSuccess = "sendNotification('" + @user.UserName + "')"
+                    }, new {@class = "btn btn-primary"})
+            }
+        </div>
     }
 }

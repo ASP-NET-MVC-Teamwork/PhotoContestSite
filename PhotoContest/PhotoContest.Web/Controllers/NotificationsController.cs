@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using System.Net;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
     using Data.Contracts;
@@ -21,10 +22,22 @@
         {
             var notifications = this.Data.Notifications
                 .All()
-                .ProjectTo<NotificationViewModel>()
-                .ToList();
+                .Where(n => n.IsDeleted == false && n.ReceiverId == this.UserProfile.Id)
+                .OrderByDescending(n => n.CreatedOn)
+                .ProjectTo<NotificationViewModel>();
 
-            return this.View(notifications);
+            return this.PartialView(notifications);
+        }
+
+        [Authorize]
+        public JsonResult GetNotificationsCount()
+        {
+            var notifications = this.Data.Notifications
+                .All()
+                .Count(n => n.ReceiverId == this.UserProfile.Id && n.IsDeleted == false);
+
+
+            return Json(notifications, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -34,24 +47,23 @@
             return this.View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost]
         public ActionResult Create(NotificationInputModel notification)
         {
             if (ModelState.IsValid)
             {
                 var newNotification = new Notification()
                 {
-                    Sender = this.UserProfile,
-                    Contest = notification.Contest,
-                    Receiver = notification.Receiver
+                    SenderId = this.UserProfile.Id,
+                    ReceiverId = notification.RecieverId,
+                    ContestId = notification.ContestId,
                 };
 
                 this.Data.Notifications.Add(newNotification);
 
-                this.Data.SaveChanges();
-                return new EmptyResult();
+                this.Data.SaveChanges();             
             }
-            return this.View(notification);
+            return new EmptyResult();
         }
 
         public ActionResult Update(NotificationViewModel model)

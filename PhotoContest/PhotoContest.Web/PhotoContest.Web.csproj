@@ -329,6 +329,7 @@
     <Content Include="Views\Contests\Partial\_ArchivedContests.cshtml" />
     <Content Include="Views\Contests\Partial\_ActiveContests.cshtml" />
     <Content Include="Views\Contests\Partial\_AllContests.cshtml" />
+    <Content Include="Views\Notifications\Index.cshtml" />
     <None Include="Views\Pictures\Create.cshtml" />
     <Content Include="Views\Pictures\Delete.cshtml" />
     <None Include="Views\Pictures\Details.cshtml" />
@@ -345,7 +346,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Notification\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

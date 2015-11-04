@@ -1,0 +1,7 @@
+﻿@model IEnumerable<PhotoContest.Web.ViewModels.NotificationViewModel>
+<ul>
+    @foreach (var noty in Model)
+    {
+        <li>@Html.ActionLink(@noty.Contest.Title, "Details", "Contests", new { id = @noty.ContestId }, null)</li>
+    }
+</ul>
