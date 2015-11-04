@@ -225,6 +225,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\ContestsController.cs" />
+    <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
@@ -339,6 +340,7 @@
     <None Include="Views\Comments\Partial\_Edit.cshtml" />
     <Content Include="Views\Comments\Partial\_Create.cshtml" />
     <Content Include="Views\Comments\Partial\_Index.cshtml" />
+    <Content Include="Views\Contests\ArchivedDetails.cshtml" />
     <None Include="Views\Contests\Create.cshtml" />
     <Content Include="Views\Contests\Delete.cshtml" />
     <None Include="Views\Contests\Details.cshtml" />
@@ -347,6 +349,7 @@
     <Content Include="Views\Contests\Partial\_ArchivedContests.cshtml" />
     <Content Include="Views\Contests\Partial\_ActiveContests.cshtml" />
     <Content Include="Views\Contests\Partial\_AllContests.cshtml" />
+    <Content Include="Views\Notifications\Index.cshtml" />
     <None Include="Views\Pictures\Create.cshtml" />
     <Content Include="Views\Pictures\Delete.cshtml" />
     <None Include="Views\Pictures\Details.cshtml" />
@@ -364,7 +367,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Administartor\Models\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Notification\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

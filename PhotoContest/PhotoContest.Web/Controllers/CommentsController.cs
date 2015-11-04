@@ -16,17 +16,19 @@
             : base(data)
         {
         }
+
         // GET: Comments
         public ActionResult Index(int id)
         {
             var commentViewModel = new PictureCommentsViewModel()
             {
-                Comments = this.Data.Comments.All().Where(p => p.PictureId == id && p.IsDeleted == false)
-                .OrderByDescending(c => c.CreatedOn)
-                .Project()
-                .To<CommentViewModel>(),
-
-                PictureId = id,
+                Comments = this.Data.Comments
+                    .All()
+                    .Where(p => p.PictureId == id)
+                    .OrderByDescending(c => c.CreatedOn)
+                    .Project()
+                    .To<CommentViewModel>(),
+                PictureId = id
             };
 
             return this.PartialView("Partial/_Index", commentViewModel);
@@ -92,7 +94,6 @@
             return new EmptyResult();
         }
 
-
         public ActionResult Edit(int id)
         {
             var oldComment = this.Data.Comments.GetById(id);
@@ -115,6 +116,7 @@
                 Author = oldComment.Author
             });
         }
+
         public ActionResult Update(CommentViewModel model)
         {
             var comment = this.Data.Comments.GetById(model.Id);

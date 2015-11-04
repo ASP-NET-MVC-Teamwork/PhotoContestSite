@@ -1,9 +1,12 @@
 ﻿namespace PhotoContest.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Net;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
+    using Common.Filters;
     using Data.Contracts;
     using InputModels;
     using PhotoContest.Models;
@@ -17,46 +20,62 @@
 
         // GET: Notifications
         [Authorize]
+        [AjaxOnly]
         public ActionResult Index()
         {
             var notifications = this.Data.Notifications
                 .All()
-                .ProjectTo<NotificationViewModel>()
-                .ToList();
+                .Where(n => n.IsDeleted == false && n.ReceiverId == this.UserProfile.Id)
+                .OrderByDescending(n => n.CreatedOn)
+                .ProjectTo<NotificationViewModel>();
 
-            return this.View(notifications);
+            return this.PartialView(notifications);
         }
 
-        [HttpGet]
-        public ActionResult Create()
+        [Authorize]
+        [AjaxOnly]
+        public JsonResult GetNotificationsCount()
         {
-            var model = new NotificationInputModel();
-            return this.View(model);
+            var notifications = this.Data.Notifications
+                .All()
+                .Count(n => n.ReceiverId == this.UserProfile.Id && n.IsDeleted == false);
+
+
+            return Json(notifications, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        //[HttpGet]
+        //public ActionResult Create()
+        //{
+        //    var model = new NotificationInputModel();
+        //    return this.View(model);
+        //}
+
+        [HttpPost]
+        [AjaxOnly]
         public ActionResult Create(NotificationInputModel notification)
         {
             if (ModelState.IsValid)
             {
                 var newNotification = new Notification()
                 {
-                    Sender = this.UserProfile,
-                    Contest = notification.Contest,
-                    Receiver = notification.Receiver
+                    SenderId = this.UserProfile.Id,
+                    ReceiverId = notification.RecieverId,
+                    ContestId = notification.ContestId,
                 };
 
                 this.Data.Notifications.Add(newNotification);
 
-                this.Data.SaveChanges();
-                return new EmptyResult();
+                this.Data.SaveChanges();             
             }
-            return this.View(notification);
+            return new EmptyResult();
         }
 
-        public ActionResult Update(NotificationViewModel model)
+        [HttpPost]
+        [AjaxOnly]
+        public ActionResult Update(int notificationId)
         {
-            var notification = this.Data.Notifications.GetById(model.Id);
+            var notification = this.Data.Notifications.GetById(notificationId);
 
             if (notification == null)
             {
@@ -67,11 +86,9 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a contest which is not yours.");
             }
-
-            notification.Receiver = model.Receiver;
-            notification.Sender = model.Sender;
-            notification.Contest = model.Contest;
-
+            
+            this.Data.Notifications.Delete(notification);
+            
             this.Data.SaveChanges();
 
             return new EmptyResult();

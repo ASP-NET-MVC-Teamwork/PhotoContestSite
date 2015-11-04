@@ -5,6 +5,11 @@
 
     public class Notification : AuditInfo, IDeletableEntity
     {
+        public Notification()
+        {
+            this.CreatedOn = DateTime.Now;
+        }
+
         public int Id { get; set; }
 
         public string SenderId { get; set; }
