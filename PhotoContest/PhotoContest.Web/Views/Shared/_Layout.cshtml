@@ -22,6 +22,10 @@
                         <li>@Html.ActionLink("Contests", "Index", "Contests")</li>
                         <li>@Html.ActionLink("Users", "Index", "Users")</li>
                         <li>@Html.ActionLink("Create contest", "Create", "Contests")</li>
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Admin Panel", "Index", "AdminContests", new {area = "Administartor"},null)</li>
+                        }
                         <li>                         
                             <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="notificationContainer" data-toggle="dropdown">

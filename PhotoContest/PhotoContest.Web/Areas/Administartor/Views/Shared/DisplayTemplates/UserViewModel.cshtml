@@ -1,0 +1,18 @@
+﻿@model PhotoContest.Web.ViewModels.UserViewModel
+
+<div class="panel panel-body panel-default">
+    <h3>
+        @Model.UserName
+        @if (@User.IsInRole("Admin"))
+        {
+            <a href="#" class="deleteLink btn btn-danger bottom-left" id="@Model.UserName">delete</a>
+        }
+    </h3>
+    <h4>Email: @Model.Email</h4>
+    <p>Joined On: @Model.JoinedOn</p>
+
+    @if (@ViewBag.ContestId != null)
+    {
+        
+    }
+</div>

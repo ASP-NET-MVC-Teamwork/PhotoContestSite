@@ -217,6 +217,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\ViewEngineConfig.cs" />
+    <Compile Include="Areas\Administartor\AdministartorAreaRegistration.cs" />
+    <Compile Include="Areas\Administartor\Controllers\AdminContestsController.cs" />
+    <Compile Include="Areas\Administartor\Controllers\AdminPicturesController.cs" />
+    <Compile Include="Areas\Administartor\Controllers\AdminUsersController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
@@ -262,6 +266,21 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="AppSettingsSecrets.config" />
+    <Content Include="Areas\Administartor\Views\web.config" />
+    <Content Include="Areas\Administartor\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Administartor\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Administartor\Views\AdminUsers\Index.cshtml" />
+    <Content Include="Areas\Administartor\Views\AdminUsers\Delete.cshtml" />
+    <Content Include="Areas\Administartor\Views\Shared\DisplayTemplates\UserViewModel.cshtml" />
+    <None Include="Areas\Administartor\Views\AdminContests\Delete.cshtml" />
+    <None Include="Areas\Administartor\Views\AdminContests\Edit.cshtml" />
+    <None Include="Areas\Administartor\Views\AdminContests\Index.cshtml" />
+    <Content Include="Areas\Administartor\Views\Shared\DisplayTemplates\ContestViewModel.cshtml" />
+    <None Include="Areas\Administartor\Views\AdminPictures\Delete.cshtml" />
+    <None Include="Areas\Administartor\Views\AdminPictures\Edit.cshtml" />
+    <None Include="Areas\Administartor\Views\AdminPictures\Index.cshtml" />
+    <Content Include="Areas\Administartor\Views\Shared\DisplayTemplates\PictureViewModel.cshtml" />
+    <Content Include="Areas\Administartor\Views\AdminUsers\Partial\_UserResults.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\hubs.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -343,6 +362,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administartor\Models\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Notification\" />
   </ItemGroup>
