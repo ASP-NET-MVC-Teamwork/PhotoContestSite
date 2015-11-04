@@ -23,17 +23,27 @@
                         <li>@Html.ActionLink("Users", "Index", "Users")</li>
                         <li>@Html.ActionLink("Create contest", "Create", "Contests")</li>
                         <li>
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="notificationContainer" data-toggle="dropdown">
+                                @using (Ajax.BeginForm("Index", "Notifications",
+                                    null,
+                                    new AjaxOptions
+                                    {
+                                        HttpMethod = "GET",
+                                        UpdateTargetId = "notifications",
+                                        InsertionMode = InsertionMode.Replace
+                                    }, new {id = "notificationsButton"}))
+                                {
+                                    <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="notificationContainer" data-toggle="dropdown">
                                     <span class="badge">0</span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <span id="notifications"></span>
-                                </ul>
+                                     </button>
+                                    <ul class="dropdown-menu">
+                                        <span id="notifications"></span>
+                                    </ul>
+                                    </div>
 
-                            </div>
+                                }                     
                         </li>
-                        <li>
+                        @*<li>
                             @Ajax.ActionLink("Notys", "Index", "Notifications",
                                      null,
                                      new AjaxOptions
@@ -42,7 +52,7 @@
                                          UpdateTargetId = "notifications",
                                          InsertionMode = InsertionMode.Replace
                                      }, new { @class = "btn btn-info" })
-                        </li>
+                        </li>*@
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

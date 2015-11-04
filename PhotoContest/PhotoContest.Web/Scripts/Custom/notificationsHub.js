@@ -6,10 +6,9 @@ getNotifications();
 
 function updateNotifications(data) {
     return $("#notificationContainer span").html(data);
-
 }
-function getNotifications() {
 
+function getNotifications() {
         $.ajax({
             type: "Get",
             url: "http://localhost:11279/Notifications/GetNotificationsCount",
@@ -20,8 +19,7 @@ function getNotifications() {
             }
 
         });
-    }
-    
+}
 
 proxy.client.receiveNotification = function () {
     console.log('received.');
@@ -37,10 +35,12 @@ function sendNotification(username, recieverId, contestId) {
             RecieverId: recieverId,
             ContestId: contestId
         }
-    });
-   
+    }); 
     console.log("sent.");
     proxy.server.sendNotifications(username);
 }
-
 $.connection.hub.start();
+
+$("#notificationsButton").click(function() {
+    $("#notificationsButton").trigger('submit');
+})
