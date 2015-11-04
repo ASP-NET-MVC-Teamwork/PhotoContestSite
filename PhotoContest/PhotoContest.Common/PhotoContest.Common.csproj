@@ -47,6 +47,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -83,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Filters\AjaxOnlyAttribute.cs" />
+    <Compile Include="Filters\ValidateFileAttribute.cs" />
     <Compile Include="GlobalConstants.cs" />
     <Compile Include="Helpers\Dropbox.cs" />
     <Compile Include="Helpers\HtmlExtensions.cs" />
