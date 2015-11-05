@@ -1,12 +1,12 @@
 ﻿@model PhotoContest.Web.ViewModels.UserViewModel
 
-<div class="panel panel-body panel-default">
-    <h3>
-        @Html.ActionLink(
-            String.Format("{0}", Model.UserName),
-            "Details", "Users", new {id = Model.Id}, null
-            )
-    </h3>
-    <h4>Email: @Model.Email</h4>
-    <p>Joined On: @Model.JoinedOn</p>
-</div>
+<a href="@Url.Action("Details", "Users", new {id = Model.Id})">
+    <div class="panel panel-body panel-default user-panel">
+        <img class="img-thumbnail" src="@Model.ProfilePicture" alt="profile picture"/>
+        <div class="user-info">
+            <h4>@Model.UserName</h4>
+            <h4>Email: @Model.Email</h4>
+            <h4>Joined On: @Model.JoinedOn</h4>
+        </div>
+    </div>
+</a>

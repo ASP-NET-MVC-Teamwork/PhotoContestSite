@@ -22,3 +22,45 @@ select,
 textarea {
     max-width: 280px;
 }
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.user-panel:hover {
+    background-color: aliceblue
+}
+
+.user-info {
+    display: inline-block; 
+    padding-left: 10px
+}
+
+.img-thumbnail {
+    display: inline-block; 
+    width: 140px;
+    height: 140px;
+    vertical-align: top;
+}
+
+.contests-nav {
+    width: 75%;
+    padding-bottom: 10px
+}
+
+.controls {
+    padding-top: 10px
+}
+
+.photo {
+    width: 800px; 
+    height: 600px;
+    display: block;
+    margin: 0 auto;
+}

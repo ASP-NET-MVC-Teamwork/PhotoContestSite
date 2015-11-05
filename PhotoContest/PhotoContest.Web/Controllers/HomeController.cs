@@ -14,22 +14,20 @@
         {
         }
 
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var homeViewModel = new HomeViewModel()
             {
                 LatestContests = this.Data.Contests
                     .All()
-                    .Where(c => c.IsDeleted == false)
                     .OrderByDescending(c => c.CreatedOn)
                     .Take(GlobalConstants.NumberOfContestsOnHomePage)
-                    .Project()
-                    .To<ContestViewModel>(),
+                    .ProjectTo<ContestViewModel>(),
                 LatestUsers = this.Data.Users.All()
                     .OrderByDescending(u => u.JoinedOn)
                     .Take(GlobalConstants.NumberOfUsersOnHomePage)
-                    .Project()
-                    .To<UserViewModel>()
+                    .ProjectTo<UserViewModel>()
             };
 
             return View(homeViewModel);

@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using Common;
+    using PhotoContest.Common;
 
     public class Comment : AuditInfo, IDeletableEntity
     {
@@ -15,6 +16,8 @@
         public int Id { get; set; }
 
         [Required]
+        [MinLength(GlobalConstants.CommentMinLength)]
+        [MaxLength(GlobalConstants.CommentMaxLength)]
         public string Text { get; set; }
 
         [Required]

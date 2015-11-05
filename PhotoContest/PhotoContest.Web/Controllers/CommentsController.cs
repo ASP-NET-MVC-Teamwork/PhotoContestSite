@@ -26,8 +26,7 @@
                     .All()
                     .Where(p => p.PictureId == id)
                     .OrderByDescending(c => c.CreatedOn)
-                    .Project()
-                    .To<CommentViewModel>(),
+                    .ProjectTo<CommentViewModel>(),
                 PictureId = id
             };
 
@@ -45,31 +44,26 @@
         [ValidateAntiForgeryToken]
         public ActionResult Create(CommentInputModel model, int id)
         {
-            if (ModelState.IsValid)
+            var comment = new Comment()
             {
-                var comment = new Comment()
-                {
-                    Text = model.Text,
-                    Author = this.UserProfile,
-                    CreatedOn = DateTime.Now,
-                    PictureId = id,
-                    IsDeleted = false
-                };
+                Text = model.Text,
+                Author = this.UserProfile,
+                CreatedOn = DateTime.Now,
+                PictureId = id,
+                IsDeleted = false
+            };
 
-                this.Data.Comments.Add(comment);
+            this.Data.Comments.Add(comment);
 
-                this.Data.SaveChanges();
+            this.Data.SaveChanges();
 
-                return this.PartialView("DisplayTemplates/CommentViewModel", new CommentViewModel
-                {
-                    Author = comment.Author,
-                    Id = comment.Id,
-                    PictureId = comment.PictureId,
-                    Text = comment.Text
-                });
-            }
-
-            return new EmptyResult();
+            return this.PartialView("DisplayTemplates/CommentViewModel", new CommentViewModel
+            {
+                Author = comment.Author,
+                Id = comment.Id,
+                PictureId = comment.PictureId,
+                Text = comment.Text
+            });
         }
 
         [HttpPost]
@@ -126,7 +120,8 @@
             }
             if (comment.Author != this.UserProfile)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a picture which is not yours.");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest,
+                    "You cannot edit a picture which is not yours.");
             }
 
             comment.Text = model.Text;

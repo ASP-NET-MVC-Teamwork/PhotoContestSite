@@ -1,9 +1,9 @@
 ﻿@using PhotoContest.Common.Helpers
 @model PhotoContest.Web.InputModels.CommentInputModel
-
 @{
     ViewBag.Title = "Add new comment";
 }
+
 @using (Ajax.BeginForm("Create", "Comments", new AjaxOptions
 {
     HttpMethod = "POST",
@@ -14,8 +14,11 @@
 {
     <div id="createComment">
         @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
         @Html.LabelFor(c => c.Text)
-        @Html.EditorFor(c => c.Text)
-        @Html.Submit(new { @class = "btn btn-primary", value = "Create" });
+        @Html.TextBoxFor(c => c.Text, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Text, null, new { @class = "text-danger" })
+        @Html.Submit(new { @class = "btn btn-primary", value = "Comment" })
     </div>
 }

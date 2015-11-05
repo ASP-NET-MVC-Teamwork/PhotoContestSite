@@ -1,27 +1,33 @@
 ﻿@model PhotoContest.Web.ViewModels.CommentViewModel
 
 <div id="comment@(Model.Id)" class="panel panel-body panel-default">
-    @Model.Text
+    <a href="@Url.Action("Details", "Users", new {id = Model.Author.Id})">
+        <div>
+            <h4>@Model.Author.UserName</h4>
+        </div>
+    </a>
+    <h3>" @Model.Text "</h3>
     <br />
 
     @if (@Model.Author.UserName == this.User.Identity.Name)
     {
         @Ajax.ActionLink("Delete", "Delete", "Comments",
-            new { id = @Model.Id },
-            new AjaxOptions
-            {
-                HttpMethod = "POST",
-                //UpdateTargetId = "comment" + @Model.Id,
-                //InsertionMode = InsertionMode.Replace,
-                OnSuccess = "hideComment(" + @Model.Id + ")"
-            }, new { @class = "btn btn-danger" })
-        @Ajax.ActionLink("Edit", "Edit", "Comments", new { id = Model.Id }, new AjaxOptions()
-   {
-       HttpMethod = "GET",
-       UpdateTargetId = "comment" + @Model.Id,
-       InsertionMode = InsertionMode.Replace
-   }, new { @class = "btn btn-primary" })
+        new { id = @Model.Id },
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            //UpdateTargetId = "comment" + @Model.Id,
+            //InsertionMode = InsertionMode.Replace,
+            OnSuccess = "hideComment(" + @Model.Id + ")"
+        }, new { @class = "btn btn-danger pull-right" })
 
+        @Ajax.ActionLink("Edit", "Edit", "Comments",
+        new { id = Model.Id },
+        new AjaxOptions()
+        {
+            HttpMethod = "GET",
+            UpdateTargetId = "comment" + @Model.Id,
+            InsertionMode = InsertionMode.Replace
+        }, new { @class = "btn btn-primary pull-right" })
     }
 </div>
-

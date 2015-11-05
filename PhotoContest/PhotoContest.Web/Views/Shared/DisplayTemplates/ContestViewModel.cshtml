@@ -1,16 +1,13 @@
 ﻿@model PhotoContest.Web.ViewModels.ContestViewModel
 
-<div class="panel panel-body panel-default">
-    <h3>
-        @Html.ActionLink(
-            String.Format("{0}", Model.Title),
-            "Details", "Contests", new {id = Model.Id}, null
-            )
-    </h3>
-    <h4>Description: @Model.Description</h4>
-    <p>Created On: @Model.CreatedOn</p>
-    @if (Model.Owner.UserName == User.Identity.Name)
-    {
-        <button type="button" class="btn btn-primary disabled pull-right">Owner</button>
-    }
-</div>
+<a href="@Url.Action("Details", "Contests", new {id = Model.Id})">
+    <div class="panel panel-body panel-default user-panel">
+        <h4>@Model.Title</h4>
+        <h4>Description: @Model.Description</h4>
+        <h4>Created On: @Model.CreatedOn</h4>
+        @if (Model.Owner.UserName == User.Identity.Name)
+        {
+            <button type="button" class="btn btn-primary disabled pull-right">Owner</button>
+        }
+    </div>
+</a>

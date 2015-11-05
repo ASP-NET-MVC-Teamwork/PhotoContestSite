@@ -3,14 +3,14 @@
     @Model.Likes
 
     @Ajax.ActionLink(@Model.Action, @Model.Action, "Pictures",
-            new
-            {
-                id = @Model.PictureId
-            },
-            new AjaxOptions()
-            {
-                HttpMethod = "POST",
-                UpdateTargetId = "likes" + @Model.PictureId,
-                InsertionMode = InsertionMode.Replace
-            }, new { @class = "glyphicon glyphicon-thumbs-" + @Model.ThumbDirection })
+    new
+    {
+        id = @Model.PictureId
+    },
+    new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "likes" + @Model.PictureId,
+        InsertionMode = InsertionMode.Replace
+    }, new { @class = "glyphicon glyphicon-thumbs-" + @Model.ThumbDirection })
 }

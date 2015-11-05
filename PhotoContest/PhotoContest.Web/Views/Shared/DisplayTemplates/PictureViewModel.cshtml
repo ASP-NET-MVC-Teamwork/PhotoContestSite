@@ -1,15 +1,18 @@
 ﻿@using Microsoft.AspNet.Identity
 @model PhotoContest.Web.ViewModels.PictureViewModel
 
+
 <div class="panel panel-body panel-default">
-    @Html.ActionLink(@Model.Title, "Details", "Pictures", new { id = @Model.ContestId, pictureId = @Model.PictureId }, null)
-    <img src="@Url.Content(@Model.Url)" alt="" class="img-thumbnail" width="304" height="236" />
+    <a href="@Url.Action("Details", "Pictures", new {id = Model.ContestId, pictureId = @Model.PictureId})">
+        <img src="@Url.Content(@Model.Url)" alt="" class="img-thumbnail" width="304" height="236"/>
+    </a>
+    <h3>@Model.Title</h3>
 
     <span id="likes@(Model.PictureId)">
         <span>@Model.Votes.Count(v => v.IsDeleted == false)</span>
 
         @if (@Model.Votes.FirstOrDefault(v => v.UserId == this.User.Identity.GetUserId() && v.IsDeleted == false) == null)
-        {
+            {
             @Ajax.ActionLink("Vote", "Vote", "Pictures",
             new { id = @Model.PictureId },
             new AjaxOptions()

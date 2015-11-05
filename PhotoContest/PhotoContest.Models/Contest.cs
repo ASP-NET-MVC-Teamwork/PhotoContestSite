@@ -29,6 +29,9 @@
         [MaxLength(GlobalConstants.TitleMaxLength)]
         public string Title { get; set; }
 
+        [Required]
+        [MinLength(GlobalConstants.DescriptionMinLength)]
+        [MaxLength(GlobalConstants.DescriptionMaxLength)]
         public string Description { get; set; }
 
         [Required]

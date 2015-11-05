@@ -27,8 +27,7 @@
                 .All()
                 .Where(p => p.ContestId == id && p.IsDeleted == false)
                 .OrderByDescending(c => c.CreatedOn)
-                .Project()
-                .To<PictureViewModel>()
+                .ProjectTo<PictureViewModel>()
                 .ToList();
 
             foreach (var picture in pictures)
@@ -39,7 +38,6 @@
             var picturesViewModel = new ContestPicturesViewModel
             {
                 Pictures = pictures,
-
                 ContestId = id
             };
 
@@ -58,33 +56,29 @@
         [ValidateAntiForgeryToken]
         public ActionResult Create(PictureInputModel model, int id)
         {
-            if (ModelState.IsValid)
+            string path = Dropbox.Upload(model.Photo.FileName, this.UserProfile.UserName, model.Photo.InputStream);
+
+            var picture = new Picture()
             {
-                string path = Dropbox.Upload(model.Photo.FileName, this.UserProfile.UserName, model.Photo.InputStream);
+                Title = model.Title,
+                Url = path,
+                Owner = this.UserProfile,
+                CreatedOn = DateTime.Now,
+                ContestId = id,
+                IsDeleted = false
+            };
 
-                var picture = new Picture()
-                {
-                    Title = model.Title,
-                    Url = path,
-                    Owner = this.UserProfile,
-                    CreatedOn = DateTime.Now,
-                    ContestId = id,
-                    IsDeleted = false
-                };
+            this.Data.Pictures.Add(picture);
 
-                this.Data.Pictures.Add(picture);
-
-                var contest = this.Data.Contests.GetById(picture.ContestId);
-                if (!contest.Participants.Contains(this.UserProfile))
-                {
-                    contest.Participants.Add(this.UserProfile);
-                }
-
-                this.Data.SaveChanges();
-
-                return RedirectToAction("Index", new { id = picture.ContestId });
+            var contest = this.Data.Contests.GetById(picture.ContestId);
+            if (!contest.Participants.Contains(this.UserProfile))
+            {
+                contest.Participants.Add(this.UserProfile);
             }
-            return this.View(model);
+
+            this.Data.SaveChanges();
+
+            return RedirectToAction("Index", new { id = picture.ContestId });
         }
 
         //GET: Details/5
@@ -92,7 +86,7 @@
         {
             var picture = this.Data.Pictures
                 .All()
-                .Where(x => x.PictureId == pictureId && x.ContestId == id && x.IsDeleted == false)
+                .Where(x => x.PictureId == pictureId && x.ContestId == id)
                 .ProjectTo<PictureViewModel>()
                 .FirstOrDefault();
 

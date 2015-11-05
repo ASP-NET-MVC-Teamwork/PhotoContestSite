@@ -1,5 +1,6 @@
 ﻿namespace PhotoContest.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Net;
     using System.Web.Mvc;
@@ -55,7 +56,9 @@
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(ContestInputModel contest)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && 
+                contest.Title != null && 
+                contest.Description != null)
             {
                 var newContest = new Contest
                 {

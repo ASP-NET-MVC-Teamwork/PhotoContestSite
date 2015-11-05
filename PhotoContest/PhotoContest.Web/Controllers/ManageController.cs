@@ -53,6 +53,7 @@
                 _userManager = value;
             }
         }
+
         [HttpPost]
         public ActionResult UploadProfilePicture(HttpPostedFileBase profilePicture)
         {

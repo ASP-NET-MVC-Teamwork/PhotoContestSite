@@ -1,39 +1,54 @@
 ﻿@using PhotoContest.Common.Helpers
 @model PhotoContest.Web.InputModels.ContestInputModel
-
 @{
     ViewBag.Title = "Create";
 
 }
 
-<h1>Create</h1>
-
 @using (Html.BeginForm("Create", "Contests", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
+    <hr />
+    <fieldset class="text-center">
+        <legend>
+            <h2>Create Contest</h2>
+        </legend>
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
 
-    @Html.LabelFor(c => c.Title)
-    @Html.EditorFor(c => c.Title)
-    <br/>
+        <div>
+            <div class="form-group">
+                @Html.LabelFor(c => c.Title)
+                @Html.TextBoxFor(c => c.Title, new { @class = "form-control", @style = "margin: 0 auto"})
+                @Html.ValidationMessageFor(c => c.Title, null, new { @class = "text-danger" })
+            </div>
 
-    @Html.LabelFor(c => c.Description)
-    @Html.EditorFor(c => c.Description)
-    <br/>
+            <div class="form-group">
+                @Html.LabelFor(c => c.Description)
+                @Html.TextAreaFor(c => c.Description, new { @class = "form-control", @rows = "7", @style = "resize: none; margin: 0 auto" })
+                @Html.ValidationMessageFor(c => c.Description, null, new { @class = "text-danger" })
+            </div>
 
-    @Html.LabelFor(c => c.RewardStrategy)
-    @Html.EnumDropDownListFor(c => c.RewardStrategy)
-    <br/>
+            <div class="form-group">
+                @Html.LabelFor(c => c.RewardStrategy)
+                @Html.EnumDropDownListFor(c => c.RewardStrategy, new { @class = "form-control", @style = "margin: 0 auto" })
+            </div>
 
-    @Html.DisplayNameFor(c => c.Type)
-    @Html.EnumDropDownListFor(c => c.Type)
-    <br/>
+            <div class="form-group">
+                @Html.LabelFor(c => c.Type)
+                @Html.EnumDropDownListFor(c => c.Type, new { @class = "form-control", @style = "margin: 0 auto" })
+            </div>
 
-    @Html.DisplayNameFor(c => c.VotingStrategy)
-    @Html.EnumDropDownListFor(c => c.VotingStrategy)
-    <br/>
+            <div class="form-group">
+                @Html.LabelFor(c => c.VotingStrategy)
+                @Html.EnumDropDownListFor(c => c.VotingStrategy, new { @class = "form-control", @style = "margin: 0 auto" })
+            </div>
 
-    @Html.DisplayNameFor(c => c.DeadlineStrategy)
-    @Html.EnumDropDownListFor(c=> c.DeadlineStrategy)
-    
-    @Html.Submit(new { @class = "btn btn-primary", value = "Create" });
+            <div class="form-group">
+                @Html.LabelFor(c => c.DeadlineStrategy)
+                @Html.EnumDropDownListFor(c => c.DeadlineStrategy, new { @class = "form-control", @style = "margin: 0 auto" })
+            </div>
+        </div>
+
+        @Html.Submit(new { @class = "btn btn-success", value = "Create", @style = "width: 80%" })
+    </fieldset>
 }

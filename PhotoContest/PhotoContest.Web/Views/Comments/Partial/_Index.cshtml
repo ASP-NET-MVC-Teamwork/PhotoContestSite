@@ -7,7 +7,9 @@
     @Html.DisplayFor(x => x.Comments)
 </div>
 
-@Ajax.ActionLink("Add", "Create", "Comments", new { id = @Model.PictureId }, new AjaxOptions()
+@Ajax.ActionLink("Add", "Create", "Comments", 
+new { id = @Model.PictureId }, 
+new AjaxOptions()
 {
     HttpMethod = "GET",
     UpdateTargetId = "addComment",

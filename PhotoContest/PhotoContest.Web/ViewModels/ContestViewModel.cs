@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Common;
     using Common.Mappings;
     using PhotoContest.Models;
     using PhotoContest.Models.Enums;
@@ -10,8 +11,14 @@
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Title cannot be empty!")]
+        [MinLength(GlobalConstants.TitleMinLength)]
+        [MaxLength(GlobalConstants.TitleMaxLength)]
         public string Title { get; set; }
 
+        [Required(ErrorMessage = "Description cannot be empty!")]
+        [MinLength(GlobalConstants.DescriptionMinLength)]
+        [MaxLength(GlobalConstants.DescriptionMaxLength)]
         public string Description { get; set; }
 
         public DateTime CreatedOn { get; set; }

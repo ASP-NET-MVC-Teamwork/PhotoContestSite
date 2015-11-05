@@ -19,17 +19,18 @@
     </div>
 </div>
 
+<hr />
 <div class="row">
     <div class="panel panel-body panel-default">
-        <h3>Name : @Model.Title</h3>
-        <img src="@Url.Content(@Model.Url)" alt="" />
+        <h3 class="text-center">@Model.Title</h3>
+        <img src="@Url.Content(@Model.Url)" alt="" class="photo" />
+        <div class="controls">
+            <span id="likes@(Model.PictureId)">
+                <span>@Model.Votes.Count(v => v.IsDeleted == false)</span>
 
-        <span id="likes@(Model.PictureId)">
-            <span>@Model.Votes.Count(v => v.IsDeleted == false)</span>
-
-            @if (@Model.Votes.FirstOrDefault(v => v.UserId == this.User.Identity.GetUserId() && v.IsDeleted == false) == null)
-            {
-                @Ajax.ActionLink("Vote", "Vote", "Pictures",
+                @if (@Model.Votes.FirstOrDefault(v => v.UserId == this.User.Identity.GetUserId() && v.IsDeleted == false) == null)
+                {
+                    @Ajax.ActionLink("Vote", "Vote", "Pictures",
                     new { id = @Model.PictureId },
                     new AjaxOptions()
                     {
@@ -37,10 +38,10 @@
                         UpdateTargetId = "likes" + @Model.PictureId,
                         InsertionMode = InsertionMode.Replace
                     }, new { @class = "glyphicon glyphicon-thumbs-up" })
-            }
-            else
-            {
-                @Ajax.ActionLink("Unvote", "UnVote", "Pictures",
+                }
+                else
+                {
+                    @Ajax.ActionLink("Unvote", "UnVote", "Pictures",
                     new { id = @Model.PictureId },
                     new AjaxOptions()
                     {
@@ -48,29 +49,35 @@
                         UpdateTargetId = "likes" + @Model.PictureId,
                         InsertionMode = InsertionMode.Replace
                     }, new { @class = "glyphicon glyphicon-thumbs-down" })
+                }
+            </span>
+
+            @if (Model.Owner.Id == User.Identity.GetUserId())
+            {
+                @Html.ActionLink("Edit", "Edit", "Pictures",
+               new { id = Model.PictureId, },
+               new { @class = "btn btn-default pull-right" })
+                <a href="#" class="deleteLink btn btn-danger pull-right" id="@Model.PictureId">Delete</a>
             }
-        </span>
 
-        @if (Model.Owner.Id == User.Identity.GetUserId())
-        {
-            @Html.ActionLink("Edit", "Edit", "Pictures", new { id = Model.PictureId, }, new { @class = "btn btn-default pull-right" })
-            <a href="#" class="deleteLink btn btn-danger" id="@Model.PictureId">delete</a>
+            @Ajax.ActionLink("Show Comments", "Index", "Comments",
+            new { id = @Model.PictureId },
+            new AjaxOptions()
+            {
+                HttpMethod = "GET",
+                UpdateTargetId = "showComments",
+                InsertionMode = InsertionMode.Replace,
+                OnSuccess = "hideButton"
+            }, new { @class = "btn btn-info ", @id = "showCommentsButton" })
+        </div>
 
-        }
-
-        @Ajax.ActionLink("Show Comments", "Index", "Comments", new { id = @Model.PictureId }, new AjaxOptions()
-   {
-       HttpMethod = "GET",
-       UpdateTargetId = "showComments",
-       InsertionMode = InsertionMode.Replace,
-       OnSuccess = "hideButton"
-   }, new { @class = "btn btn-info ", @id = "showCommentsButton" })
     </div>
     <div id="showComments" class="panel-body body-content">
+
     </div>
 </div>
 
-@section scripts {
+@section Scripts {
     <script type="text/javascript">
         $(function () {
 

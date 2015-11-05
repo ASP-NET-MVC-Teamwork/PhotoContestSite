@@ -1,7 +1,7 @@
 ﻿@using PhotoContest.Common.Helpers
 @model PhotoContest.Web.ViewModels.CommentViewModel
 
-<h4>Edit you comment</h4>
+<h4>Edit your comment</h4>
 @using (Ajax.BeginForm("Update", "Comments", new AjaxOptions()
 {
     HttpMethod = "POST",
@@ -19,7 +19,8 @@
     @Html.HiddenFor(p => p.Id);
     <div class="form-group">
         @Html.LabelFor(p => p.Text)
-        @Html.EditorFor(p => p.Text)
+        @Html.TextBoxFor(p => p.Text, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Text, null, new { @class = "text-danger" })
     </div>
 
     @Html.Submit(new { @class = "btn btn-primary", value = "Edit" })

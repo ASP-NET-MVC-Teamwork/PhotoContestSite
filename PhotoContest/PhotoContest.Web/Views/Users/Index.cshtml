@@ -4,7 +4,8 @@
     ViewBag.Title = "Users";
 }
 
-<h2>Users</h2>
+<hr />
+<h2 class="text-center">Users</h2>
 <hr />
 
 @using (Ajax.BeginForm("Search", null, new AjaxOptions
@@ -14,9 +15,10 @@
     HttpMethod = "POST"
 }, new { id = "form-controll" }))
 {
-    <input type="text" name="query" oninput="changed()"/>
+    <input class="form-control" type="text" name="query" oninput="changed()" placeholder="Search" style="margin: 0 auto"/>
 }
 
+<br />
 <div class="row" id="results">
     @Html.DisplayFor(x => x)
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

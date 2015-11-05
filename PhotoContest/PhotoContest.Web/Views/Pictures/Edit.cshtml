@@ -1,6 +1,5 @@
 ﻿@using PhotoContest.Common.Helpers
 @model PhotoContest.Web.ViewModels.PictureViewModel
-
 @{
     ViewBag.Title = "Edit picture";
 }
@@ -12,14 +11,10 @@
     @Html.HiddenFor(p => p.ContestId);
     <div class="form-group">
         @Html.LabelFor(p => p.Title)
-        @Html.EditorFor(p => p.Title)
+        @Html.TextBoxFor(p => p.Title, new {@class = "form-control"})
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(p => p.Url)
-        @Html.EditorFor(p => p.Url)
+    <div>
+        @Html.ValidationMessageFor(m => m.Title, null, new { @class = "text-danger" })
     </div>
-
-    @Html.Submit(new { @class = "btn btn-primary", value = "Edit" });
-
+    @Html.Submit(new { @class = "btn btn-primary", value = "Edit" })
 }
