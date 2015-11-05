@@ -9,6 +9,7 @@
     using Data.Contracts;
     using InputModels;
     using PhotoContest.Models;
+    using PhotoContest.Models.Enums;
     using ViewModels;
 
     [Authorize]
@@ -56,6 +57,12 @@
         public ActionResult Create(PictureInputModel model, int id)
         {
             var contest = this.Data.Contests.GetById(id);
+
+            if (contest.Type == ContestType.Private && !contest.Participants.Contains(this.UserProfile) &&
+                contest.Type == ContestType.Private && contest.Owner != this.UserProfile)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "The contest is private. You need to be invited by the owner.");
+            }
 
             if (contest.IsDeleted || contest.IsClosedForSubmissions)
             {
@@ -118,6 +125,12 @@
             if (picture.Contest.IsDeleted || picture.Contest.IsClosedForVoting)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "The contest is closed for voting.");
+            }
+
+            if (picture.Contest.Type == ContestType.Private && !picture.Contest.Participants.Contains(this.UserProfile) &&
+                picture.Contest.Type == ContestType.Private && picture.Contest.Owner != this.UserProfile)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "The contest is private for voting. You need to be invited by the owner to vote.");
             }
 
             if (picture.Votes.FirstOrDefault(v => v.User == this.UserProfile && v.IsDeleted == false) != null)
