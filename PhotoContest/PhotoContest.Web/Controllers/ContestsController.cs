@@ -115,24 +115,29 @@
         {
             var contest = this.Data.Contests.GetById(model.Id);
 
-            if (contest == null)
+            if (ModelState.IsValid)
             {
-                return this.HttpNotFound();
+                if (contest == null)
+                {
+                    return this.HttpNotFound();
+                }
+
+                if (contest.OwnerId != this.UserProfile.Id)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a contest which is not yours.");
+                }
+
+                contest.Title = model.Title;
+                contest.Description = model.Description;
+                contest.IsClosedForSubmissions = model.IsClosedForSubmissions;
+                contest.IsClosedForVoting = model.IsClosedForVoting;
+
+                this.Data.SaveChanges();
+
+                return this.RedirectToAction("Details", new { id = contest.Id });
             }
 
-            if (contest.OwnerId != this.UserProfile.Id)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot edit a contest which is not yours.");
-            }
-
-            contest.Title = model.Title;
-            contest.Description = model.Description;
-            contest.IsClosedForSubmissions = model.IsClosedForSubmissions;
-            contest.IsClosedForVoting = model.IsClosedForVoting;
-
-            this.Data.SaveChanges();
-
-            return this.RedirectToAction("Details", new { id = contest.Id });
+            return View("Edit", model);
         }
         
         public ActionResult InviteUsers(int id)

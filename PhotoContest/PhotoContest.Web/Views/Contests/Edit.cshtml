@@ -8,14 +8,17 @@
 @using (Html.BeginForm("Update", "Contests", FormMethod.Post))
 {
     @Html.HiddenFor(c => c.Id);
+
     <div class="form-group">
         @Html.LabelFor(c => c.Title)
         @Html.TextBoxFor(c => c.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Title, null, new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
          @Html.LabelFor(c => c.Description)
          @Html.TextAreaFor(c => c.Description, new { @class = "form-control" } )
+        @Html.ValidationMessageFor(c => c.Description, null, new { @class = "text-danger" })
     </div>
     
     <div class="checkbox">
@@ -29,4 +32,8 @@
     </div>
 
     @Html.Submit(new { @class = "btn btn-primary", value = "Edit" })
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }
