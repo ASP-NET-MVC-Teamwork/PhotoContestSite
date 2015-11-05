@@ -1,0 +1,58 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<PhotoContest.Web.ViewModels.UserViewModel>
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Admin Panel</h2>
+<hr/>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="deleteModalLabel">Delete Item</h4>
+            </div>
+            <div id="deleteModalBody" class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@using (Ajax.BeginForm("Search", null, new AjaxOptions
+{
+    UpdateTargetId = "results",
+    InsertionMode = InsertionMode.Replace,
+    HttpMethod = "POST"
+}, new { id = "form-controll" }))
+{
+    <input type="text" name="query" oninput="changed()" />
+}
+
+<div class="row" id="results">
+    @Html.DisplayFor(x => x)
+    @Html.PagedListPager(Model, page => Url.Action("Index","AdminUsers", new { page }))
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+
+            $("#deleteModal").modal("hide");
+
+            $(".deleteLink").on("click", function () {
+
+                $.get('@Url.Action("GetDeletePartial","AdminUsers")', { username: $(this).prop("id") }, function (data) {
+                    $("#deleteModalBody").html(data);
+
+                    $("#deleteModal").modal("show");
+                });
+
+            });
+        });
+
+    </script>
+}

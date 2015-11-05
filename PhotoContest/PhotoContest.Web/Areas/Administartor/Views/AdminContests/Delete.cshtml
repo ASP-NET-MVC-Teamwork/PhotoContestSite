@@ -1,0 +1,20 @@
+﻿@using PhotoContest.Common.Helpers
+@model PhotoContest.Web.ViewModels.ContestViewModel
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Are you sure you want to delete this?</h3>
+
+<div class="well">
+    <span class="venue-info">@Html.DisplayFor(modelItem => Model.Title)</span>
+</div>
+
+@using (Html.BeginForm("Delete", "AdminContests"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    <div class="form-actions no-color">
+        @Html.Submit(new { @class = "btn btn-danger", value = "Delete" })
+    </div>
+}

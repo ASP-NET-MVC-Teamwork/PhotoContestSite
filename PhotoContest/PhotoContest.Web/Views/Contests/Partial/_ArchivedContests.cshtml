@@ -2,7 +2,25 @@
 @model PagedList.IPagedList<PhotoContest.Web.ViewModels.ContestViewModel>
 
 <div class="row">
-    @Html.DisplayFor(x => x)
+    @foreach (var contest in @Model)
+    {
+        <div class="panel panel-body panel-default">
+            <h3>
+                @Html.ActionLink(
+                String.Format("{0}", @contest.Title),
+                "ArchivedDetails", "Contests", new { id = contest.Id }, null
+                )
+            </h3>
+            <h4>Description: @contest.Description</h4>
+            <p>Created On: @contest.CreatedOn</p>
+            @if (contest.Owner.UserName == User.Identity.Name)
+            {
+                <button type="button" class="btn btn-primary disabled pull-right">Owner</button>
+            }
+        </div>
+    }
+    
+
     @Html.PagedListPager(Model, page => Url.Action("ArchivedContests", new { page }),
     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "contestsContainer" }))
 </div>

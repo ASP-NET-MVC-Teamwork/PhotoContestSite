@@ -22,25 +22,29 @@
                         <li>@Html.ActionLink("Contests", "Index", "Contests")</li>
                         <li>@Html.ActionLink("Users", "Index", "Users")</li>
                         <li>@Html.ActionLink("Create contest", "Create", "Contests")</li>
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Admin Panel", "Index", "AdminContests", new { area = "Administartor" }, null)</li>
+                        }
                         <li>
-                                @using (Ajax.BeginForm("Index", "Notifications",
-                                    null,
-                                    new AjaxOptions
-                                    {
-                                        HttpMethod = "GET",
-                                        UpdateTargetId = "notifications",
-                                        InsertionMode = InsertionMode.Replace
-                                    }, new {id = "notificationsButton"}))
-                                {
-                                    <div class="dropdown">
+                            @using (Ajax.BeginForm("Index", "Notifications",
+                        null,
+                        new AjaxOptions
+                        {
+                            HttpMethod = "GET",
+                            UpdateTargetId = "notifications",
+                            InsertionMode = InsertionMode.Replace
+                        }, new { id = "notificationsButton" }))
+                            {
+                                <div class="dropdown">
                                     <button class="btn btn-primary dropdown-toggle" type="button" id="notificationContainer" data-toggle="dropdown">
-                                    <span class="badge">0</span>
-                                     </button>
+                                        <span class="badge">0</span>
+                                    </button>
                                     <ul class="dropdown-menu">
                                         <span id="notifications"></span>
                                     </ul>
-                                    </div>
-                                }
+                                </div>
+                            }
                         </li>
                     }
                 </ul>
