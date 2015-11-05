@@ -1,6 +1,5 @@
 ﻿namespace PhotoContest.Web.Controllers
 {
-    using System;
     using System.Linq;
     using System.Net;
     using System.Web.Mvc;
@@ -9,9 +8,9 @@
     using Common.Filters;
     using Data.Contracts;
     using InputModels;
+    using PagedList;
     using PhotoContest.Models;
     using ViewModels;
-    using PagedList;
 
     [Authorize]
     public class ContestsController : BaseController

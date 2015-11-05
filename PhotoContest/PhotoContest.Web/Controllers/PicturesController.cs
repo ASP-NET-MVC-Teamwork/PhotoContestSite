@@ -3,7 +3,6 @@
     using System;
     using System.Linq;
     using System.Net;
-    using System.Web;
     using System.Web.Mvc;
     using AutoMapper.QueryableExtensions;
     using Common.Helpers;
@@ -56,6 +55,13 @@
         [ValidateAntiForgeryToken]
         public ActionResult Create(PictureInputModel model, int id)
         {
+            var contest = this.Data.Contests.GetById(id);
+
+            if (contest.IsDeleted || contest.IsClosedForSubmissions)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "The contest is closed for submissions.");
+            }
+
             string path = Dropbox.Upload(model.Photo.FileName, this.UserProfile.UserName, model.Photo.InputStream);
 
             var picture = new Picture()
@@ -70,7 +76,6 @@
 
             this.Data.Pictures.Add(picture);
 
-            var contest = this.Data.Contests.GetById(picture.ContestId);
             if (!contest.Participants.Contains(this.UserProfile))
             {
                 contest.Participants.Add(this.UserProfile);
@@ -109,6 +114,12 @@
             {
                 return this.HttpNotFound();
             }
+
+            if (picture.Contest.IsDeleted || picture.Contest.IsClosedForVoting)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "The contest is closed for voting.");
+            }
+
             if (picture.Votes.FirstOrDefault(v => v.User == this.UserProfile && v.IsDeleted == false) != null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You have already voted!");
@@ -140,6 +151,11 @@
             if (picture == null)
             {
                 return this.HttpNotFound();
+            }
+
+            if (picture.Contest.IsDeleted || picture.Contest.IsClosedForVoting)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "The contest is closed for voting.");
             }
 
             if (picture.Votes.FirstOrDefault(v => v.User == this.UserProfile && v.DeletedOn == null && v.IsDeleted) != null)
@@ -222,11 +238,16 @@
                 return HttpNotFound();
             }
 
+            if (picture.Contest.IsDeleted)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "The Contest is over you cannot delete pictures.");
+            }
+
             if (picture.Owner != this.UserProfile)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot delete a picture which is not yours.");
             }
-
+            
             return View(new PictureViewModel { PictureId = picture.PictureId, Title = picture.Title, Url = picture.Url, ContestId = picture.ContestId });
         }
 
@@ -240,6 +261,11 @@
             if (picture == null)
             {
                 return HttpNotFound();
+            }
+
+            if (picture.Contest.IsDeleted)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "The Contest is over you cannot delete pictures.");
             }
 
             if (picture.Owner != this.UserProfile)
