@@ -1,0 +1,16 @@
+﻿@model PhotoContest.Web.ViewModels.PictureViewModel
+
+@{
+    ViewBag.Title = "Winner";
+}
+
+<h2>Winner</h2>
+
+<h5>@Model.Owner.UserName</h5>
+
+
+<img src="@Url.Content(@Model.Url)" alt="" class="photo"/>
+<br />
+With
+<p>@Model.Votes.Count(v => v.IsDeleted == false)</p>
+Likes

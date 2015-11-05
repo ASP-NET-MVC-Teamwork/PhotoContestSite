@@ -37,6 +37,12 @@
             @Html.ActionLink("Edit", "Edit", "Contests", new { id = Model.Id }, new { @class = "btn btn-default pull-right" })
 
             @Html.ActionLink("Invite", "InviteUsers", "Contests", new { id = Model.Id }, new { @class = "btn btn-default" })
+
+            @Ajax.ActionLink("Finalize", "Finalize", "Contests", new { id = Model.Id }, new AjaxOptions
+               {
+                   HttpMethod = "POST",
+                   OnSuccess = "redirectAfterFinalize"
+               }, new { @class = "btn btn-info pull-right" });
         }
 
         @Html.ActionLink("Photos", "Index", "Pictures", new { id = Model.Id }, new { @class = "btn btn-default pull-right" })
@@ -58,5 +64,9 @@
 
             });
         });
+
+        function redirectAfterFinalize() {
+            window.location.href = "http://localhost:11279/Contests";
+        }
     </script>
 }

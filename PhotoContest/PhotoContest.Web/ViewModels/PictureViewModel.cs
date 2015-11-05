@@ -17,6 +17,6 @@
 
         public virtual ApplicationUser Owner { get; set; }
 
-        public virtual IList<Vote> Votes { get; set; }
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

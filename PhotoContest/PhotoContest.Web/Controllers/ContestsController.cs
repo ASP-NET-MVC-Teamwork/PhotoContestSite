@@ -6,6 +6,7 @@
     using AutoMapper.QueryableExtensions;
     using Common;
     using Common.Filters;
+    using Common.Helpers;
     using Data.Contracts;
     using InputModels;
     using PagedList;
@@ -66,8 +67,8 @@
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(ContestInputModel contest)
         {
-            if (ModelState.IsValid && 
-                contest.Title != null && 
+            if (ModelState.IsValid &&
+                contest.Title != null &&
                 contest.Description != null)
             {
                 var newContest = new Contest
@@ -138,7 +139,7 @@
 
             return View("Edit", model);
         }
-        
+
         public ActionResult InviteUsers(int id)
         {
             var users = this.Data.Users.All()
@@ -172,7 +173,7 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot invite yourself. Be free to participate.");
             }
-            
+
             if (contest.OwnerId != this.UserProfile.Id)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "You cannot invite participants in a contest which is not yours.");
@@ -188,10 +189,10 @@
                 contest.Participants.Add(user);
                 this.Data.SaveChanges();
             }
-            
+
             return new EmptyResult();
         }
-        
+
         // GET: /Contests/Delete/5
         [ChildActionOnly]
         public ActionResult Delete(int contestId)
@@ -249,6 +250,60 @@
 
             return PartialView("Delete", contest);
 
+        }
+
+        [HttpPost]
+        public ActionResult Finalize(int id)
+        {
+            var contest = this.Data.Contests
+                .All()
+                .FirstOrDefault(c => c.Id == id);
+
+            if (contest == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Contest cannot be null.");
+            }
+
+            var winnerPicture = this.Data.Contests.GetById(id)
+                .Pictures
+                .OrderByDescending(p => p.Votes.Count)
+                .ThenByDescending(p => p.CreatedOn)
+                .AsQueryable()
+                .ProjectTo<PictureViewModel>()
+                .FirstOrDefault();
+
+            if (winnerPicture == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Contest cannot be finalized without a winner.");
+            }
+
+            contest.IsClosedForSubmissions = true;
+            contest.IsClosedForVoting = true;
+            this.Data.Contests.Delete(contest);
+            this.Data.SaveChanges();
+
+            return new EmptyResult();
+        }
+
+        [HttpGet]
+        public ActionResult Winner(int id)
+        {
+            var winnerPicture = this.Data.Contests.GetById(id)
+                .Pictures
+                .OrderByDescending(p => p.Votes.Count)
+                .ThenByDescending(p => p.CreatedOn)
+                .AsQueryable()
+                .ProjectTo<PictureViewModel>()
+                .FirstOrDefault();
+
+            if (winnerPicture == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Contest cannot be finalized without a winner.");
+            }
+
+            winnerPicture.Url = Dropbox.Download(winnerPicture.Url);
+
+            return View(winnerPicture);
         }
 
         [HttpGet, Authorize]

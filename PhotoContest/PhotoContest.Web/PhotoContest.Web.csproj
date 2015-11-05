@@ -351,6 +351,7 @@
     <Content Include="Views\Contests\Partial\_ActiveContests.cshtml" />
     <Content Include="Views\Contests\Partial\_AllContests.cshtml" />
     <Content Include="Views\Notifications\Index.cshtml" />
+    <None Include="Views\Contests\Winner.cshtml" />
     <None Include="Views\Pictures\Create.cshtml" />
     <Content Include="Views\Pictures\Delete.cshtml" />
     <None Include="Views\Pictures\Details.cshtml" />
